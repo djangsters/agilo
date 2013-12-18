@@ -1,0 +1,17 @@
+= Business Value =
+[[PageOutline]]
+
+The '''Business Value''' has been introduced as the 5th variable in Agile Project 
+Management as an objective way to measure customer satisfaction. The '''Business 
+Value''' measures the perceived ''value'' of a specific need from the 
+''Customer/User'' point of view.
+
+The '''Business Value''' is a ''number'' that can either be expressed in 
+''absolute'' units or in ''relative'' units. Absolute units are normally currency 
+such as $ or € or £, relative units are measuring the "relative" proportion of 
+value between the considered set of [agilo-help:scrum/Requirement Requirements].
+
+In Agilo the '''Business Value''' is represented by ''Business Value Points'' 
+which are a non linear collection of numbers: 100, 200, 300, 500, 800, 1200, 2000, 
+3000. These numbers are assigned using the 
+Agile42 [http://www.agile42.com/cms/pages/shop/ Business Value Game].

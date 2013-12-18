@@ -1,0 +1,8 @@
+= Scrum Team =
+[[PageOutline]]
+
+The '''Scrum Team''' is the union of the [agilo-help:scrum/scrummaster Scrum Master], the [agilo-help:scrum/productowner Product Owner] and the '''Development Team''' that work together on a specific Product, or Subsystem, normally identified by a [agilo-help:scrum/productbacklog Product Backlog].
+
+= Development Team =
+
+Is one of the three fundamental roles in the Scrum Framework, the Development Team is a cross-functional and self-organizing unit, composed of 5 to 9 members. The [agilo-help:scrum/teammember Team Members] have different skills and expertise, and normally include all the discipline needed to build a full functional increment of the ''Product'' and make it potentially shippable.

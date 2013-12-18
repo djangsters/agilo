@@ -1,0 +1,24 @@
+<div xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:py="http://genshi.edgewall.org/" py:strip="">
+    
+    <!--! 
+        series is a list of tuples (i, data)
+        list is a list with just one data value per item
+     -->
+    
+    <div py:def="series_to_js(series, js_name)" py:strip="">
+        var ${js_name} = [];
+        <py:for each="when, data in series">
+             ${js_name}.push([$when, $data]);
+        </py:for>
+    </div>
+    
+    <div py:def="string_list_to_js(list, js_name)" py:strip="">
+        var ${js_name} = [];
+        <py:for each="data in list">
+             ${js_name}.push(["$data"]);
+        </py:for>
+    </div>
+    
+
+</div>

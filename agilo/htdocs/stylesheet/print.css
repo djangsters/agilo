@@ -1,0 +1,175 @@
+/*
+   print.css
+   Agilo Trunk
+   
+   Created by Garbrand van der Molen on 2008-11-14.
+   Copyright 2008 agile42 GmbH. All rights reserved.
+	
+   Print view CSS
+*/
+
+/* Set some defaults for tags */
+html * {
+    overflow: visible;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	font: 12px Arial, sans-serif;
+/*	padding: 1.5em 3em 1.5em 6em ;*/
+}
+
+a {
+	text-decoration: none;
+}
+
+/* set up the page */
+body {
+	margin: 1.5cm, 1.5cm, 1.5cm, 3cm;
+}
+
+#content ul {
+	margin-left: 2em;
+}
+
+/* Remove UI elements */
+.menu,
+.sidebar,
+#help,
+#altlinks,
+#toolbar,
+.toolbar,
+.sidebarHandle,
+#buttons,
+#bottom,
+#burndown,
+a.anchor {
+	display: none;
+}
+
+.main {
+	margin: 0;
+  	overflow:visible !important;
+}
+
+/* Remove buttons */
+.buttons { display: none;}
+
+
+/* Flot Chart */
+.charts,
+.flotchart,
+canvas {
+    display: block;
+}
+
+/* Ticket */
+#tabbed_pane,
+.nav,
+#propertyform {
+    display: none;
+}
+
+#content.ticket input[type=submit] {
+  display: none;
+}
+
+.no_print {
+  display: none;
+}
+
+/* Backlog */
+#backlog {
+  font-size: 10px;
+}
+
+/* Backlog */
+#backlog,
+.main,
+.backlog {
+	top: 0 !important;
+	left: 0 !important;
+	bottom: auto !important;
+	position: relative !important;
+	height: auto !important;
+}
+
+#backlog h1 {
+	color: black;
+	text-shadow: none;
+	background: none;
+	border: none;
+	position: relative;
+}
+
+/* relative positioning */
+#backlog .backlog-header,
+#backlog .backlog {
+	position: relative !important;
+	overflow: auto;
+	border-right: 1px solid #ccc;
+}
+
+#backlog .backlog dl {
+	width: 100%;
+}
+
+#backlog .backlog dt,
+#backlog .backlog dd {
+	margin: 0;
+	border-bottom: 1px solid #ccc;
+	width: 100%;
+}
+
+#backlog .backlog dt {
+	font-weight: bold;
+}
+
+#backlog .backlog dd .summary {
+	padding-left: 2em;
+}
+
+#backlog .backlog-header {
+	height: 22px;
+	overflow: hidden;
+	clear: both;
+	background: #CCC;
+}
+
+#backlog .backlog dl a {
+	color: black;
+}
+
+/* old backlog */
+
+select {
+  -webkit-appearance: textfield;
+  border: none;
+}
+
+td.checkbox, th.checkbox {
+    display: none;
+}
+
+/* IE */
+#legenda,
+.legenda table,
+ h3.legenda {
+ /*display: none;*/
+}
+
+#ticket {
+  background: none;
+  position: relative;
+  overflow: auto;
+}
+
+
+/* tickets */
+table.listing {
+	border: 1px solid #ccc;
+}
+table.listing td {
+	border-bottom: 1px solid #ccc;
+}

@@ -1,0 +1,11 @@
+= Ideal Hour =
+[[PageOutline]]
+
+An '''ideal hour''' is an hour of work where you can solely focus on the task at hand '''without any interruptions''' like phone calls, emails, or chat messages. In Scrum [agilo-help:scrum/TeamMember Team Members] never estimate real hours but only ideal work hours because experience showed that this matches the way developers tend to think about problems.
+
+Unfortunately, most of us can not work the whole day without interruptions. Therefore Agilo uses a default capacity of '''six ideal hours per day''' (for an eight hour working day) for every team member. However you can configure the default capacity for every team member in the [agilo-help:admin/TeamAdmin#TeamMemberPanel Team Member Panel] and from the [/prefs/team Team Preferences] tab.
+
+
+== Ideal Day ==
+
+Some people don't like estimating in hours but use Ideal Days instead. In Agilo, you can configure the use of Ideal Days or Ideal Hours in the [agilo-help:admin/GeneralAdmin General administration panel].

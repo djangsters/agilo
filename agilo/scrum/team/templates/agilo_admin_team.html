@@ -1,0 +1,249 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:xi="http://www.w3.org/2001/XInclude"
+      xmlns:py="http://genshi.edgewall.org/">
+  <xi:include href="admin.html" />
+  <xi:include href="agilo_macros.html" />
+  
+  <head>
+    <title>Agilo Teams</title>
+  </head>
+
+  <body>
+    <h2>Manage Teams</h2>
+
+    <py:choose test="view">
+      <form py:when="'detail'" class="mod" id="modcomp" method="post">
+        <fieldset>
+          <legend>Team ${team.name}</legend>
+          <div class="field">
+            <label>Name</label>
+            <span style="font-weight:bold;">${team.name}</span>
+          </div>
+          <div class="field">
+            <label for="team_description">Description:</label><br />
+              <textarea id="team_description" cols="68" rows="5" class="wikitext" name="description" py:content="team.description"></textarea>
+          </div>
+          <label>Team Members</label>
+          	<table class="listing" id="complist">
+	           <thead>
+	             <tr>
+                    <th>Remove from team</th>
+	                <th>Name</th>
+	                <th>Description</th>
+	         		<th>Weekly capacity</th>
+	             </tr>
+	           </thead>
+	           <tbody>
+	              <tr py:for="member in team.members">
+                    <td class="delete"><input type="checkbox" value="${member.name}" name="delete"/></td>
+	          		<td><a href="?team_member=${member.name}">${member.name}</a></td>
+	          		<td>${member.description}</td>
+	          		<td>${member.get_total_hours_per_week()}h</td>
+	          	  </tr>
+                  <tr>
+                    <td></td>
+                    <td><input name="new_team_member" /></td>
+                    <td><input name="member_description" /></td>
+                    <td><input type="submit" value="Add" name="add" /></td>
+                  </tr>
+	           </tbody>
+          	</table>
+          
+          <div class="buttons">
+            <input type="hidden" name="team" value="${team.name}" />
+            <input type="submit" name="cancel" value="Cancel" />
+            <input type="submit" name="save" value="Submit Changes" />
+          </div>
+        </fieldset>
+      </form>
+
+      <form py:when="'unassigned'" class="mod" id="modcomp" method="post">
+        <fieldset>
+          <legend>Unassigned team members</legend>
+          	<table class="listing" id="complist">
+	           <thead>
+	             <tr>
+                    <th>Delete?</th>
+	                <th>Name</th>
+	         		<th>Description</th>
+	         		<th>Weekly capacity</th>
+	             </tr>
+	           </thead>
+	           <tbody>
+	              <tr py:for="member in members">
+                    <td class="delete"><input type="checkbox" value="${member.name}" name="delete"/></td>
+	          		<td><a href="?team_member=${member.name}">${member.name}</a></td>
+	          		<td>${member.description}</td>
+	          		<td>${member.get_total_hours_per_week()}h</td>
+	          	  </tr>
+	           </tbody>
+          	</table>
+          <div class="buttons">
+            <input type="hidden" name="team" value="unassigned" />
+            <input type="submit" name="cancel" value="Cancel" />
+            <input type="submit" name="remove" value="Delete selected team members" />
+          </div>
+        </fieldset>
+      </form>
+
+      <form py:when="'member'" class="mod" id="modcomp" method="post">
+        <fieldset>
+          <legend>Team Member '${team_member.name}'</legend>
+          <div class="field">
+            <label>Name</label>
+              <span style="font-weight:bold;">${team_member.name}</span>
+            
+          </div>
+          <div class="field">
+            <label for="member_full_name">Full Name</label>
+              <input id="member_full_name" name="member_full_name" value="${team_member.full_name}" />
+          </div>
+          <div class="field">
+            <label for="member_email">Email</label>
+              <input id="member_email" name="member_email" value="${team_member.email}" />
+          </div>
+          <div class="field">
+            <label for="member_description">Description</label>
+              <input id="member_description" name="member_description" value="${team_member.description}" />
+          </div>
+          <div class="field">
+            <label for="team_select">Team:</label><br />
+              <select id="team_select" name="team">
+                <option value="">----</option>
+            	<option py:for="team in teams" selected="${team == team_member.team or None}">${team.name}</option>
+              </select>
+          </div>
+          <div class="field">
+            <div>Time Sheet (hours per day):</div>
+              <table class="calendar">
+                ${Markup(add_days_header())}
+                <tr>
+                  <td>
+                    <div class="hours">
+                      <input type="text" name="ts_0" value="${team_member.capacity[0]}" size="3" />
+                    </div>
+                  </td>
+                  <td>
+                    <div class="hours">
+                      <input type="text" name="ts_1" value="${team_member.capacity[1]}" size="3" />
+                    </div>
+                  </td>
+                  <td>
+                    <div class="hours">
+                      <input type="text" name="ts_2" value="${team_member.capacity[2]}" size="3" />
+                    </div>
+                  </td>
+                  <td>
+                    <div class="hours">
+                      <input type="text" name="ts_3" value="${team_member.capacity[3]}" size="3" />
+                    </div>
+                  </td>
+                  <td>
+                    <div class="hours">
+                      <input type="text" name="ts_4" value="${team_member.capacity[4]}" size="3" />
+                    </div>
+                  </td>
+                  <td>
+                    <div class="hours">
+                      <input type="text" name="ts_5" value="${team_member.capacity[5]}" size="3" />
+                    </div>
+                  </td>
+                  <td>
+                    <div class="hours">
+                      <input type="text" name="ts_6" value="${team_member.capacity[6]}" size="3" />
+                    </div>
+                  </td>
+                </tr>
+              </table>
+          </div>
+          
+          <div class="buttons">
+            <input type="hidden" name="team_member" value="${team_member.name}" />
+            <input type="submit" name="cancel" value="Cancel" />
+            <input type="submit" name="save" value="Save" />
+          </div>
+        </fieldset>
+      </form>
+
+      <form py:when="'create_user_confirm'" class="mod" id="modcomp" method="post">
+        <fieldset>
+          <legend>New user creation </legend>
+            Do you want to create this user and add him to the team ?<br /><br />
+              Name: <br />
+              <span style="font-weight:bold;">${user_name}</span> <br />
+              Password: <br />
+              <span style="font-weight:bold;">${user_name}</span> <br />
+          <div class="buttons">
+            <input type="hidden" name="team_member" value="${user_name}" />
+            <input type="hidden" name="member_description" value="${member_description}" />
+            <input type="hidden" name="team" value="${team_name}" />
+            <input type="submit" name="createUser_cancel" value="Cancel" />
+            <input type="submit" name="createUser_ok" value="Create new user" />
+          </div>
+        </fieldset>
+      </form>
+
+      <py:otherwise>
+        <form class="addnew" id="addteam" method="post">
+          <fieldset>
+            <legend>Add Team:</legend>
+            <div class="field">
+              <label for="team_name" style="font-weight:bold;">Name:</label><br />
+                <input id="team_name" name="name" />
+            </div>
+            <div class="buttons">
+              <input type="submit" id="add_button" name="add" value="Add"/>
+            </div>
+          </fieldset>
+        </form>
+
+        <div id="team_table" py:if="not teams">
+          No teams created yet.
+        </div>
+        <form id="team_table" method="POST" py:if="teams or unassigned">
+          <table class="listing" id="complist">
+            <thead>
+              <tr>
+                <th class="sel">&nbsp;</th>
+                <th>Name</th>
+                <th>Members</th>
+                <th>Weekly capacity in hours</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr py:for="team in teams">
+                <td class="sel">
+                  <input type="checkbox" name="delete" value="${team.name}" />
+                </td>
+                <td class="name">
+                  <a href="${panel_href(team.name)}">${team.name}</a>
+                </td>
+                <td class="size">${len(team.members)}</td>
+                <td class="capacity">${team.capacity().default_hours_of_capacity_per_week()}</td>
+              </tr>
+              <tr py:if="unassigned">
+                <td class="name" colspan="2">
+                  <a href="${panel_href('unassigned')}">Unassigned team members</a>
+                </td>
+                <td class="size">${len(unassigned)}</td>
+                <td class="capacity"></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="buttons">
+            <input type="submit" value="Remove selected teams" />
+          </div>
+        </form>
+      </py:otherwise>
+    </py:choose>
+    <div id="help">
+        <strong>Note:</strong>
+        if you want to know more see <a href="${req.href('agilo-help', 'admin/TeamAdmin')}">Team Admin</a> in
+        the Agilo help. 
+    </div>
+  </body>
+
+</html>

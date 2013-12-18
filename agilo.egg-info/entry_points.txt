@@ -1,0 +1,23 @@
+[nose.plugins.0.10]
+environment_manager = agilo.test.functional.nose_environment_manager:NoseEnvironmentManager
+exclude_unittest_runners = agilo.test.nose_testselector:NoseExcludeUnittestRunnerFunctions
+nose_testselector = agilo.test.nose_testselector:NoseClassAttributeSelector
+
+[trac.plugins]
+agilo.help.search = agilo.help.search
+agilo.api.web_ui = agilo.api.web_ui
+agilo.charts = agilo.charts
+agilo.help = agilo.help
+agilo.scrum = agilo.scrum
+agilo.utils.web_ui = agilo.utils.web_ui
+agilo.utils.permissions = agilo.utils.permissions
+agilo.admin = agilo.admin
+agilo.ticket.links = agilo.ticket.links
+agilo.ticket.json_ui = agilo.ticket.json_ui
+agilo.ticket.web_ui = agilo.ticket.web_ui
+agilo.init = agilo.init
+agilo.csv_import.web_ui = agilo.csv_import.web_ui
+agilo.ticket = agilo.ticket
+agilo.utils.compatibility_warner = agilo.utils.compatibility_warner
+agilo.scrum.workflow.rules = agilo.scrum.workflow.rules
+

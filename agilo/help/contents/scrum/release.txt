@@ -1,0 +1,4 @@
+= Release =
+[[PageOutline]]
+
+A '''Release''' is intended to be a version of the product that will be effectively shipped to the final users. A Release is a concept that may also span through multiple [agilo-help:scrum/sprint Sprints] and it is often identified by a specific ''Milestone'' in the Product Roadmap or [agilo-help:scrum/ProductBacklog Product Backlog].

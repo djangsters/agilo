@@ -1,0 +1,12 @@
+= Fields Administration Panel =
+[[PageOutline]]
+
+Located in [/admin/agilo/fields Admin/Agilo/Fields]
+
+Agilo allows you to create ''Custom Fields'' which are completely configurable and can be combined with specific ticket types. In this panel, you can add a new ''Field'' setting the following properties:
+ - '''Name''': this is the ''internal'' name and should contain only lowercase characters and '_' or '-'. The displayed name can be set in ''Label''
+ - '''Type''': you can choose the type for the field, the type represent the widget with which the field will be represented in the User Interface, and not the ''data type'' which is for all text
+ - '''Label''': this is the ''label'' that will be used to identify this field in the User Interface. Can contain any character
+ - '''Default Value''': this can be used to set the default value for a newly created ticket, the field will be initialized with this value. This is particularly useful for ''select'' type fields, when you want to set a specific value as default (i.e.: Bugs have by default the priority to 'major')
+
+Existing fields can be edited in the same way. Please remember that the fields are connected to the ticket type by setting the fields per type in the [agilo-help:admin/TypeAdmin type administration panel].

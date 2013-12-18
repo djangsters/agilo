@@ -1,0 +1,13 @@
+= Burndown Chart =
+[[PageOutline]]
+
+The '''Burndown Chart''' is a chart showing the cumulative amount of hours - or [agilo-help:scrum/userstorypoints User Story Points] left to successfully complete the committed work for a [agilo-help:scrum/sprint Sprint]. This line is called the 'actual burndown'. 
+
+Another important line is the 'ideal burndown' which shows the ideal way of getting work done: Starting from the commitment on the first day the ideal burndown decreases linearly until it hits the x axis on the last day of the sprint which represents a steady pace in development. Agilo features a quite sophisticated ideal burndown which is not just straight line but decrease proportional to the team's capacity on that day.
+
+The Agilo Sprint Burndown Chart shows also two additional lines:
+ - '''Capacity Line''': measures the real capacity per day of the [agilo-help:scrum/team Team] which is calculated by summing up the [agilo-help:user/preferences individual capacity] settings of each [agilo-help:scrum/teammember Team Member].
+ - '''Trend Line''': shows the ''moving average'' calculated on the last three days of burndown, showing where the deliverable will probably end if the team continues to burndown with the current trend.
+
+To have an idea how a burndown chart looks like, have a look at the [/agilo-dashboard Dashboard] [[Image(/chrome/agilo/images/icon.dashboard.png, border=0, width=16, height=16, link=)]].
+

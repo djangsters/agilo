@@ -1,0 +1,42 @@
+= Roadmap and Sprint Planning =
+[[PageOutline]]
+
+== The Roadmap View ==
+
+In the [/roadmap Roadmap] [[Image(/chrome/agilo/images/icon.roadmap.png, border=0, width=16, height=16, link=)]] menu you see [agilo-help:/scrum/Sprint Sprints] grouped by [agilo-help:/scrum/release Releases] (milestones). This page does only contain information about ''Sprints'', if you want to learn more about Milestones/releases, please read [TracRoadmap Trac's roadmap documentation].
+
+For every ''Sprint'' Agilo displays some information like the name, the description (if present) and the team assigned to it. Furthermore you can see the time box (start and end date) for the sprint. The progress bar shows the number of stories committed by the team, how many of them are still ''Open'' (no work started yet) how many are ''In Progress'' (at least one associated task is started) and how many are ''Closed'' (completed and valid for the sprint goal).
+
+
+=== Create a new Sprint ===
+
+As a [agilo-help:/scrum/ScrumMaster Scrum Master] you can create a new ''Sprint'' for a milestone by clicking on the 'Add new Sprint' button below the milestone's progress bar.
+
+On the next page you can enter the Sprint's name, the description (you can use wiki formatting here) as well as the date when the sprint will start. The start date can be expressed with time precision to the ''second'', in the locale format configured for the system (if run with `tracd` as standalone, the locale will be taken from the console, if run in Apache + `mod_python` it can be set as explained in [TracModPython Trac with mod_python]).
+
+You have to specify either the end date or the duration (in business days). Agilo will calculate the ''End Date'' excluding the weekends, but not the national holidays (we are not that advanced... yet).
+
+At the bottom you see a select field where you can assign a team for the new sprint (you can do that later too). This is important so that the burndown chart knows the team's capacity.
+
+
+=== Modify existing Sprints ===
+
+A Scrum Master can edit all properties of a sprint from the Sprint's detail page (by clicking the Sprint name in the roadmap) and pushing  the 'Edit Sprint' button. Please note that in Scrum you should never extend a  Sprint's length after the Sprint started!
+
+'''It is only save to rename sprints which did not start yet and don't have any tickets assigned'''!
+
+'''Attention:''' Renaming a Sprint may have unwanted side-effects: Due to Trac's denormalized database structure, the rename will not be propagated to other database objects. If you assigned tickets to the Sprint already, these tickets will still have the old sprint name. The same is true for all metrics (e.g. initial commitment, estimated velocity). Therefore renaming a Sprint probably requires some manual intervention in the database. It is only save to rename sprints which did not start yet and don't have any tickets assigned! The same holds true for renaming Milestones in Trac.
+
+
+=== Closing a Sprint ===
+
+When the Sprint is finished, the ''Scrum Master'' should explicitly close the sprint by going to the Sprint's detail page (by clicking the Sprint name in the roadmap) and pushing the 'Close Sprint' button. If there are tickets which are not closed yet, you will be asked to which sprint they should be retargeted.
+If you choose 'None' in the drop down field, the Sprint field of the remaining tickets will just be cleared.
+
+After your confirmation Agilo will compute and store the Team's velocity for later analysis.
+
+
+== Administrator's Interface ==
+
+As an administrator you can [agilo-help:/admin/SprintAdmin edit the sprint properties] in the web admin interface as well which is explained in Agilo's Administration Guide.
+

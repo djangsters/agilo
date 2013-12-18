@@ -1,0 +1,64 @@
+<div xmlns="http://www.w3.org/1999/xhtml" 
+     xmlns:xi="http://www.w3.org/2001/XInclude" 
+     xmlns:py="http://genshi.edgewall.org/"
+     class="flotchart"
+     style="width:${width}px;">
+
+<div class="charttitle">$sprint_name Tickets</div>
+<div id="sprint_ticket_stats_chart_${unique_id}" style="width:${width}px;height:${height}px;">
+    <h3 style="margin-top: ${int(height)/2}px" py:if="defined('error_message')">${error_message}</h3>
+</div>
+
+<script language="javascript" type="text/javascript">
+    <xi:include href="../../../charts/templates/widget_helper_macros.html" />
+
+    <py:if test="not defined('error_message')">
+        <div py:def="series_to_js_string(series, js_name)" py:strip="">
+            var ${js_name} = [];
+            <py:for each="i, data in series">
+                 ${js_name}.push([$i, "$data"]);
+            </py:for>
+        </div>
+        
+        ${series_to_js(total, 'totalTickets_%d' % unique_id)}
+        ${series_to_js(planned, 'plannedTickets_%d' % unique_id)}
+        ${series_to_js(closed, 'closedTickets_%d' % unique_id)}
+        ${series_to_js_string(labels, 'labels_%d' % unique_id)}
+        
+        var colorPlanned_${unique_id} = "${color_planned}";
+        var colorClosed_${unique_id} = "${color_closed}";
+        
+        var options_${unique_id} = {
+            bars: { show: true, autoScale: true, fill: 1, align: "center", group: true },
+            xaxis: { ticks: labels_${unique_id} },
+            yaxis: { minTickSize: 1, min: 0 }
+        }
+    
+        /* we must not call the plot function before the document is ready because
+           flot must be loaded. If this chart is called from a macro, the script tag
+           referencing flot may be embedded below this script tag so flot is not 
+           available here by the time the lines below are parsed.
+        */
+        jQuery(document).ready(function() {
+            jQuery.plot(jQuery("#sprint_ticket_stats_chart_${unique_id}"), [
+                {
+                    label: "Total",
+                    data: totalTickets_${unique_id},
+                    color: "silver"
+                },
+                {
+                    label: "Planned",
+                    data: plannedTickets_${unique_id},
+                    color: colorPlanned_${unique_id}
+                },
+                {
+                    label: "Closed",
+                    data: closedTickets_${unique_id},
+                    color: colorClosed_${unique_id}
+                }
+             ], options_${unique_id});
+        });
+    </py:if>
+</script>
+
+</div>

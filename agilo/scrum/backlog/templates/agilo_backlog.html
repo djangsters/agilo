@@ -1,0 +1,82 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:xi="http://www.w3.org/2001/XInclude"
+	  xmlns:py="http://genshi.edgewall.org/">
+	<xi:include href="layout.html" />
+	<xi:include href="macros.html" />
+
+	<head>
+		<title>Backlog: ${backlog.name}</title>
+		
+		<style type="text/css" media="screen">
+			#app {
+				background: #ccc;
+			}
+			
+			#backlog {
+				background: #fff;
+			}
+
+		</style>
+		
+ 		<script type="text/javascript">/*<![CDATA[*/ 
+			var BACKLOG_INFO = $backlog_info;
+		/*]]>*/</script>
+		
+		<style type="text/css" media="all">
+				<py:for each="field_index in range(len(column_names))">
+					    <py:choose>
+							<py:when test="isinstance(column_names[field_index], list)">
+								<py:for each="index in range(len(column_names[field_index]))">
+								span.${column_names[field_index][index]}<py:if test="index != len(column_names[field_index]) - 1">,</py:if>
+								</py:for>
+								{
+							</py:when>
+							<py:otherwise>
+								span.${column_names[field_index]}
+								{
+							</py:otherwise>
+						</py:choose>
+					    <py:choose>
+							<py:when test="field_index == 0">
+								left: 0px;
+								width: 34px;
+							</py:when>
+							<py:when test="field_index == 1">
+								left: 40px;
+								right: ${float((len(column_names) - 1 - field_index) * 70) / float(len(column_names))}%;
+							</py:when>
+							<py:otherwise>
+									right: ${(float((len(column_names) - 1 - field_index) * 70) / float(len(column_names)))}%;
+									width: ${(float(70) / float(len(column_names))) - 2 }%;
+							</py:otherwise>
+						</py:choose>
+								}
+				</py:for>
+		</style>
+	</head>
+
+
+<body>
+	<div id="content">
+		<div id="toolbar" class="toolbar top">
+		</div>
+		<div id="backlog" class="new">
+ 			<h1>${backlog.name}<py:if test="backlog.scope != 'global'"> for $backlog.scope</py:if>
+                <span class="sprint-dates" py:if="backlog.is_sprint_backlog()">${backlog.sprint().start.strftime("%a %B %d")} <span id="sprint-dates-arrow"></span> ${backlog.sprint().end.strftime("%a %B %d")}</span>
+            </h1>
+			<div class="backlog-header">
+				<py:for each="column, name in backlog.config.backlog_human_readable_column_labels().items()">
+					<span class="${column}">${name}</span>
+			    </py:for>
+			</div>
+			<div class="sprint backlog enabled ui-sortable">
+			${Markup(backlog_table)}
+			</div>
+		</div>
+		<div id="buttons" />
+		<div py:if="chart" style="display: none">
+			${chart.display()}
+		</div>
+	</div>
+</body>
+</html>

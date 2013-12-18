@@ -1,0 +1,231 @@
+/******* TOP TOOLBAR ********/
+.toolbar {
+	position: absolute;
+	overflow: hidden;
+	color: #333;
+	text-shadow: 0 1px 0 #fff;
+}
+
+.toolbar.top {
+	top: 0px;
+	right: 0;
+	left: 0;
+	height: 23px;
+
+	padding-top: 6px;
+	padding-bottom: 5px;
+	line-height: 32px;
+	border-top: 1px solid #CBCBCB;
+	border-bottom: 1px solid #404040;
+	background: #aaa;
+	background: #ccc url("../images/toolbar.bg.jpg") top repeat-x;
+/*	background: -webkit-gradient(linear, left top, left bottom, from(#B1B1B1), to(#848484)); */
+}
+	
+/******* BOTTOM TOOLBAR ********/
+.toolbar.bottom {
+	background: transparent url('../images/toolbar/toolbarBottom.png') left top repeat-x;
+	padding: 0; margin: 0;
+	margin-left: 6px;
+	border: none;
+	height: 24px;
+	line-height: 24px;
+	
+	top: auto; right: 0; bottom: 0; left: 0;
+}
+
+/********* COUNTER ********/
+.toolbar.bottom .counter {
+	float: right;
+	padding: 0 10px;
+}
+
+/******** BUTTONS ********/
+		.toolbar .buttons {
+			overflow: hidden;
+			position: absolute;
+			list-style: none;
+			margin: 0 5px;
+			padding-left: 0px;
+			background: transparent left top no-repeat;
+			
+			-moz-user-select: none;
+			-webkit-user-select: none;
+		}
+		
+		.toolbar .buttons li {
+			background-image: url('../images/toolbar/buttonSingle.png');
+			background-position: inherit;
+			width: 28px;
+			height: 23px;
+			line-height: 23px;
+			overflow: hidden;
+			float: left;
+			margin-right: 3px;
+			list-style: none;
+		}
+		
+		.toolbar .buttons.composed li {
+			background-image: url('../images/toolbar/buttonMiddle.png');
+			background-position: inherit;
+			width: 28px;
+			height: 23px;
+			overflow: hidden;
+			float: left;
+			margin: 0;
+		}
+		
+		.toolbar .buttons.composed li:first-child,
+		.toolbar .buttons.composed li.first-child {
+			background-image: url('../images/toolbar/buttonLeft.png');
+			width: 27px;
+		}
+		
+		/* IE8 will remove even known definition selectors that are combined
+		 * with unknown selectors, so '.last-child, :last-child' does not work */
+		.toolbar .buttons.composed li:last-child {
+			background-image: url('../images/toolbar/buttonRight.png');
+		}
+		.toolbar .buttons.composed li.last-child {
+			background-image: url('../images/toolbar/buttonRight.png');
+		}
+		
+		.toolbar .buttons.composed li:only-child {
+			background-image: url('../images/toolbar/buttonSingle.png');
+			width: 28px;
+		}
+		.toolbar .buttons.composed li.only-child {
+			background-image: url('../images/toolbar/buttonSingle.png');
+			width: 28px;
+		}
+		
+		.toolbar .buttons li a {
+			text-indent: 100px;
+			display: block;
+			width: inherit;
+			height: inherit;
+			line-height: inherit;
+			background-position: inherit;
+		}
+		
+/******* BOTTOM BUTTONS ********/
+	.toolbar.bottom .buttons {
+		padding-left: 0;
+		margin: 0;
+	}
+
+	.toolbar.bottom .buttons li {
+		height: 24px;
+		line-height: 24px;
+		width: 30px;
+		border-right: 1px solid #ccc;
+		background-image: url('../images/toolbar/buttonBottom.png');
+		margin: 0;
+		text-align: center;
+	}
+
+	.toolbar.bottom .buttons li:active,
+	.toolbar.bottom .buttons li.active,
+	.toolbar.bottom .buttons li.active a {
+		background-position: left -24px;
+	}
+
+	/* ICONS */
+	#buttonBottomAdd a {	background-image: url('../images/toolbar/iconBottomAdd.png');	}
+	#buttonBottomDelete a {	background-image: url('../images/toolbar/iconBottomDelete.png');	}
+		
+/******** DOWN STATE ********/
+		.toolbar .buttons li:active,
+		.toolbar .buttons li.active,
+		.toolbar .buttons li.active a {
+			/* .buttons li.active a is for IE inheritance */
+			background-position: left -23px;
+		}
+		
+/******** DISABLED STATE *******/
+		.toolbar .buttons .disabled {
+			opacity: 0.6;
+			filter: alpha(opacity=60); /* IE */
+		}
+		
+		.toolbar .buttons li.disabled {
+			height: 22px; /* IE */
+		}
+		
+		.toolbar .buttons .disabled a {
+			opacity: 0.8;
+			filter: alpha(opacity=80); /* IE */
+		}
+		
+		.toolbar .buttons li:active.disabled,
+		.toolbar .buttons li.active.disabled {
+			background-position: left top;
+		}
+
+
+/******** ICONS ********/
+		#contingents-toggle a { 	background-image: url('../images/toolbar/iconContingent.png');}
+		#commit-button a { 		background-image: url('../images/toolbar/iconConfirm.png');}
+		#csv-button a { 		background-image: url('../images/toolbar/iconCSV.png');}
+		#show-onlymine-button a { 	background-image: url('../images/toolbar/iconMyTickets.png');	}
+		#hide-closed-button a { 	background-image: url('../images/toolbar/iconDoneTickets.png');}
+		#inspector-button a { 	background-image: url('../images/toolbar/iconInspector.png');	}
+		#burndown-button a {		background-image: url('../images/toolbar/iconBurndown.png');	}
+		#backlog-button a {		background-image: url('../images/toolbar/iconBacklog.png');	}
+		#whiteboard-button a {	background-image: url('../images/toolbar/iconWhiteboard.png');}
+		#export-png-button a {
+            background-image: url('../images/toolbar/exportPngButton.png');
+            background-repeat: no-repeat;
+            background-position: center center;
+        }
+
+/******** ABSOLUTE POSITIONS ********/
+.toolbar #contingents-button-container { left:   18px; }
+.toolbar #commit-button-container {      left:   58px; }
+.toolbar #filter-button-container {      left:   98px; }
+.toolbar #inspector-button-container {   right: 136px; }
+.toolbar #burndown-button-container {    right: 105px; }
+.toolbar #toggle-button-container {      right:  15px; }
+.toolbar #csv-export-button-container {  left:  170px; }
+.toolbar #export-png-button-container {  right:  167px; }
+
+/********* Select *************/
+.toolbar form {
+	height: 34px;
+	line-height: 34px;
+	float: left;
+}
+
+.toolbar form p {
+	font-size: 10px;
+}
+
+
+
+.toolbar #display_form {
+	padding: 0 10px;
+}
+
+	.toolbar input[type="button"],
+	.toolbar input[type="button"]:active {
+		float: left;
+		border: none;
+		-webkit-border-radius: 0px;
+		-moz-border-radius: 0px;
+		-webkit-box-shadow: none;
+		-moz-box-shadow: none;
+		padding: 0;
+		margin-right: 5px;
+	}
+	
+	.toolbar #filter-attribute {
+		left: 220px;
+		position: absolute;
+		top: 0px;		
+		margin: 0;
+	}
+	
+	
+	.toolbar form#filter-attribute select {
+		margin-top: 6px;
+	}

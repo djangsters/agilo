@@ -1,0 +1,6 @@
+= Sprint Review Meeting =
+[[PageOutline]]
+
+The '''Sprint Review Meeting''' concludes a Sprint, is the moment when the [agilo-help:team Team] invites the [agilo-help:productowner Product Owner] and demonstrates to him/her the developed functionalities.
+
+At this very moment the Team and the Product Owner, with the support of the Scrum Master, are inspecting and adapting the Product Development plans, and defining what needs to be done next.

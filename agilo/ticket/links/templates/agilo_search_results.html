@@ -1,0 +1,4 @@
+<ul py:if="len(search_results) > 0" xmlns="http://www.w3.org/1999/xhtml" xmlns:py="http://genshi.edgewall.org/">
+    <li py:for="result in search_results" id="${result['id']}"><strong>${result['type']}</strong>: ${result['summary']}</li>
+</ul>
+

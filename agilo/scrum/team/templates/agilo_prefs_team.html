@@ -1,0 +1,83 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:py="http://genshi.edgewall.org/"
+      xmlns:xi="http://www.w3.org/2001/XInclude">
+  <xi:include href="prefs.html" />
+  <xi:include href="agilo_macros.html" />
+  <head>
+    <title>Team</title>
+  </head>
+  <body>
+
+    <div class="field" py:if="team_member">
+      <label>Team:
+      <select name="team">
+        <option></option>
+        <option py:for="team in teams"
+                selected="${team_member.team.name == team.name or None}">${team.name}</option>
+      </select></label>
+      <p class="hint">Choose your Scrum Team from the list.</p>
+    </div>
+    
+    <div class="field" py:if="team_member">
+      <label>Default weekly capacity:</label><br/>
+      <p>Here you can set your default availability in terms of <strong>Ideal Hours</strong> or <strong>Ideal Days</strong>. By default Agilo calculates the capacity in ideal hours, and sets 6h per working day.</p>
+      <p>
+        <table class="calendar">
+          ${Markup(add_days_header())}
+          <tr>
+            <td>
+              <div class="hours">
+                <input type="text" name="ts_mon" value="${team_member.capacity[0]}" size="3" />
+              </div>
+            </td>
+            <td>
+              <div class="hours">
+                <input type="text" name="ts_tue" value="${team_member.capacity[1]}" size="3" />
+              </div>
+            </td>
+            <td>
+              <div class="hours">
+                <input type="text" name="ts_wed" value="${team_member.capacity[2]}" size="3" />
+              </div>
+            </td>
+            <td>
+              <div class="hours">
+                <input type="text" name="ts_thu" value="${team_member.capacity[3]}" size="3" />
+              </div>
+            </td>
+            <td>
+              <div class="hours">
+                <input type="text" name="ts_fri" value="${team_member.capacity[4]}" size="3" />
+              </div>
+            </td>
+            <td>
+              <div class="hours">
+                <input type="text" name="ts_sat" value="${team_member.capacity[5]}" size="3" />
+              </div>
+            </td>
+            <td>
+              <div class="hours">
+                <input type="text" name="ts_sun" value="${team_member.capacity[6]}" size="3" />
+              </div>
+            </td>
+          </tr>
+        </table>
+      </p>
+    </div>
+    
+    <div class="field" py:if="calendars">
+      <label>Specific days capacity:</label><br/>
+      <p>Here you can specify specific days exceptions to your standard capacity, which means you can enter your reduced capacity hours for a specific day. This may include holidays, meetings...</p>
+      <div class="member_calendar" py:for="cal in calendars">
+        ${print_calendar(cal, team_member.name, read_only=False)}
+      </div>
+    </div>
+    <div id="help">
+        <strong>Note:</strong> if you want to know more, see <a href="${req.href('agilo-help', 'user/team')}">Team</a> in the Agilo help.
+        As an administrator you can <a href="${req.href.admin('agilo', 'teams')}">create a new team</a>.
+    </div>
+  </body>
+</html>

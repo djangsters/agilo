@@ -1,0 +1,13 @@
+= Links Administration Panel =
+[[PageOutline]]
+
+Locate in [/admin/agilo/links Admin/Agilo/Links]
+
+In Agilo it is possible to model your own [agilo-help:admin/TypeAdmin ticket types] as well as to define how these tickets can be linked together, giving you the possibility to model your own hierarchy. Be aware not to create linking loops that may affect the way Agilo structure specific views, like the backlogs.
+
+First of all you can define which type of tickets can be linked together, keeping in mind that links in Agilo are oriented, there is always a ''source'' type and a ''destination'' type. You can add a new link pair, by choosing ''Source'' and ''Target'' types in the ''Add link'' form, and pressing the '''Add''' button. You can also modify an existing link pair by clicking on it.
+
+When you are in ''Modify ... link'' panel, you are allowed to choose the ''extra'' properties for that link type, which are:
+ - '''Cascading Delete''': you can specify whether or not a cascading delete will be performed.  If checked, when a ''source'' ticket is deleted, then any referenced ''destination'' tickets will also be deleted.
+ - '''Copy Fields''': you can choose which fields should be copied from the ''source'' type to the ''destination'' type when creating a referenced ''ticket'' from the ticket edit pane.
+ - '''Show Fields''': you can choose which fields should be shown in the ticket link view pane, on the linked tickets. These properties will appear in parentheses inline with the ticket id and summary, when looking at the list of linked ticket in a ticket view pane (e.g.: the Owner field appear inline with the Tasks when looking at a User Story, that has at least a linked Task)

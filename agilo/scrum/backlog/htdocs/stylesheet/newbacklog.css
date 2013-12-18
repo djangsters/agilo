@@ -1,0 +1,554 @@
+#backlog {
+	font-size: 11px;
+	background: transparent;
+
+	position: absolute;
+	top: 36px;
+	right: 0px;
+	bottom: 0px;
+	left: 0px;
+	overflow:hidden;
+}
+
+#backlog h1 {
+	font-size: 20px;
+	line-height: 46px;
+	height: 46px;
+	padding: 0 10px;
+    padding-left: 22px;
+	font-weight: normal;
+	width: auto;
+
+	border-bottom: 1px solid #333;
+	border-top: 1px solid #777;
+	background: #333 url("../images/backlog.h1.jpg") top repeat-x;
+/*	background: #eee -webkit-gradient(linear, left top, left bottom, from(#555), to(#333));*/
+/*	background: #eee -webkit-gradient(linear, left top, left bottom, from(#535C65), to(#32373E));*/
+	color: #ddd;
+	text-shadow: 0 1px 3px #222;
+	margin: 0;
+}
+
+#backlog h1 .sprint-dates {
+    color: rgb(221, 221, 221);
+    font-size: 11px;
+    text-align: right;
+    float: right;
+    line-height: 42px;
+}
+
+#backlog a {
+	/* overwrite css from agilo_theme.css */
+	float: none !important;
+}
+
+#bottom { display: none;}
+
+	/* Placeholder for now, so the error messages are visible at all */
+	#notice {
+		margin-top: 6px;
+		text-align: center;
+		width: 280px;
+		padding: 0 10px;
+		position: absolute;
+		top: 0;
+		left: 50%;
+		margin-left: -150px;
+		background: #E85E5E;
+		font-weight: bold;
+		-webkit-border-radius: 5px;
+		-moz-border-radius: 5px;
+		z-index:1005;
+	}
+
+	#backlog.disabled * {
+		color: #666;
+	}
+	
+	.backlog.disabled * {
+		color: #666 !important;
+	}
+		
+	.backlog-header,
+	#contingent thead td {
+		background: url("../images/backlog.header.gif") repeat-x;
+		line-height: 22px;
+		height: 22px;
+		border-top: 1px solid #ccc;
+		border-bottom: 1px solid #999;
+		font-weight: bold;
+
+		position: absolute;
+		left: 0;
+		right: 0;
+		overflow-y: scroll;
+	}
+	
+	/* Fix scrollbars in the Backlog headers in Firefox by creating overflow */
+	.backlog-header {
+		padding-top: 24px; 
+		/* the padding trick pushes the border out of view, simulating the border my filling the 1pxg gap with a background color */
+		background-color: #999;
+	}
+	.backlog-header span { 	margin-top: -24px; }
+	
+	.backlog-header span,
+	.backlog span,
+	#backlog span.status { /* Overruling span.status in agilo.css that would otherwise break the backlog rendering */
+		display: block;
+		position: absolute;
+		border-left: 1px solid #ddd;
+		/* ellipsis */
+		word-wrap: break-word; 
+		text-overflow:ellipsis; 
+		overflow:hidden; 
+		white-space:nowrap;
+		padding: 0 1%;
+		height: 23px;
+	}
+	
+	.backlog span a {
+		display: block;
+		width: 100%;
+
+		word-wrap: break-word; 
+		text-overflow:ellipsis; 
+		overflow:hidden; 
+		white-space:nowrap;
+	}
+	
+	.backlog-header span { text-align: center; height: 22px; }
+	.backlog span { text-align: left; }
+	.backlog span.numeric { text-align: right; }
+	
+	.backlog span.id {
+		padding:0;
+		padding-right: 5px;
+		clear: left;
+	}
+	
+	.backlog span.id a {
+		clear: left;
+	}
+	
+	.backlog span.summary {
+		text-align: left;
+	}
+	
+	.backlog span input {
+		width: 100%;
+	}
+	
+	.backlog span select {
+		white-space: nowrap;
+		width: 100%;
+	}
+	
+	.backlog {
+		position: absolute;
+		top: 72px;
+		right: 0;
+/*		bottom: 120px; /* make room for the contingent */
+		bottom: 0;
+		left: 0;
+		overflow-y: scroll;
+		overflow-x: hidden;
+	}
+
+		.backlog dl {
+			border-collapse: collapse;
+			cursor: move;
+		}
+		
+		.backlog dt,
+		.backlog dd {
+			line-height: 23px;
+			height: 23px;
+		}
+		
+		.backlog dt.container,
+		.backlog dd.leaf
+		{
+			border-bottom: 1px solid #E8E8E8;
+		}
+		
+		.backlog dd {
+			border-color: #f8f8f8;
+		}
+		
+		/* If we support more than 5 levels, we should probably start to generate these styles dynamically */
+		.backlog .level-1 .summary {
+			padding-left: 14px;
+		}
+
+		.backlog .level-2 .summary {
+			padding-left: 26px;
+		}
+
+		.backlog .level-3 .summary {
+			padding-left: 38px;
+		}
+
+		.backlog .level-4 .summary {
+			padding-left: 50px;
+		}
+
+		.backlog .level-5 .summary {
+			padding-left: 62px;
+		}
+
+		#backlog .childcontainer {
+		    height: auto !important; /* need to override the height of dd element which is actually a container itself */
+		}
+
+		.backlog dt {
+/*			background: #f0f0f0;*/
+		}
+
+		.backlog dd {
+			background: #fff;
+			color: #333;
+		}
+		
+/* Making parents bold */
+	.backlog dt.container {
+		background: #f0f0f0;
+		text-shadow: 0 1px 1px #CCC;
+	}
+	
+	.backlog .childcontainer dt.container {
+		background: #fff;
+	}
+	.backlog .childcontainer .container {
+		text-shadow: none;
+	}
+		
+/* 	Items that appear multiple times in the backlog */
+	.backlog dl .multi-linked-item {
+		color: #666;
+	}
+	
+	.backlog dl .multi-linked-item .summary {
+		background: url("../images/item.multi-linked.png") top left no-repeat;
+	}
+	
+	.backlog dl .multi-linked-item a {
+		color: #CA6D0C;
+	}
+
+/* Sortable visualisition classes */
+	/* TODO: Add a border around div.backlog and dl so lighting up these borders does not change the layout */
+	#backlog .dragging,
+	.backlog dd.dragging {
+		border-collapse: collapse;
+		border: 2px solid yellow;
+		-webkit-box-shadow: 0 8px 8px #666;
+		-moz-box-shadow: 0 8px 8px #666;
+	}
+	
+	#backlog .sortover,
+	.backlog dd.sortover {
+/*          border: 1px solid green !important; styles for drop targets goes here */
+	}
+	
+	#backlog .sortable-highlight-ticket-drop-target {
+	    height: 10px !important;
+	    background-color: yellow !important;
+	}
+	
+/* Select visualistaion classes */
+	#backlog dt.ui-selected {
+		background: #8395A6;
+		color: #fff;
+	}
+	
+	#backlog dd.ui-selected {
+		background: #9BAFBF;
+		color: #fff;
+	}
+	
+/* show inlineEditable */
+	#contingent .inlineEditable,
+	#backlog .inlineEditable {
+		background: #D5DBE3;
+		cursor: pointer;
+	}
+	
+/* Contingent progress bar */
+	.backlog .bar {
+		margin-top: 5px;
+		border-collapse: collapse;
+		display: block;
+		width: 65%;
+		height: 9px;
+		border: 1px solid #ccc;
+		padding: 1px;
+		overflow: hidden;
+		position: relative;
+	}
+	
+	.backlog .legenda {
+		display: block;
+		width: 30%;
+		float: right;
+		height: 18px;
+		text-align: right;
+	}
+	
+	.backlog .progress {
+		position: absolute;
+		display: block;
+		height: 9px;
+		width: 50%;
+		background: #ccc;
+	}
+	
+	
+#containerBox {
+	position: absolute;
+	border: 2px solid green;
+}
+
+/***** CONTINGENT *******/
+#contingent {
+	overflow: hidden;
+	position: absolute;
+	height: 144px;
+	left: 0;
+	right: 0;
+	bottom: -144px; /* hidden by default */
+}
+
+#contingent h1 {
+	font-size: 11px;
+	padding: 0 10px;
+	width: auto;
+	margin: 0;
+	line-height: 34px;
+	height: 34px;
+	font-weight: bold;
+	
+	background: #ccc url("../images/toolbar.bg.jpg") top repeat-x;
+/*	background: #c5c5c5 -webkit-gradient(linear, left top, left bottom, from(#E3E3E3), to(#C4C4C4));*/
+	border: 1px solid #909090;
+	border-width: 1px 0;
+	text-shadow: 0 1px 0px #ddd;
+	font-weight: normal;
+	position: absolute;
+	top: 0;
+	right: 0;
+	left: 0;
+}
+
+#contingent #contingents-close,
+#contingent #contingents-close.down {
+	display: block;
+	width: 14px;
+	height: 14px;
+	background: url("../images/button-contingent-close.png") top left no-repeat;
+	float: left;
+	margin: 10px 5px;
+}
+
+#contingent #contingents-close:hover {
+	background-position: left -14px;
+}
+
+#contingent h1 span {
+	background: url("../images/icon-contingent.png") top left no-repeat;
+	vertical-align: middle;
+	display: block;
+	height: 24px;
+	width: 24px;
+	float: left;
+	margin: 5px;
+}
+
+#contingent .contingent-container {
+	position: absolute;
+	top: 36px; right: 0; bottom: 24px; left: 0; /* clearing the bottom toolbar */
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+
+#contingent table {
+	width: 100%;
+	
+	border-collapse: collapse;
+/*	position: relative;*/
+	margin: 0;
+}
+
+#contingent td {
+	font-size: 11px;
+	width: 14%;
+	height: 22px;
+}
+
+#contingent td.name {
+	width: 30%;
+}
+
+#contingent thead td {
+	position: relative;
+	border-left: 1px solid #ddd;
+	/* ellipsis */
+	word-wrap: break-word; 
+	text-overflow:ellipsis; 
+	overflow:hidden; 
+	white-space:nowrap;
+	padding: 0 1%;
+	height: 22px;
+}
+
+#contingent tbody td {
+	padding: 0 1%;
+	height: 23px;
+	border-bottom: 1px solid #eee;
+	border-left: 1px solid #ddd;
+	/* ellipsis */
+	word-wrap: break-word; 
+	text-overflow:ellipsis; 
+	overflow:hidden; 
+	white-space:nowrap;
+}
+
+#contingent td .progressContainer {
+	float: left;
+	display: block;
+	width: 50%;
+	height: 8px;
+	margin-top: 3px;
+}
+
+#contingent td .progress {
+	width: auto;
+	margin: 0;
+	height: 100%;
+	border: 1px solid #ddd;
+	padding: 1px;
+	overflow: hidden;
+}
+
+#contingent td .bar {
+	display: block;
+	background: #ccc;
+	height: 100%;
+	float: left;
+}
+
+#contingent td span {
+	display: block;
+	float: right;
+	width: 35%;
+	/* ellipsis */
+	word-wrap: break-word; 
+	text-overflow:ellipsis; 
+	overflow:hidden; 
+	white-space:nowrap;
+}
+
+#contingent td input {
+	/* TODO: This value should be relative, but using
+	 * 50% makes the coulmn width jump. */
+	width: 75px;
+}
+
+/**** Contingent Exposed ****/
+#exposed .add-contingent {
+	margin-bottom: 19px;
+	padding-bottom: 10px;
+	overflow: auto;
+	border-bottom: 1px solid #aaa;
+}
+
+#exposed .add-contingent h1 {
+	font: normal normal bold 14px/18px Helvetica, Arial;
+	border-bottom: 1px solid #aaa;
+}
+
+#exposed .add-contingent label {
+	width: 30%;
+	float: left;
+	line-height: 20px;
+	height: 20px;
+	margin-bottom: 10px;
+} 
+
+#exposed .add-contingent input {
+	width: 65%;
+	float: right;
+	line-height: 20px;
+	height: 20px;
+	margin-bottom: 10px;
+}
+
+#backlog #loader {
+	top: 48px; /* clear the header */
+}
+
+/* Used for inline editing and the contingents */
+
+#exposed {
+	position: absolute;
+	*width: 500px; /* IE6 and 7 patch */
+	top: 5%;
+	left: 50%;
+	margin-left: -250px;
+	background: #eee;
+	-webkit-box-shadow: 0 2px 8px #000;
+	-moz-box-shadow: 0 2px 8px #000;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+}
+
+#exposed form {
+	margin: 0;
+	padding: 10px;
+}
+
+#exposed td input, #exposed td select {
+	width: 150px;
+	overflow: hidden;
+}
+
+#exposed fieldset div {
+	font-size: 10px;
+}
+
+#exposed span.hint {
+	padding-left: 20px;
+	display: block;
+	color: #666;
+}
+
+#exposed table th,
+#exposed label {
+	vertical-align: top;
+	text-align: left;
+	font-size: 10px;
+}
+
+#exposed input#field-summary,
+#exposed input#field-reporter { 		width: 350px; }
+#exposed textarea#field-description { 	width: 352px; height: 70px;}
+
+
+#exposed .buttons {
+	display: block;
+	width: 100%;
+	margin: 10px 0;
+	height: 20px;
+	padding-right: 10px;
+}
+
+#sprint-dates-arrow {
+    background-image: url('../images/sprint-dates-arrow.png');
+    display:inline-block;
+    width: 20px;
+    height: 16px;
+    background-repeat: no-repeat;
+    position: relative;
+    top: 6px;
+    left: 2px;
+}

@@ -1,0 +1,71 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:py="http://genshi.edgewall.org/"
+      xmlns:xi="http://www.w3.org/2001/XInclude">
+  <xi:include href="layout.html" />
+  <!--! Felix Schwarz, 11.10.2008: I think for now we can safely include
+        macros.html despite the warning because the current milestone for
+        the ticket to remove macros.html is 0.13 - so basically we probably
+        have some years left :-)
+    -->
+  <xi:include href="macros.html" />
+  <head>
+    <title>Sprint: ${defined('sprint') and sprint.name or 'Not Existing?'}</title>
+  </head>
+  <body>
+    <div id="content" class="milestone" py:if="sprint">
+      <h1>Sprint "${sprint.name}" for milestone ${sprint.milestone}</h1>
+	      
+        <div class="info">
+          <p class="date" py:content="date_info"></p>
+        </div>
+        
+        <p>
+          <span>Go to the 
+          <a href="${sprint_backlog_link}">Sprint Backlog</a>
+          for this sprint </span>
+          <span py:if="sprint.team">or visit the 
+          <a href="${href.team(sprint.team.name)}">${sprint.team.name}</a>
+          page for statistics and team details 
+          </span>
+        </p>
+        
+        <p>
+          ${wiki_to_html(context, description)}
+        </p>
+        <p>
+          ${planned_tickets} tickets are planned for this sprint,
+          ${in_progres_tickets} tickets are currently open,
+          ${closed_tickets} tickets have already been closed.
+        </p>
+        
+        <div class="info" py:if="sprint_stats and sprint_stats.stats.count > 0">
+            ${progress_bar(sprint_stats.stats, sprint_stats.interval_hrefs)}
+        </div>
+        
+        <div class="help">
+           Closing a Sprint will allow to close also all the stories which have
+           not been manually closed, but have no open task connected, beside it
+           will store the <strong>Velocity</strong> of this sprint in the team
+           metrics. Deleting a Sprint, will remove it completely from the system.
+           Both closing and deleting will allow you to retarget any open ticket to
+           another existing sprint.
+        </div>
+        
+        <div class="buttons">
+          <form name="editform" action="${edit_form_action}" method="get" py:if="may_edit_sprint">
+            <input type="submit" value="Edit sprint" name="edit" />
+          </form>
+          <form name="confirmform" action="${confirm_form_action}" method="get" py:if="may_edit_sprint">
+            <input type="submit" value="Delete sprint" name="delete" />
+            <input type="submit" value="Close sprint" name="close" />
+          </form>
+        </div>
+        <div id="help">
+            <strong>Note:</strong> if you want to know more, see <a href="${req.href('agilo-help', 'user/sprint')}">Sprint</a> in the Agilo help.
+        </div>
+    </div>
+  </body>
+</html>

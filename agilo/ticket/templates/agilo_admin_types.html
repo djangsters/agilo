@@ -1,0 +1,95 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:xi="http://www.w3.org/2001/XInclude"
+      xmlns:py="http://genshi.edgewall.org/">
+  <xi:include href="admin.html" />
+  
+  <head>
+    <title>Agilo Types</title>
+  </head>
+
+  <body>
+    <h2>Manage Types</h2>
+
+    <py:choose test="view">
+      <form py:when="'detail'" class="mod" id="modcomp" method="post">
+        <fieldset>
+          <legend>Modify $alias:</legend>
+          <div class="field">
+            <label>Type:<br />
+              <strong>$type</strong>
+            </label>
+          </div>
+          <div class="field">
+            <label>Alias:<br /><input type="text" name="alias" value="$alias" /></label>
+          </div>
+
+          <div class="field">
+            <label for="fields">Fields:</label>
+            <ul id="fields">
+              <li py:for="field, label in labels.items()">
+                <input type="checkbox" name="fields" value="$field" checked="${field in type_fields or None}" />
+                $label
+              </li>
+            </ul>
+          </div>
+          <div class="field">
+            <label>Calculate properties:</label>
+            <div py:for="result, function in calculate">
+              <input type="text" name="result" value="$result" />
+              =
+              <input type="text" name="function" value="$function" />
+            </div>
+            <div>
+              <input type="text" name="result" value="" />
+              =
+              <input type="text" name="function" value="" />
+            </div>
+          </div>          
+          <div class="buttons">
+            <input type="submit" name="cancel" value="Cancel" />
+            <input type="submit" name="save" value="Save" />
+          </div>
+        </fieldset>
+      </form>
+
+      <py:otherwise>
+        <table class="listing" id="typelist">
+          <thead>
+            <tr>
+              <th>Name</th><th>Alias</th><th>Fields</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr py:for="type in fields">
+              <td class="name">
+                <em py:strip="fields[type]">
+                  <a href="${panel_href(type)}">${type}</a>
+                </em>
+              </td>
+              <!--! All other dicts but the aliases are already lower-cased.  -->
+              <td class="alias">${aliases[type]}</td>
+              <td class="fields">
+                <py:for each="field in fields[type]">
+                    ${labels[field]}<br />
+                </py:for>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="help">
+          You can change the <a href="../../admin/ticket/type">available ticket types</a>.
+          Types shown emphasized need their attributes set to be usable in Agilo.
+        </p>
+      </py:otherwise>
+    </py:choose>
+    <div id="help">
+        <strong>Note:</strong>
+        if you want to know more see <a href="${req.href('agilo-help', 'admin/TypeAdmin')}">Types Admin</a> in
+        the Agilo help. 
+    </div>
+  </body>
+
+</html>

@@ -1,0 +1,8 @@
+<ul xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:py="http://genshi.edgewall.org/" py:strip="True">
+    <li py:for="type, alias in agilo_ticket_types" py:if="type in create_perm">
+        <a href="${href('newticket', type=type)}">
+           New ${alias}
+        </a>
+    </li>
+</ul>

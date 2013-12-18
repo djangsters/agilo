@@ -1,0 +1,89 @@
+= Permissions and Privileges in Agilo =
+[[PageOutline]]
+
+Agilo follows the Permission Approach of Trac and extends it with specific meta
+permissions that entail all the default actions for a specific Role, like for
+example: SCRUM_MASTER, PRODUCT_OWNER, TEAM_MEMBER.
+
+
+== Agilo Specific Permissions ==
+
+Agilo adds some specific permissions that can be assigned to users that needs to
+access specific feature of the tool. The predefined permissions can be used as
+they are and encapsulate already a set of basic permissions:
+
+Basic Permissions (Granted to every Agilo Role): 
+ - ATTACHMENT_VIEW: allows to view attachments
+ - BACKLOG_VIEW: allows to view any Backlog
+ - DASHBOARD_VIEW: allows to view the Project Dashboard
+ - EMAIL_VIEW: allows to view email address of users
+ - REPORT_VIEW: allows to view report (View Tickets)
+ - ROADMAP_VIEW: allows to view the Roadmap
+ - SEARCH_VIEW: allows to search
+ - TEAM_VIEW: allows to view the team statistics page
+ - TICKET_VIEW: allows to view tickets
+ - TIMELINE_VIEW: allows to view Timeline
+ - WIKI_VIEW: allows to view the Wiki
+ - ATTACHMENT_CREATE: allows the creation of new attachments to every ticket
+ - TICKET_CHANGE: allows to change any ticket at all
+ - TICKET_MODIFY: allows to change the status of a ticket
+ - TICKET_APPEND: allows to add comments to a ticket
+ - TICKET_EDIT: allows to access the ''Edit'' tab of a ticket page, in Agilo is
+ pre-configured so that:
+    - A Ticket Owner can always edit its own tickets
+    - A PRODUCT_OWNER can create and edit Requirements and Stories
+    - A SCRUM_MASTER can create Tasks and edit Stories as well as Tasks
+    - A TEAM_MEMBER can create Stories, create and edit Tasks
+    - An TRAC_ADMIN or TICKET_ADMIN can create and edit any ticket
+    - for custom ticket types applies what is written in the following paragraph
+ - TICKET_EDIT_DESCRIPTION: allows to modify the ticket description after the
+ ticket has been created
+
+Additionally specific Agilo Roles Permissions include:
+ - the PRODUCT_OWNER meta permission adds to the Basic Agilo Permissions:
+  - BACKLOG_EDIT: Allows to edit a Backlog. Exceptions are made for the Sprint
+  Backlog which belongs explicitly to the Team. Any other Backlog can be edited
+  with this permission
+  - CREATE_REQUIREMENT: allows to create a new Requirement
+  - CREATE_STORY: allows to create a new Story
+ 
+ - the SCRUM_MASTER meta permission adds to the Basic Agilo Permissions:
+  - CONTINGENT_ADMIN: Allows to create new [agilo-help:scrum/Contingent contingents], and edit and remove them
+  - BACKLOG_EDIT: Allows to edit a Backlog. Exceptions are made for the Product
+  Backlog which belongs explicitly to the Product Owner. Any other Backlog can 
+  be edited with this permission
+  - CREATE_TASK: allows to create a new Task
+  - MODIFY_CONTINGENTS: allows to create and modify a Contingent planned for a 
+  Sprint
+  - SAVE_REMAINING_TIME: allows to save the Remaining Time for every task (used
+  to save the time for all the team members at the Daily Scrum)
+  - SPRINT_EDIT: allows to create and edit a Sprint
+  - TEAM_CAPACITY_EDIT: allows to edit the capacity for every team member (used
+  to adjust capacity during the Sprint Planning Meeting, with last minute
+  changes)
+
+ - the TEAM_MEMBER  meta permission adds to the Basic Agilo Permissions:
+  - ADD_TIME_FOR_CONTINGENT: allows to add/book time for a 
+  [agilo-help:scrum/Contingent Contingent] booked for a sprint in which the team
+  member is working
+  - CREATE_BUG: allows to create a Bug
+  - CREATE_TASK: allows to create a Task
+  - CONTINGENT_ADD_TIME: allows to add or remove time from a contingent
+
+You can build your own roles as ''Subject'' assigning all the permission you 
+like and than assign real users to these ''Subject'' making them part of a 
+''Group''. To do so, you can either use the 
+[agilo-help:admin/CommandLine command line tool] or the Web Admin interface in 
+case you have installed the 
+[http://trac-hacks.org/wiki/AccountManagerPlugin AccountManager] plug-in, default
+on [http://www.agilofortrac.com/support-services/ Agilo hosted servers] and on the 
+virtual appliance.
+
+
+== Custom Types ==
+
+Agilo allows you to create ''custom'' [agilo-help:admin/TypeAdmin ticket types], and supports you generating the permissions needed to create these types. For example if you create a custom ticket type like 'spike', a new permission 'CREATE_SPIKE' (type name is upper-cased) is added to Trac's permission system. By default only TRAC_ADMIN and TICKET_ADMIN can create tickets with the new type. However, you can give the CREATE_SPIKE permission to any user you like (e.g. if you add the permission to the 'authenticated' group, all authenticated users can create spikes).
+
+Agilo does not enforce any special policies on ticket editing for custom types.
+
+That means everyone with the 'TICKET_MODIFY' permission can edit your custom ticket type. If you like to have additional restrictions for custom types, you need to create a custom [http://trac.edgewall.org/wiki/TracDev/ApiChanges/0.11#IPermissionPolicy IPermissionPolicy] like we did with `agilo.utils.AgiloPolicy`.

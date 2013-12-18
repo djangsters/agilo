@@ -1,0 +1,92 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:xi="http://www.w3.org/2001/XInclude"
+      xmlns:py="http://genshi.edgewall.org/">
+      <xi:include href="layout.html" />
+    <xi:include href="macros.html" />
+    <xi:include href="agilo_macros.html" />
+    <head>
+        <title>Team Planning</title>
+    </head>
+    <body>
+        <div id="content"
+            py:with="members_with_load = [m for m in developers if (m.load is not None)]">
+            <h1>Team "$team.name" Planning for Sprint "$sprint.name"</h1>
+            <div class="resources_load" py:if="len(members_with_load) > 0" >
+                <div class="headers">
+                    <table class="listing tickets backlog">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr py:for="i, member in enumerate(members_with_load)" class="${i % 2 and 'odd' or 'even'}">
+                                <td>${member.full_name or member.name}</td>
+                            </tr>
+                            <tr class="totals">
+                                <td>Total</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="scroll">
+                    <table class="listing tickets backlog resource_load" py:with="wday = 0">
+                        <thead>
+                            <tr>
+                                <th py:for="load_info in members_with_load[0].load" 
+                                    class="${not load_info.is_working_day and 'weekend' or None}">
+                                    ${load_info.day}
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr py:for="i, member in enumerate(members_with_load)" class="${i % 2 and 'odd' or 'even'}">
+                                <td py:for="load_data in member.load"
+                                    class="${not load_data.is_working_day and 'weekend' or None} ${load_data.is_overloaded and 'overloaded' or None}">
+                                    ${load_data.remaining_time}
+                                </td>
+                            </tr>
+                            <tr class="totals">
+                                <td py:for="rem_time in load_totals">$rem_time</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div py:if="len(developers) == 0">This Team has no members yet...</div>
+            ${contingent_widget.display()}
+            
+            <div class="team_capacity">
+                <form id="team_capacity_form" method="post"
+                    py:with="members_with_calendar = [m for m in developers if hasattr(m, 'calendar')]">
+                    <fieldset>
+                        <legend>Team members' capacity planning</legend>
+                        <div>
+                            <h2>Total team Capacity for ${team.name}: ${team.net_capacity}</h2>
+                        </div>
+                        <div class="member_calendar" py:for="member in members_with_calendar">
+                            <h2 style="margin: 5pt;">
+                                ${member.full_name or member.name}
+                                <span>(capacity: ${member.total_capacity})</span>
+                            </h2>
+                            ${print_calendar(member.calendar, member.name)}
+                        </div>
+                        
+                        <br clear="left" />
+                        <input py:if="len(members_with_calendar) > 0" 
+                            type="submit" value="Save" name="save"/>
+                    </fieldset>
+                </form>
+            </div>
+            <div id="help">
+                <strong>Note:</strong> if you want to know more, see <a href="${req.href('agilo-help', 'user/team')}">Team</a> in the Agilo help.
+                As an administrator you can <a href="${req.href.admin('agilo', 'teams')}">create a new team</a>.
+            </div>
+        </div>
+
+     </body>
+</html>

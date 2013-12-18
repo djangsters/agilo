@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+	"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<title>Agilo Open JS Tests</title>
+	
+	<!-- Want to always have ie 8 behave as ie 8 so we can see native bugs. 
+	For debugging it might help to switch this to IE 7 as the debugging tools in ie 8 are better. -->
+	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8" />
+	
+	
+	<!-- This jquery is not minimized - which makes for easier debugging -->
+	<!-- 
+	<script src="../qunit/lib/jquery-1.3.2.js" type="text/javascript" charset="utf-8"></script> 
+	-->
+	<script src="../js/lib/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/lib/json2.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/lib/jquery-ui-1.7.2.custom.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/lib/jquery.editinplace.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/lib/jquery.metadata.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/lib/tools.expose.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/lib/underscore-min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/lib/jquery.cookie.js" type="text/javascript" charset="utf-8"></script>
+	
+	<!-- Testing Infrastructure -->
+	<script src="../qunit/lib/testrunner.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../qunit/testrunner.extensions.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../qunit/lib/jquery.simulate.js" type="text/javascript" charset="utf-8"></script>
+	<link rel="stylesheet" href="../qunit/testsuite.css" type="text/css" media="screen" title="no title" charset="utf-8" />
+	<!-- Aid debugging in IE... - ->
+	<script type="text/javascript" src="http://getfirebug.com/releases/lite/1.2/firebug-lite-compressed.js"></script>
+	<!- -  -->
+	
+	
+	<script src="../js/utilities.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/backlog.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/ticket.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/backlogView.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/toggleView.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/messageView.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/backlogFilter.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/backlogController.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/backlogServerCommunicator.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/contingents.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/burndown.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/toolbarGenerator.js" type="text/javascript" charset="utf-8"></script>
+	
+	
+	<!-- Tests -->
+	<script src="../js/tests/helpers.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/tests/backlogControllerTest.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/tests/backlogFilterTest.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/tests/backlogServerCommunicatorTest.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/tests/backlogTest.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/tests/backlogViewTestHelper.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/tests/burndownTest.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/tests/commitmentConfirmationTest.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/tests/contingentsTest.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/tests/ticketTest.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/tests/toggleViewTest.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/tests/toolbarGeneratorTest.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/tests/utilitiesTest.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/tests/messageViewTest.js" type="text/javascript" charset="utf-8"></script>
+	
+	<script type="text/javascript">
+		// prevent 'noglobals' test failing because of active Firebug
+		window._firebug = null; // seen with Linux (FF 3.5 with Firebug 1.4.2)
+		window.getInterface = window.getInterface || null; // seen with Linux (FF 3.6 with Firebug 1.5.4)
+		
+		function disableServercommunications(){
+			var noop = function(){};
+			Ticket.prototype.sendRequestToServer = noop;
+			BacklogServerCommunicator.prototype.sendRequestToServer = noop;
+		}
+		
+		function disableExposePlugin() {
+			$.fn.expose = function(){
+				this.load = function(){};
+				this.close = function(){};
+				return this;
+			};
+			var oldShow = agilo.exposedDOM.show;
+			agilo.exposedDOM.show = function() {
+				// we want the exposed to be in the test-container so it gets cleaned by the general testcase cleanup hook
+				var originalReturn = oldShow();
+				$('#exposed').appendTo('#test-container');
+				return originalReturn;
+			};
+		}
+		
+		$(function() {
+			disableServercommunications();
+			disableExposePlugin();
+		});
+		
+		// Give startup code a chance to abort in tests
+		window.RUNNING_UNIT_TESTS = true;
+		
+		// If we use metadata we want to put json into the data attribute
+		$.metadata.setType('attr', 'data');
+	</script>
+</head>
+<body>
+	<h1>Agilo Open JS Tests <span id="build_toggle" style="font-size:80%; font-weight: normal;">Stop background testing</span></h1>
+	<h2 id="banner"></h2>
+	<h2 id="userAgent"></h2>
+	<ol id="tests"></ol>
+	<div id="main"></div>
+
+	<div id="test-container" style="">
+	</div>
+</body>
+</html>
+

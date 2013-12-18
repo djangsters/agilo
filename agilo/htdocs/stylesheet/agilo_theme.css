@@ -1,0 +1,1472 @@
+/* Global reset */
+html * {  margin: 0; padding: 0; }
+
+html {	
+    /* fix IE scrollbar */
+	overflow: hidden;
+}
+
+pre { 				border: 1px solid #ddd; background: #f8f8f8; margin: 10px 5px; padding: 6px; font-family: Monaco, monospace;}
+
+optgroup option {
+    padding-left: 1em;
+}
+
+/* No border around linked images */
+a img { border: 0px; }
+
+#logo { float: left; width: auto; padding-top: 30px;}
+
+
+body, th, td {
+    font: 12px "Lucida Grande", Arial, sans-serif;
+    line-height: 18px;
+/*    overflow: hidden;*/
+}
+
+a {
+	outline: none;
+}
+
+.report div.reports h3 a em,
+a:link, a:visited {
+    text-decoration: none;
+    color: #1E81CF;
+}
+
+a:hover, a:active {
+    color: #C00;
+}
+/******** STYLES ********/
+h1,h2,h3,h4,h5,p {          margin-bottom: 18px; font-weight: normal; }
+    h1 {                    font-size: 24px; line-height: 24px; }
+    h2 {                    font-size: 21px; line-height: 24px; }
+    h3 {                    font-size: 18px; line-height: 24px; }
+    h4,h5 {                 font-size: 14px; font-weight: bold; }
+    h5 {                    font-variant: italic; }
+hr {	                    margin-bottom: 18px; }
+ul, ol {	                padding-left: 1.5em; margin-bottom: 18px;}
+
+/* Default tag styles to fix trac.css */
+h1 span, h2 span{           color:gray; font-size:90%;}
+
+/* Overwrite timeline styling */
+.milestone .info h2 a em,
+.milestone .info h3 a em {
+	color: #1E81CF;
+}
+
+/* Fix TIMELINE */
+/* Patching some trac madness... */
+#content.timeline dl dt {
+	background-image: none !important;
+	vertical-align: top;
+	border-top: 1px solid #eee;
+}
+
+#content.timeline dt a {
+	background-repeat: no-repeat;
+	background-position: 6px center;
+	display: block;
+	padding: 0 10px 0 24px;
+	line-height: 20px;
+}
+
+#content.timeline dt a:hover {
+	background-color: #E7ECF3;
+}
+
+#content.timeline dl dd {
+	font-size: 10px;
+	margin-left: 60px;
+}
+
+#content.timeline .time {
+	margin-right: 5px;
+	font-size: 9px;
+	vertical-align: middle;
+	color: #777766;
+}
+
+li.milestone {
+  border: 1px solid #ccc;
+  overflow: auto;
+  padding: 5px;
+}
+
+li.milestone .sprints {
+  overflow: auto;
+}
+
+.timeline h2, .roadmap li.milestone h2 {
+    height: 17px;
+    text-align: left;
+    background: #E8E8E8 url("../images/gradient.png") repeat-x;
+    border-bottom: 1px solid #ccc;
+    padding: 9px 18px;
+    color: #555;
+    text-shadow: 0 1px 0 #fff;
+}
+
+.milestone .info .legend {
+    font-size: 10px;
+    font-style: italic;
+    margin: 1em 1em 2em;
+    white-space: nowrap;
+    clear: left;
+}
+
+.milestone .info h2 {
+  margin: -5px -5px 0 -5px !important;
+}
+
+.timeline h2 span {
+    float: right;
+    font-size: 10px;
+}
+.timeline .files {
+    font-size: 9px;
+    color: #666;
+}
+
+.timestamp {
+    color: #666;
+    margin-bottom: 0;
+}
+
+
+a.done {            color: #6D8A32;} /* green */
+a.closed {          color: #999999; text-decoration: line-through;} /* grey */
+a.bug {             color: #9D3F3F; } /* red */
+a.accepted {        color: #cb8045;} /* orange */
+a.done:before,
+a.closed:before {	content: "✔ ";}
+
+/* Color coding applied to the new backlog */
+.done .summary {            color: #6D8A32; } /* green */
+.bug .summary {             color: #9D3F3F; } /* red */
+.accepted .summary {        color: #cb8045; } /* orange */
+.closed .summary {          color: #999999; text-decoration: line-through;} /* grey */
+.closed.bug .summary {      color: #9D3F3F; text-decoration: line-through;} /* red */
+
+
+table {	margin-bottom: 18px; }
+
+input[type="radio"] { margin-right: 5px; }
+
+
+/******** Trac Fixes ********/
+fieldset {
+	margin: 0;
+	padding: 10px;
+	margin: 1em 0;
+}
+
+table {
+/*	width: 100%;*/
+}
+
+.query .collapsed > div, .collapsed > table, .collapsed > ul, .collapsed > dl {
+	display: none;
+}
+
+fieldset legend.foldable :link, fieldset legend.foldable :visited {
+	background: url(../images/expanded.png) 0 50% no-repeat;
+	border: none;
+	color: #666;
+	font-size: 110%;
+	padding-left: 16px;
+}
+
+fieldset.collapsed legend.foldable :link, fieldset.collapsed legend.foldable :visited {
+	background-image: url(../images/collapsed.png);
+}
+
+/******** Header ********/
+.header {
+    overflow: auto;
+    font-size: 14px;
+    line-height: 36px;
+    margin-bottom: 18px;
+    background: #999;
+}
+.navigation li {
+    list-style: none;
+    display: inline;
+}
+.navigation li a {
+    text-decoration: none;
+    display: block;
+    float: left;
+    padding: 0 9px;
+    color: #eee;
+    font-weight: bold;
+    text-shadow: 0 0 0 #fff;
+}
+.navigation li a:hover {
+    text-shadow: 0 1px 2px #666;
+}
+.navigation li a.current {
+    color: #fff;
+    font-weight: bold;
+    text-shadow: 0 1px 2px #333;
+}
+.header form {
+    float: right;
+    margin-right: 9px;
+}
+.header form input.search {
+	/* TODO: make this a proper searchfield */
+    -webkit-appearance: searchfield;
+}
+.header form input.submit {
+	/* TODO: make this a proper search submit */
+    -webkit-appearance: searchfield-results-button;
+}
+
+#project_logo_container {
+    float: left;
+}
+
+
+/******** Fuel meter ********/
+.meter {
+    margin-bottom: 18px;
+    display: table;
+    width: 100%;
+}
+.meter label {
+    display: table-cell;
+    width: 20%;
+    color: #999;
+}
+.meter p {
+    display: table-cell;
+    border: 1px solid #999;
+    background-color: #fff;
+}
+table.progress td {
+    font-weight: bold;
+    text-shadow: 0 1px 0 #fff;
+    line-height: 16px;
+    font-size: 10px;
+    height: 16px;
+    margin: 0;
+    padding: 0 9px;
+    text-align: right;
+}
+
+.milestone table.progress {
+    width: 40em;
+}
+
+.milestone table.progress td.closed,
+.sprint table.progress td.closed {
+    color: #4D9C1D;
+    background: #AEEB58 url("../images/gradient.png") top repeat-x;
+}
+.milestone table.progress td.inprogress,
+.sprint table.progress td.inprogress {
+    color: orange;
+    background: #CB8045 url("../images/gradient.png") top repeat-x;
+}
+.meter.commitment p span {
+    float: left;
+    border-width: 1px 0 1px 1px;
+    text-align: center;
+}
+
+#contingent_progressbar table.progress { height: 19px;}
+
+.button a {
+	font-size: 10px;
+    color: #2f3237;
+    text-shadow: 0 1px 0 white;
+	border: none;
+}
+
+.button a:hover {
+    color: #0081D0;
+}
+
+/* MENU */
+.menu {
+    color: white;
+    position: absolute;
+    top: 0;
+    height: 108px;
+    line-height: 71px;
+    width:100%;
+    overflow: hidden;
+	background-color: #d4d4d4;
+	border-top: 0px;
+	border-bottom: 1px solid #8d8e91;
+}
+
+.menu form.search {
+	position: absolute;
+	right: 20px;
+	height: 71px; width: 161px;
+	line-height: 71px;
+    top: 23px;
+	_top: 20px;
+}
+
+.menu #proj-search {
+	position: absolute;
+	top: 23px; right: 0;
+	height: 26px; width: 161px;
+	border: 1px solid #999;
+	background: white;
+}
+
+.menu form.search label {
+	color: #2f3237;
+	font-size: 10px;
+	top: 55px;
+	height: 26px; width: 161px;
+	line-height: 10px;
+	padding: 2px;
+	right: 0;
+    text-align: right;
+	position: absolute;
+    text-shadow: 0 1px 0 white;
+}
+
+.sidebar {
+	position: absolute;
+	width: 249px;
+	top: 109px;
+	bottom:0px;/* padding:9px;*/
+	overflow:auto;
+	border-right: 1px solid #dcdcdd;
+	background:#fafafa;
+    line-height: 16px;
+	-webkit-user-select:none;
+}
+	.sidebar label {
+		display: block;
+		font-weight: bold;
+		font-size: 10px;
+		color: #2f3237;
+		padding: 9px;
+	}
+
+	.sidebar a {
+		border: none;
+        color: #3c7dcd;
+        font-size: 10px;
+	}
+
+	.sidebar a:hover {
+		background: none;
+	}
+	
+.tree {
+list-style: none;
+/* AT: is making vertical scrollbar in firefox overflow: auto; */
+padding: 0;
+margin: 0;
+}
+	.tree li {
+		padding-left: 18px;
+		text-transform: capitalize;
+	}
+	.tree li:hover,
+	.tree li.active {
+		/* TODO: move this into an "a" */
+		background: #8395A6;
+		color: #fff;
+	}
+
+	.tree li a {
+		display: block;
+	}
+
+	.tree li:hover a,
+	.tree li a:hover {
+		color: #fff;
+	}
+
+
+.main {
+	position: absolute;
+	top: 109px;
+	left: 250px;
+	right:0;
+	bottom:0;
+	padding: 10px;
+	overflow: auto;
+	background: #fff;
+}
+
+/* IE Fixes */
+html,body {
+	_width: 100%;
+	_max-width: 100%;
+}
+
+#content table {
+	/* Fix the IE width issue */
+	_width: auto;
+}
+
+/* Buttons on the menu */
+.group {
+	padding: 0;
+}
+
+.group li {
+	list-style: none;
+	padding: 0 9px;
+	float: left;
+    color: #2f3237;
+	font-size: 10px;
+}
+
+.mainnav.ready {
+    display: block;
+}
+
+.mainnav {
+    display: none;
+	padding-left: 10px;
+    padding-top: 31px;
+
+/*	float: left;*/
+	overflow: hidden;
+	height: 82px;
+	margin: 0;
+	min-width: 555px;
+}
+
+.mainnav li {
+	_width: 40px;
+	_text-align: center;
+}
+
+
+.group.mainnav li a {
+	display: block;
+	height: 32px;
+	margin-top: 12px;
+	padding-top: 9px;
+	background: url("../images/icon.dashboard.png") 50% top no-repeat;
+}
+
+.metanav-container {
+    background-color: #2f3237;
+	position: absolute;
+	top: 0px;
+	right: 0px;
+    width: 100%;
+    height: 26px;
+}
+
+.metanav-logo {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    top: 5px;
+    left: 20px;
+    background:  url("../images/icon.agilo-for-trac.png") top no-repeat;
+}
+
+.metanav.ready {
+    display: inline;
+}
+
+.metanav {
+/*  z-index: 200;*/
+    display: none;
+	position: absolute;
+	top: 3px;
+	right: 20px;
+	line-height: 20px;
+	font-size: 9px;
+}
+.group.metanav li {
+    margin: 0 5px;
+    padding: 0px;
+    font-size: 9px;
+}
+
+.group.metanav li a:before {
+   content:"";
+   float:left;
+   width:11px;
+   height:20px;
+   background:url("../images/metanav-separator.png");
+}
+
+.group.metanav li { 				font-size: inherit; color: #f1f1f2; }
+.group.metanav li a {               font-size: inherit; color: #f1f1f2; text-shadow: none; }
+.group.metanav li a:hover { 		background: none; color: #4F81CC; }
+
+/* mainnav buttons */
+.group li a.iconWiki { 				padding-left: 5px; padding-right: 5px;
+                                    background-image: url("../images/icon.wiki.png"); }
+.group li a.iconTimeline { 			background-image: url("../images/icon.timeline.png");}
+.group li a.iconRoadmap { 			background-image: url("../images/icon.roadmap.png");}
+.group li a.iconTickets { 			background-image: url("../images/icon.tickets.png");}
+.group li a.iconSearch { 			background-image: url("../images/icon.search.png");}
+.group li a.iconTeams { 			background-image: url("../images/icon.teams.png");}
+.group li a.iconDashboard { 		background-image: url("../images/icon.dashboard.png");}
+.group li a.iconBuild { 			background-image: url("../images/icon.settings.png");}
+.group li a.iconBrowser { 			padding-left: 5px; padding-right: 5px;
+                                    background-image: url("../images/icon.source.png");}
+.group li a.iconAdmin { 			background-image: url("../images/icon.admin.png"); }
+
+.group li a.labelHelp {
+    background-color: #e07500;
+    padding: 2px 3px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+}
+
+/* metanav buttons */
+/*
+.group li a.iconLogout { 			background-image: url("../images/icon.logout.png");}
+.group li a.iconPreferences {		background-image: url("../images/icon.settings.png");}
+.group li a.iconHelp { 				background-image: url("../images/icon.help.png");}
+.group li a.iconTrac { 				background-image: url("../images/icon.trac.png");}
+*/
+
+
+
+li.sprint,
+.buttons {
+  clear: both;
+}
+li.sprint div.info {
+text-align: left;
+background: #E8E8E8;
+border-bottom: 1px solid #ccc;
+padding: 9px 18px;
+color: #555;
+margin: 10px;
+}
+li.sprint div.info h3 {
+font-size: 14px;
+text-shadow: 0 1px 0 #fff;
+border-bottom: 1px solid #ccc;
+}
+
+#content.roadmap h2 a:hover {
+	background: none;
+}
+
+.changelog {
+overflow: auto;
+color: #666;
+font-size: 10px;
+}
+.changelog dt {
+float: left;
+margin: 0 18px;
+}
+
+/******** Settings *********/
+.lock {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+/*    z-index: 9999;*/
+    background-color: #000;
+    opacity: 0.6;
+    #background: url("../images/lock.gif") repeat;
+    #background-color: none;
+}
+
+
+.settings {
+position: absolute;
+background: #e8e8e8;
+border-bottom: 1px solid #666;
+border-top: 1px solid #fff;
+padding: 16px 18px;
+top: 72px;
+left: 45px;
+right: 45px;
+-webkit-box-shadow: 0 4px 16px #000;
+-moz-box-shadow: 0 4px 16px #000;
+}
+.settings h2 {
+color: #555;
+text-shadow: 0 1px 0 #fff;
+margin-bottom: 18px;
+}
+.settings p {
+margin: 0;
+}
+.mainnav a {
+	text-decoration: none;
+/*	font-size: 14px;*/
+}
+#dialog {
+    position: fixed;
+	overflow: auto;
+    top: 20px;
+    left: 20px;
+    right: 20px;
+    bottom: 20px;
+    padding: 9px;
+	background: #fff;
+    -webkit-box-shadow: 0 5px 20px #333;
+    -moz-box-shadow: 0 5px 20px #333;
+	z-index: 1000;
+}
+
+#dialog #cancel {
+	position: fixed;
+	right: 29px;
+	top: 29px;
+    z-index: 2000;
+	background-color: #000;
+	color: #fff;
+	border: none;
+	text-shadow: none;
+	_position: absolute;
+}
+
+#dialog #prefs .buttons {
+    text-align: left;
+}
+
+    #dialog #content {
+        position: inherit;
+        margin: 0;
+        padding: 20px;
+    }
+
+.field {
+/*  overflow: auto;*/
+/*	margin: 0 -5px;*/
+/*	padding: 5px;*/ /* removed because it troubled the comment box in edit ticket */
+/*	border: 1px solid #ccc;*/
+}
+
+.field p {
+	margin: 0;
+}
+
+
+/* CHANGED: Remove tabs styling, as this will be provided by trac.css */
+
+#dialog #prefs {
+	background: #fff;
+	padding: 0;
+	border: none;
+	font-size: 12px;
+}
+
+#content.prefs #tabs {
+	overflow: hidden;
+	margin: 0;
+/*  padding-top: 5px;*/
+    padding: 0;
+	float: none;
+	width: auto;
+	background: none;
+	border: none;
+	border-bottom: 1px solid #ccc;
+}
+
+    #content.prefs #tabs li {
+    	border: 1px solid #aaa;
+    	border-bottom: none;
+    	margin-bottom: -1px;
+    	margin-right: -1px;
+    	display: block;
+    	float: left;
+    	padding: 0 9px;
+    }
+    
+    #content.prefs #tabs li a {
+        border: none;
+    }
+
+    #content.prefs #tabs li.active {
+    	text-transform: none;
+    	color: #fff;
+    	background: #8195A6;
+    }
+
+    #content.prefs label {
+    	font-weight: bold;
+    	margin-bottom: 18px;
+    }
+
+    #content.prefs #tabcontent {
+    	border: none;
+    	background: none;
+    	margin: 0;
+    	padding: 10px;
+    }
+    
+    #tabcontent table {
+    	clear: none;
+    }
+
+/* Admin */
+/* Overwrite some admin.css */
+form.addnew {
+    float: right;
+    margin: 0;
+}
+
+form.addnew .field {
+    overflow: auto;
+}
+
+form.addnew input.textwidget,
+form.addnew label {
+    float: left;
+    clear: both;
+}
+
+form.addnew fieldset {
+    background: #fff;
+    margin-left: 1em;
+}
+
+form.addnew fieldset .iefix {
+    margin-left: 0;
+    border: 0px;
+}
+
+form#addplug {
+    width: 250px;
+}
+
+#tabcontent {
+/*    margin-right: 250px; /* clear form#addplug */
+    margin-left: 150px; /* clear #tabs */
+
+    _margin: 0;
+    _padding: 0;
+    _float: left;
+    _clear: right;
+    _margin: 0 250px 0 10px;
+}
+
+#tabcontent select {
+    max-width: 130px;
+    overflow: hidden;
+}
+
+form.addnew * {    	                font-size: 10px;}
+
+    form.addnew div.buttons,
+    #prefs .buttons {             margin-bottom: 0; float: right; overflow: visible; }
+
+    form.addnew div.buttons input,
+    #prefs .buttons input {    	    margin: 0;  }
+    
+    form#userprefs .buttons {
+        float: none;
+        clear: both;
+        margin-bottom: 18px;
+    }
+
+
+#content.admin h1 {	                display: block;	float: none; }
+
+    #content.admin h3 {             color: none; /* CHANGED: Remove the red from the plugin headers */  }
+
+    #content.admin .addnew {
+        clear: right;
+        float: right;
+        margin: -2em 0 2em 2em;
+        width: 33%;
+        overflow: visible;
+        padding: 0;
+    }
+
+    #content.admin fieldset div {
+        display: block;
+    }
+
+    #content.admin #tabs {
+    	border: 1px solid #aaa; /* CHANGED: Removed the outset border color */
+    	width: 148px;
+    	background-color: #EEEEEE;
+    }
+    
+    #content.admin #tabs li.active {border: none; }
+
+    #content.admin .buttons {
+        margin-top: 0.5em;
+        clear: none;
+    }
+    
+    #content.admin .uninstall.buttons { 
+        float: right;
+        margin-top: -2.6em; /* restore margin from trac */
+    }
+    
+    #content.admin #tabcontent { margin-top: 4em; }
+    #content.admin #tabcontent .buttons input {  _width: auto;}
+    
+    #content.admin #tabcontent table {
+        width: auto;
+        margin-right: 10px;
+    }
+
+    .plugin {
+    	background: #eee;
+    	/* width: auto;
+    	margin-right: 210px; /* clear trac column thingy */
+    	width: 60%;
+    }
+    
+    /* Overwrite WIKI styling */
+    .wiki-toc {    	            background: #eee !important; width: 200px;}
+    .wiki-toc li {              margin-bottom: 5px !important;}
+    .wiki-toc .active {  	    background: #8195A6; margin: 0 -5px;}
+    .wiki-toc .active a {	    color: #fff; padding: 0 5px; }
+    .wiki ul, .wiki ol {        margin-bottom: 9px;}
+    .wiki dl dd {               padding-left: 1em;}
+    .wiki blockquote, .wiki q { padding-left: 1em;}
+    .wiki hr {                  border: none; border-top: 1px solid #aaa;}
+    .underline { text-decoration: underline }
+    #preview {                  padding: 2em; }
+    blockquote.citation {       border-left: 1px solid blue; padding-left: 0.5em;}
+
+    /* Overwrite ADMIN styling */
+    #tabs,
+    #prefs {
+    	background: #eee;
+    }
+
+    	#tabs li {
+    		color: #666;
+    	}
+
+    	#tabs li li.active {
+    		background: #8195A6;
+    	}
+
+    		#tabs li li.active a {
+    			color: #fff;
+    			_overflow: hidden;
+    			_height: 18px;
+    		}
+
+    	#tabs li a {
+    		text-transform: none;
+    	}
+
+    
+
+/* Timeline */
+#content.timeline dt em {
+	color: none; /* Remove red color from links */
+}
+
+#content.timeline dt a:hover,
+#content.timeline dt:hover {
+	background-repeat: none;
+}
+
+/* Fixing trac save buttons in prefs */
+
+#save, #delete {
+	margin-left: 0;
+}
+
+/* Bottom */
+#bottom {
+	clear: both;
+	color: #999;
+	text-align: center;
+	font-size: 10px;
+	height: 21px;
+	overflow: auto;
+	padding: 10px;
+}
+
+	#bottom p {
+		margin: 0;
+		height: 20px;
+		line-height: 20px;
+		border-top: 1px solid #aaa;
+	}
+
+/* Table Listing */
+.listing,
+#legenda {
+    border: 1px solid #999;
+    border-spacing: 0;
+    background-color: #fff;
+    padding: 0;
+}
+
+.listing {
+  width: 100%;
+}
+
+#dirlist a { display: inline;}
+
+.listing caption {
+    font-weight: bold;
+    text-align: left;
+}
+.listing tr {
+    text-shadow: 0 0 0 #fff;
+}
+.listing td,
+.listing th {
+    border-bottom: 1px solid #ddd;
+    vertical-align: top;
+    padding: 0 9px;
+    line-height: 26px;
+    border-right: 1px dotted #ddd;
+    overflow: hidden;
+}
+
+.listing th {
+    border-right: 1px solid #fff;
+    background: #ddd url("../images/gradient.png") top repeat-x;
+    text-align: left;
+    color: #666;
+    font-weight: bold;
+    text-shadow: 0 1px 0 #fff;
+}
+
+.listing th a {
+	color: #666;
+}
+
+
+/********** Trac fixes **********/
+/* defaults */
+fieldset {
+	border: 1px solid #aaa;
+	margin-bottom: 18px;
+}
+
+legend {
+	color: #666;
+	font-size: 10px;
+	font-weight: bold;
+	padding: 0 .25em;
+}
+
+#help {
+	font-size: 10px;
+	margin: 18px 0;
+	color: #666;
+	clear: both;
+}
+
+	#help strong {
+		color: #000;
+	}
+
+/* form */
+#comment {
+	height: 5em;
+}
+
+/* ctxtnav */
+#ctxtnav {
+    float: right;
+	height: 18px;
+	font-size: 9px;
+	color: #666;
+	*position: absolute;
+	*right: 20px;
+}
+
+	#ctxtnav h2,
+	#ctxtnav hr {
+		display: none;
+	}
+
+	#ctxtnav ul {
+		overflow: auto;
+	}
+
+	#ctxtnav li {
+		list-style: none;
+		float: left;
+		margin-left: 5px;
+		height: 18px;
+		line-height: 18px;
+	}
+	
+/* Diff views */
+
+.diff {
+    margin-right: 220px;
+    /* IE6 only */
+    _margin-right: 270px;
+    _float: left;
+}
+
+.diff .diff {
+    margin-right: 0;
+}
+
+.diff h1,
+.diff h2,
+.diff h3 {
+    margin-left: 0 !important;
+}
+
+/* #content */
+#content {
+	padding: 10px;
+	background: #fff;
+	display: block;
+}
+
+#altlinks {
+	padding: 10px;
+	font-size: 10px;
+}
+
+	#altlinks h3 {
+		font-size: 10px;
+		font-weight: bold;
+		line-height: 18px;
+		margin-bottom: 0;
+	}
+	
+	#altlinks ul { overflow: auto; padding: 0;}
+	#altlinks li {
+		list-style: none;
+		float: left;
+		margin-right: 10px;
+	}
+
+
+
+/* wiki */
+a.anchor {
+	display: none;
+	color: #ccc;
+	border: none;
+}
+
+h1:hover a.anchor {
+	display: inline;
+}
+
+h1:hover a:hover.anchor {
+	color: #1E81CF;
+}
+
+/* WIKI */
+/* Wiki identation */
+#content.wiki {
+	padding-left: 28px;
+}
+
+	#content.wiki h1,
+	#content.wiki h2,
+	#content.wiki .buttons {
+		margin-left: -18px;
+	}
+	
+	#content.wiki h3,
+	#content.wiki h4,
+	#content.wiki h5,
+	#content.wiki h6 {
+	    margin-left: -9px;
+	}
+	
+	
+#content.wiki .wiki-toc h4 {
+	margin: 0;
+}
+
+#content.wiki .wiki-toc ul {
+	margin: 0 -0.5em;
+}
+
+#content.wiki .wiki-toc li {
+	padding: 0 1em;
+}
+
+#content.wiki .wiki-toc li a {
+	border: none;
+}
+
+#content.wiki table.wiki {
+    border-spacing: 0;
+    border-collapse: collapse;
+    width: 100%;
+}
+#content.wiki table.wiki td {
+    border: 1px solid #CCC;
+    padding: 2px;
+}
+
+#content h1 { font-size: 20px }
+#content h2 { font-size: 18px }
+#content h3 { font-size: 16px }
+
+
+/* TODO: These styles are globally defined in agilo_theme.css, but trac b0rks it up.. */
+#content.wiki h1,
+#content.wiki h2,
+#content.wiki h3 { line-height: 24px;}
+#content.wiki h1 { font-size: 20px;}
+#content.wiki h2 { font-size: 18px;}
+#content.wiki h3 { font-size: 16px;}
+#content.wiki h4,
+#content.wiki h5 {
+font-size: 14px;
+font-weight: bold;
+}
+#content.wiki h5 {
+font-variant: italic;
+}
+
+/* preferences form */
+#prefs {
+	font-size: 9px;
+    position: fixed;
+	right: 20px;
+	padding: 10px;
+	background: #000;
+	opacity: 0.7;
+	color: #fff;
+	-webkit-box-shadow: 0 2px 4px #333;
+	-moz-box-shadow: 0 2px 4px #333;
+    *background: #444; /* Make it a bit lighter for IE */
+}
+
+    #prefs {
+        width: 180px;
+        _position: absolute;
+        _right: 20px;
+    }
+    
+    #prefs .buttons { 
+        _float: none; 
+        _text-align: right; 
+        _overflow: visible;
+    }
+    
+    #prefs {
+        _float: right;
+    }
+    
+    #prefs fieldset,
+    #prefs .buttons,
+    #prefs div { 
+        margin: 0; padding: 0; 
+    }
+    
+    #prefs label, #prefs br { 
+        _width: none;
+    }
+        
+    #dialog #prefs {
+        font-size: 12px;
+        color: #000;
+        background: #fff;
+        position: relative;
+        opacity: 1;
+        padding: 0;
+        margin: 0;
+        right: auto;
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+    }
+
+#prefs fieldset {
+	border: none;
+	padding: 9px 0;
+}
+
+#prefs input[type="text"] {
+	border: 1px solid #fff;
+	background: #eee;
+	font-size: 9px;
+}
+
+#prefs .buttons input {
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+}
+
+/* Wiki toolbar */
+.wikitoolbar {
+     border: solid #d7d7d7;
+     border-width: 1px 1px 1px 0;
+     height: 18px;
+     width: 234px;
+}
+.wikitoolbar :link, .wikitoolbar :visited {
+     background: transparent url(../images/edit_toolbar.gif) no-repeat;
+     border: 1px solid #fff;
+     border-left-color: #d7d7d7;
+     cursor: default;
+     display: block;
+     float: left;
+     width: 24px;
+     height: 16px;
+}
+.wikitoolbar :link:hover, .wikitoolbar :visited:hover {
+     background-color: transparent;
+     border: 1px solid #fb2;
+}
+.wikitoolbar a#em { background-position: 0 0 }
+.wikitoolbar a#strong { background-position: 0 -16px }
+.wikitoolbar a#heading { background-position: 0 -32px }
+.wikitoolbar a#link { background-position: 0 -48px }
+.wikitoolbar a#code { background-position: 0 -64px }
+.wikitoolbar a#hr { background-position: 0 -80px }
+.wikitoolbar a#np { background-position: 0 -96px }
+.wikitoolbar a#br { background-position: 0 -112px }
+.wikitoolbar a#img { background-position: 0 -128px }
+
+
+/* fix report */
+#content h2.report-result {
+	background: none;
+	margin: 0;
+	border: none;
+}
+
+
+/* Utility classes */
+p.hint {    font-size: 10px; margin-bottom: 18px;}
+
+#changelog form { overflow: auto;}
+
+/* TICKET FORM */
+/* Form */
+/*.buttons { clear: both;}*/
+#backlog .button,
+.buttons {
+	display: block;
+	overflow: hidden;
+	margin-bottom: 18px;
+}
+	td.buttons {
+		margin-bottom: 0;
+	}
+
+.buttons input[type="submit"] {
+  opacity: 1;
+}
+.buttons.group { 
+  clear: none;
+  overflow: visible;
+}
+
+#exposed #propertyform .button input[type=submit],
+#backlog .button input[type=submit],
+#content.ticket input[type=submit],
+.buttons input,
+.inlinebuttons input[type="submit"] {
+	text-shadow: 0 1px 0 #fff;
+    font-size: 10px;
+    line-height: 16px;
+    height: 18px;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	padding: 0 10px;
+	background:#ccc url("../images/gradient.png") top repeat-x;
+	border: 1px solid #4e4e4e;
+	-webkit-box-shadow: 0 1px 1px #CDCDCD;
+	-moz-box-shadow: 0 1px 1px #CDCDCD;
+	margin-right: 2px;
+}
+
+#changelog .inlinebuttons input,
+.report .inlinebuttons input {
+    padding: 0 5px;
+    width: 55px !important;
+}
+
+.buttons div {    
+    float: left;
+    margin-right: 5px;
+}
+
+.inlinebuttons { font-size: 10px; }
+.inlinebuttons select {    width: 150px; font-size: 10px; }
+.inlinebuttons input[type="submit"] { width: 50px; font-size: 10px; }
+
+/* fs: margin-right prevents Firefox 3.5/Linux from rendering a scroll bar under ticket references */
+#content.ticket li.reference input[type=submit] {
+	font-size: 8px;
+	padding: 0 5px;
+	height: 14px;
+	-webkit-border-radius: 7px;
+	-moz-border-radius: 7px;
+	line-height: 12px;
+	vertical-align: baseline;
+	float: right;
+	margin-top: 3px;
+    margin-right: 1px;
+}
+
+#exposed #propertyform .button input[type=submit]:hover,
+#backlog .button input[type=submit]:hover,
+#content.ticket input[type=submit]:hover,
+.inlinebuttons input[type="submit"]:hover,
+.buttons input:hover {
+	background: #D5DDEA url("../images/gradient.png") top repeat-x;
+}
+
+#content.ticket input[type=submit]:active,
+.buttons input:active {
+	background: #ccc;
+	border: 1px solid #4e4e4e;
+}
+
+form p.hint, form span.hint {
+	font-style: normal;
+	text-shadow: 0 0 0 #fff;
+}
+
+table#backlog {
+	border-spacing: 0;
+}
+
+/* Styling for inline ticket */
+#backlog a { float: left;}
+#backlog a.addticket {
+    margin-top: 3px;
+    float: right;
+	
+	line-height: 18px;
+	height: 18px;
+	width: 18px;
+	
+	background:#ccc url("../images/gradient.png") top repeat-x;
+	border: 1px solid #838383;
+	-webkit-box-shadow: 0 1px 1px #CDCDCD;
+	-moz-box-shadow: 0 1px 1px #CDCDCD;
+	-webkit-border-radius: 9px;
+	-moz-border-radius: 9px;
+	text-align: center;
+	font-weight: bold;
+}
+
+/* Agilo Wiki */
+.wiki.agilo {
+    background: url("../images/agile_logo_light.jpg") top right no-repeat;
+}
+
+/* Fixing Tabs */
+/* My friends at trac do not know how to make a block element wrap around it contents vertically. Their solution causes interesting problems */
+#tabbed_pane {
+	margin-bottom: 18px;
+}
+
+/* More patching */
+.diff li.entry {
+    position: inherit;
+}
+
+/* Patching the source browser for IE7 */
+    #dirlist * {
+        white-space: normal;
+        overflow: visible;
+        width: auto;
+    }
+    
+    /* artificially long path so we can override Trac's "#dirlist td.name" rule */
+    #content #dirlist td.name { width: auto;} /* fixes the width of the first column in all browsers */
+
+    #prefs { *margin-top: auto; }
+    #prefs .buttons { *margin-top: auto; }
+    #anydiff input {  *margin-right: auto; }
+       
+/* Sprint Status */
+.sprint_info { overflow: auto;}
+.sprint_info .status {
+  position: relative;
+  overflow: auto;
+}
+
+.sprint_status {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  background: url("../images/sprintStatus.jpg") left top no-repeat;
+}
+  .sprint_status.running {    background-position: left -16px; }
+  .sprint_status.finished {   background-position: left -32px; }
+  .sprint_status.closed {     background-position: left -48px; }
+
+
+/* Team */
+
+/* This table is in a scrollable div so we like to see the scroll bar directly below the table */
+.resource_load {
+  margin-bottom: 0px;
+}
+
+
+/* Patching the multiple form problem */
+#content.milestone form {
+  float: left;
+  margin-right: 5px;
+}
+
+
+/* Sidebar handle */
+.sidebarHandle {
+	width: 5px;
+	position: absolute;
+    border-left: none;
+    border-right: none;
+	background: #929292 url("../images/sidebarHandle.png") repeat-y;
+	top: 109px;
+	bottom: 0;
+	cursor: w-resize;
+	z-index: 0;
+}
+
+.sidebarHandle:hover {
+    background: #929292 url("../images/sidebarHandle-hover.png") repeat-y;
+}
+
+.sidebarHandle.opened {
+    border-left: 1px solid #929292;
+    border-right: none;
+    background:none;
+}
+
+.sidebarHandle.opened:hover {
+	background: #929292 url("../images/sidebarHandle.png") repeat-y;
+}
+
+/* tableDnD */
+#backlog tr td {
+	cursor: move;
+}
+
+
+/* LOADER */
+#loader {
+	display: block;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	z-index: 2000;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background: #fff url("../images/spinner-48.gif") 50% 50% no-repeat;
+}
+
+.reports .collapsed > div, .reports .collapsed > table, .reports .collapsed > ul, .reports .collapsed > dl {
+    display: none;
+}
+
+#ticket table.properties tr th.missing {
+    color: #898989;
+}

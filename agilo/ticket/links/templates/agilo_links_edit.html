@@ -1,0 +1,77 @@
+<fieldset py:def="display_links_edit(ticket, read_only=False, go_to_edit_pane=False, links_search_url=None, links_url=None)" 
+    id="links"
+    xmlns="http://www.w3.org/1999/xhtml" xmlns:py="http://genshi.edgewall.org/" xmlns:xi="http://www.w3.org/2001/XInclude">
+    <legend>References</legend>
+    <table>
+        <div py:if="len(ticket.get_alloweds()) > 0" py:strip="">
+            <tr py:if="not read_only">
+                <th class="col1">Reference:</th>
+                <td class="fullrow" colspan="3">
+                    <form name="create_link" method="POST" action="$links_url" class="printableform">
+                        <input type="hidden" name="url_orig" value="${href.ticket(ticket.id)}?pane=edit"/>
+                        <input type="hidden" name="src" value="$ticket.id"/>
+                        (#<input type="text" id="dest" name="dest" size="4" value=""/>)
+                        
+                        <input type="text" id="autocomplete" name="autocomplete_parameter" size="40" />
+                        <div class="suggestionsBox" id="suggestions" style="display: none;">
+                            <div class="suggestionList" id="autoSuggestionsList">
+                                &nbsp;
+                            </div>
+                        </div>
+                        
+                        <script type="text/javascript">
+                            var ticket_id = ${ticket.id};
+                            var autocomplete_url = "${links_search_url}";
+                        </script>
+                            
+                        <!--! (At least) old version of MSIE require that the whole 
+                             script block is encapsulated in one comment if there is
+                             one. We need the comment so that Genshi does not freak out
+                             in the code below but on the other hand we need the ticket
+                             id and Genshi won't evaluate $ticket in comments. Therefore
+                             I split this into two script blocks.
+                        -->
+                        <script type="text/javascript">
+                            <!--
+                            // This is the configuration of the autocompleter, we have to use 
+                            // jQuery and not $ that may confuse Genshi
+                            var completer = jQuery("#autocomplete").autocomplete(autocomplete_url, {
+                                minChars: 2,
+                                parse: parse_results,
+                                extraParams: get_url_parameters()
+                            });
+                            
+                            // This function inserts the correct data in the input fields
+                            jQuery("#autocomplete").result(function(event, data, formatted) {
+                                if (data) {
+                                    jQuery("#dest").val(data[1]);
+                                    var text = data[0].replace(/<.*?>|<\/.*?>/g, "");
+                                    jQuery("#autocomplete").val(text);
+                                }
+                            });
+                            -->
+                        </script>
+                        
+                        <input type="submit" name="cmd" value="create link" title="Add a reference to this $ticket.type"/>
+                    </form>
+                </td>
+            </tr>
+            <tr py:if="can_create_at_least_one_referenced_type">
+                <th class="col1">Associate New:</th>
+                <td class="fullrow" colspan="3">
+                    <ul class="references" py:for="item in create_referenced" 
+                        py:with="keys = item.get_option('copy'); 
+                                 copied_fields = dict(zip(map(str, keys), [ticket[key] for key in keys]))">
+                        <li><a href="${href.newticket(type=item.dest_type, src=ticket.id, **copied_fields)}">Create a new referenced '${ticket.get_alias(item.dest_type)}'</a></li>
+                    </ul>
+                </td>
+            </tr>
+            <tr><td colspan="4"><hr/></td></tr>
+        </div>
+        
+        <xi:include href="agilo_links_view.html" />
+        ${display_links(ticket, read_only=read_only, go_to_edit_pane=True, links_url=LINKS_URL)}
+    </table>
+
+</fieldset>
+

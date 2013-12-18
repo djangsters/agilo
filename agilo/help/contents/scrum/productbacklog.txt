@@ -1,0 +1,4 @@
+= Product Backlog =
+[[PageOutline]]
+
+The '''Product Backlog''' is a list of "features" - in Agilo built as a hierarchy of [agilo-help:scrum/requirement Requirements] and [agilo-help:scrum/userstory User Stories] - prioritized by [agilo-help:scrum/businessvalue Business Value]. The Product Backlog is owned by the [agilo-help:scrum/productowner Product Owner].

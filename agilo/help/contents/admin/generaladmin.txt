@@ -1,0 +1,6 @@
+= General Admin Panel =
+[[PageOutline]]
+
+Located in [/admin/agilo/general Admin/Agilo/General]
+
+In this panel you are allowed to enable or disable the Agilo UI, and define if you want the time calculation to be shown in [agilo-help:scrum/IdealHour Ideal Days] or you want them to be in [agilo-help:scrum/IdealHour#idealdays Ideal Hours].

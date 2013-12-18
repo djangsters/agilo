@@ -1,0 +1,20 @@
+= Sprint Planning Meeting =
+[[PageOutline]]
+
+The '''Sprint Planning Meeting''' is one of the main three Scrum Ceremonies 
+([agilo-help:scrum/DailyScrum Daily Scrum] and 
+[agilo-help:scrum/SprintReviewMeeting Sprint Review Meeting] is another) 
+and starts one [agilo-help:scrum/Sprint Sprint].
+
+The [agilo-help:scrum/ProductOwner Product Owner] invites the Team to present 
+them the [agilo-help:scrum/ProductBacklog Product Backlog] and asks them to 
+commit to as much as they think they can successfully implement, test, document 
+and integrate within the next Sprint.
+
+Agilo supports this meeting too, at the moment it allows the Product Owner to 
+present the feature, using the Product Backlog and digging down to each 
+[agilo-help:scrum/Requirement Requirement] and [agilo-help:scrum/UserStory User Story].
+The Product Owner can also set the 
+[agilo-help:scrum/UserStoryPoints User Story Points] for each story once the 
+Team estimated them.
+

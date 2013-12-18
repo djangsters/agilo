@@ -1,0 +1,75 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:xi="http://www.w3.org/2001/XInclude"
+      xmlns:py="http://genshi.edgewall.org/">
+  <xi:include href="admin.html" />
+  
+  <head>
+    <title>Agilo Backlogs</title>
+  </head>
+
+  <body>
+    <h2>Manage Backlogs</h2>
+
+    <py:choose test="view">
+      <xi:include href="agilo_admin_backlog_detail.html" py:when="'detail'" />
+
+      <py:otherwise>
+        <form class="addnew" id="addbacklog" method="post">
+          <fieldset>
+            <legend>Add Backlog:</legend>
+            <div class="field">
+              <label style="font-weight:bold;">Name:<br />
+                <input name="name" />
+              </label>
+            </div>
+            <div class="buttons">
+              <input type="submit" id="add_button" name="add" value="Add and edit"/>
+            </div>
+          </fieldset>
+        </form>
+
+        <div id="backlog_table" py:if="not len(backlogs)">
+          No backlogs created yet.
+        </div>
+        <form id="backlog_table" method="POST" py:if="len(backlogs)">
+          <table class="listing" id="complist">
+            <thead>
+              <tr>
+                <th class="sel">&nbsp;</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Scope</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr py:for="backlog in backlogs">
+                <td class="sel">
+                  <input type="checkbox" name="sel" value="$backlog.name" />
+                </td>
+                <td class="name">
+                  <a href="${panel_href(backlog.name)}">$backlog.name</a>
+                </td>
+                <td class="description" py:content="wiki_to_html(context, backlog.description)"></td>
+                <td class="scope">
+                  ${backlog_types[backlog.type]}
+                </td>           
+              </tr>
+            </tbody>
+          </table>
+          <div class="buttons">
+            <input type="submit" name="remove" value="Remove selected Backlogs" />
+          </div>
+        </form>
+      </py:otherwise>
+    </py:choose>
+    <div id="help">
+        <strong>Note:</strong>
+        if you want to know more see <a href="${req.href('agilo-help', 'admin/BacklogAdmin')}">Backlog Admin</a> in
+        the Agilo help. 
+    </div>
+  </body>
+
+</html>

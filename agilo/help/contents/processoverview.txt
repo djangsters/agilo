@@ -1,0 +1,91 @@
+= Process Overview - The Big Picture =
+[[PageOutline]]
+
+The usage model of [agilo-help:AgiloForTrac Agilo for trac] is based on the [http://www.scrumalliance.org/ Scrum] process for software development by Ken Schwaber, Jeff Sutherland and Mike Beedle. This guide points out how Agilo supports the 'plain vanilla Scrum' and which extensions are built in to match process improvements made by [http://www.agile42.com Agile42]. Make sure you understand the process principles and know the featured artifacts, ceremonies and roles, before starting with this guide. 
+
+The idea of this guide is to give you an overview how Agilo's concepts matches the ideas in Scrum and refer you to help pages for more specific topics. We don't cover technical aspects here but the linked pages will help you with that. If you want to know how to set up a new Agilo environment, please read the [agilo-help:QuickStart] guide.
+
+
+== Team ==
+
+In Scrum a '''Team''' consist of all members that will do everything necessary to reach the sprint goal (this doesn't include the [agilo-help:scrum/ScrumMaster Scrum Master] and the [agilo-help:scrum/ProductOwner Product Owner], even if in "Scrum in the Enterprise" Ken Schwaber extended the concept of Scrum Team to include a Scrum Master and a Product Owner). As an administrator you can define which users are [agilo-help:scrum/TeamMember Team Members]. In Agilo you can define different teams with different team members.
+
+
+== Product Owner ==
+
+The [agilo-help:scrum/ProductOwner Product Owner] (PO) is responsible to maximize the return on investment of the product. So s/he does the long-term planning and owns the [agilo-help:scrum/ProductBacklog Product Backlog].
+
+
+=== Product Backlog Preparation ===
+
+The '''Product Owner''' creates [agilo-help:scrum/Requirement Requirements] and [agilo-help:scrum/UserStory User Stories] to define his '''vision''' of the future functionality. These requirements and user stories are not yet planned for a specific release or sprint so they appear in the Product Backlog.
+
+It is useful if the PO writes down his long-term vision in the wiki so the team see the strategic value of their work. The PO can then link parts of it to requirement tickets.
+
+The PO can use Agilo's linking feature (available via the ticket's edit page) to group User Stories below a requirement.
+
+
+{{{
+#!comment
+=== Product Management Board ===
+
+This is something Agile42 implemented especially in bigger companies when there are many stakeholders involved in defining the future requirements: The PO calls the stakeholders for a Product Management Board meeting. They play the Business Value Game to assign Business Value Points to the Requirements. The stakeholders are typically not interested in the detailed [agilo-help:scrum/UserStory User Stories].
+}}}
+
+
+== Sprint Planning Meeting ==
+
+Every sprint starts with a [agilo-help:scrum/SprintPlanningMeeting Sprint Planning Meeting] at the end of which the Team commits to the Product Owner to release a defined set of User Stories (Features) and to fulfill the sprint goal.
+
+
+=== Backlog Presentation ===
+
+The PO invites the Team to the Sprint Planning Meeting. He uses the Product Backlog as a guideline (it is sorted by Business Value Points so the requirements with the highest value are displayed first) and presents one Requirement (with the related User Stories) after the next to the Team.
+
+
+=== Relative Estimation ===
+
+The Team estimates the User Story complexity using Planning Poker, and the PO assigns the estimated User Story Points to every User Story.
+
+
+=== Initial Commitment ===
+
+According to the priorities of the PO the Team chooses the User Stories which they think they can implement in this Sprint, and the PO assigns these User Stories to the Sprint by setting the Sprint field of each User Story.
+
+After the Sprint is set, the User Stories will appear in the [agilo-help:scrum/SprintBacklog Sprint Backlog] automatically. They will not be visible in the Product Backlog anymore because the Product Owner is not allowed to change User Stories once the team has committed to them.
+
+
+=== Detail Planning ===
+
+The PO can go back to his work after the Team gave an initial commitment, and the Team can start the detailed planning together with the Scrum Master. The Scrum Master can log into Agilo for trac and go to the Sprint Backlog view, where he will find all the User Stories committed.
+
+Now the Team, with the help of the Scrum Master, starts to dig down into each User Story and creates [agilo-help:scrum/Task Tasks] by going to the Edit pane of the story and creating a referenced task. The Team proceeds laying down as many Tasks as needed to complete the whole User Story. Afterwards, the Scrum Master switches back to the Sprint Backlog, where the Team can estimate the remaining time for each Task (you can also estimate instantly while creating Tasks, but we have experienced that if the Team can have the whole picture, the estimations are more balanced and less reworked).
+
+Remember, it is all about speed and Time Box.
+
+
+=== Capacity Planning ===
+
+Each Sprint should have a Team assigned which will transform the committed stories into a potentially shippable product.
+The information on how many ideal working hours the Team has as capacity for the current Sprint is derived automatically from the capacity settings for each Team Member. As a Team Member you can update your capacity at any time in the personal preferences page. You can subtract holidays and vacations for example.
+As a Scrum Master you can edit the available hours for each Team Member in the team detail page for every Sprint. 
+
+If your team needs to do activities which are not plannable (e.g. end user support, bug fixing in production system), you need to deduct a Contingent from the overall capacity in advance.
+
+As a Scrum Master you can create as many Contingents as you like in the Sprint Backlog.
+
+{{{
+#!comment
+=== Initial Burn Down Chart and Final Commitment ===
+When the Time Box is over, probably not all User Stories have tasks attached. To get an accurate [agilo-help:scrum/BurndownChart burndown chart] from the beginning the Scrum Master can calculate the ratio User Story Points divided by remaining time by selecting some well estimated stories and pushing the '''Calculate Story Points/Time''' button in the Sprint Backlog view (read more about this in the [agilo-help:user/backlog#CalculatetheUserStoryPointsRemainingTimeratio Backlog documentation]).
+
+Based on that calculation the initial burndown will be set, and the Team can have a look whether their commitment is still fitting in their capacity or not.
+The Team now has the chance to correct their commitment until it fits their capacity. If everybody feels comfortable, the Scrum Master will set the commitment for the sprint by pressing the '''Confirm Commitment''' button which will be used for further calculations. 
+}}}
+
+When the team feels comfortable with the sprint plan, the Scrum Master will set the commitment for the sprint by clicking the '''Confirm Commitment''' button which will be used for further calculations. The button is enabled for 24 hours after the planned start of the sprint.
+
+
+== Every Day Work ==
+
+The Sprint starts, and on a daily basis the Team assigns/accepts Tasks and reports progress. When Tasks are in progress (status 'accepted'), the owner of a Task can also edit the remaining time for it. Every Team Member can also create Tasks to be done in this Sprint, either as related tasks to a User Story or without a relation. Unrelated tasks are grouped at the bottom of the Spring Backlog.

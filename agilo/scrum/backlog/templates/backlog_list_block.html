@@ -1,0 +1,63 @@
+<ul xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:py="http://genshi.edgewall.org/" py:strip="True">
+  <py:for each="backlog in backlog_list">
+    <py:choose>
+      <py:when test="backlog.type == 0"><!-- global backlog -->
+        <li>
+          <a href="${href.backlog(backlog.name)}" onclick="$('#popup-div').show(); return true;">$backlog.name</a>
+        </li>
+      </py:when>
+      <py:when test="backlog.type == 1"><!-- sprint backlog -->
+        <li class="inlinebuttons">
+          $backlog.name for sprint:
+          <form name="sprint_view" action="${href.backlog(backlog.name)}" method="get">
+          <!--! submit() must be called on a jQuery element in the onChange handler:
+            otherwise we can't intercept the form submit via jQuery -->
+            <select name="bscope" class="searchable" onChange="$(this.form).submit()">
+              <optgroup py:for="optgroup in sprint_list"
+                                py:if="optgroup.options"
+                                label="${optgroup.label}">
+                        <option py:for="option, selected in optgroup.options"
+                                selected="${selected or None}" value="$option"
+                                py:content="option"></option>
+              </optgroup>
+            </select>
+            <?python
+			    def view_button_for_list(sprint_list):
+			    	result = '<input type="submit" name="view" value="View" disabled="disabled" />'
+			        for item in sprint_list:
+			        	if item['options']:
+			        		result = '<input type="submit" name="view" value="View" />'
+			        return result ?>
+			
+			${Markup(view_button_for_list(sprint_list))}
+          </form>
+        </li>
+      </py:when>
+      <py:when test="backlog.type == 2"><!-- milestone backlog -->
+        <li class="inlinebuttons">
+          $backlog.name for milestone:
+          <form name="milestone_view" action="${href.backlog(backlog.name)}" method="GET">
+            <select name="bscope"  onChange="this.form.submit()">
+              <optgroup py:for="optgroup in milestone_list"
+                                py:if="optgroup.options"
+                                label="${optgroup.label}">
+                        <option py:for="option, selected in optgroup.options"
+                                selected="${selected or None}" value="$option"
+                                py:content="option"></option>
+              </optgroup>
+            </select>
+            <py:choose>
+              <py:when test="milestone_list">
+                <input type="submit" name="view" value="View" />
+              </py:when>
+              <py:otherwise>
+                <input type="submit" name="view" value="View" disabled="disabled" />
+              </py:otherwise>
+            </py:choose>
+          </form>
+        </li>
+      </py:when>
+    </py:choose>
+  </py:for>
+</ul>

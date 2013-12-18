@@ -1,0 +1,162 @@
+/* Panel and Inspector styles */
+
+.panel {
+	font: 10px "Lucida Grande", Arial, sans-serif;
+	line-height: 18px;
+	display: none;
+	position: absolute;
+	overflow: hidden;
+	padding: 0 8px;
+	padding-bottom: 8px;
+	background: url("../images/opacity-0.8.png");
+	color: #fff;
+	font-size: 10px;
+/*	z-index: 999;*/
+	z-index: 2;
+	-webkit-box-shadow: 0 4px 16px #000;
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+}
+
+	.panel h1 {
+		font-size: 10px;
+		font-weight: bold;
+		height: 18px;
+		line-height: 18px;
+		text-align: center;
+		margin: 0 -8px;
+		margin-bottom: 8px;
+		text-shadow: 0 1px 1px #000;
+	}
+
+		.panel.ui-draggable h1,
+		#addTicket h1 {
+			cursor: url("../images/cursor-hand.cur"), move;
+		}
+
+		.panel.ui-draggable-dragging h1 {
+			cursor: url("../images/cursor-grab.cur"), move;
+		}
+  
+	.panel .close {
+		cursor: pointer;
+		position: absolute;
+		height: 12px;
+		width: 12px;
+		left: 3px;
+		top: 3px;
+		line-height: 12px;
+		text-align: center;
+		background: url("../images/button-close.gif") no-repeat;
+		opacity: 1;
+		display: block;
+	}
+	
+	.panel .ui-resizable-se {
+		position: absolute;
+		bottom: 0;
+		right: 0;
+		width: 16px;
+		height: 16px;
+		background: url("../images/handle-inspector-se.gif") top left no-repeat;
+		-webkit-border-bottom-right-radius: 8px;
+		-moz-border-radius-bottomright: 8px;
+	}
+  
+  .panel p {
+/*    text-align: center;*/
+    margin-bottom: 0;
+  }
+
+#inspector {
+	top: 120px;
+	right: 30px;
+	width: 160px;
+}
+
+#burndown {
+	width: 750px;
+	height: 400px;
+	right: 20px;
+	top: 130px;
+}
+  
+/*
+  #inspector .burndown {
+    border: 1px solid #666;
+    height: 80px;
+  }
+*/
+  
+  #inspector .progress {
+    margin: 1px;
+    background: none;
+    border-color: #666;
+  }
+  
+    #inspector .progress .bar {
+      background-color: #666;
+    }
+    
+    #inspector .progress p {
+      color: #eee;
+      right: 2px;
+    }
+
+#inspector dl,
+#inspector .progress {
+	margin-bottom: 10px;
+}
+
+#inspector dl {
+	overflow: hidden;
+	padding:  0 5px;
+	text-shadow: 0 0 1px #000;
+}
+
+	#inspector dt {
+		width: 40%;
+		text-align: right;
+		float: left;
+		font-weight: bold;
+	}
+
+	#inspector dd {
+		width: auto;
+		margin-left: 40%;
+		text-align: right;
+	}
+	
+	#inspector dl.inspector-legenda dd {
+		line-height: 18px;
+		height: 18px;
+	}
+	
+	#inspector dl.inspector-legenda dd .badge {
+		color: #333;
+		float: right;
+		text-align: center;
+		display: block;
+		height: 16px;
+		border: none;
+		margin: 1px 0;
+		padding: 0 8px;
+		-webkit-border-radius: 8px;
+		-moz-border-radius: 8px;
+	}
+	
+	#inspector .storyless,
+	#inspector .unpriorized {
+	    background-color: #D3D3D3; 
+		border: 1px solid #D3D3D3;
+	}
+			
+#containerBorder {
+	border: 2px solid yellow;
+	display: block;
+	position: absolute;
+	left: 0;
+	margin: 0;
+	margin-top: -19px;
+	padding: 0;
+}

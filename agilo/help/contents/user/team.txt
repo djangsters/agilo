@@ -1,0 +1,25 @@
+= How to track Team Performance and Statistics =
+[[PageOutline]]
+
+The [agilo-help:scrum/Team Development Team] is one of the three main roles in the Scrum Framework. The main responsibility of a Development Team are to develop a ''Good Quality'' product that fullfils the [agilo-help:scrum/productowner Product Owner] expectations. In Agilo the Teams are shown under the [/team Teams] [[Image(/chrome/agilo/images/icon.teams.png, border=0, width=16, height=16, link=)]] view.
+
+== Team listing and summary ==
+This is the initial view where all the teams are listed, and information about the number of [agilo-help:scrum/teammember Team Members] composing each team is provided. From here you can access the detailed team page, showing you specific team members, availability and statistics information.
+
+== Team detail view and statistics ==
+In this view, you can see the [agilo-help:scrum/teammember Team Members] of the team, with their email address and full name (if provided).
+
+Below you can find the '''Team Metrics''' that represent specific Team statistics for every sprint. In particular the information shown are:
+ - '''Sprint''': the Sprint name, clickable to access detailed sprint allocation and capacity information (see later section)
+ - '''Start Date''': the start date and time of the Sprint
+ - '''End Date''': the end date of the Sprint
+ - '''Commitment''': the team commitment as given at the Sprint Planning meeting, recalculated in terms of [agilo-help:scrum/idealhours Ideal hours]. This value is calculated summing the actual ''Remaining Time'' of the estimated tasks, or the ''Estimated Remaining Time'' for the [agilo-help:scrum/userstory User Stories] which have not yet been broken down into task, using the ''Remaining Time/User Story Point'' ratio
+ - '''Estimated Velocity''': is the [agilo-help:scrum/velocity Velocity] that a team would have in case they will successfully deliver all the stories committed at the [agilo-help:scrum/sprintplanningmeeting Sprint Planning Meeting]. It is stored after the Scrum Master pushes the button '''Confirm Commitment''' in the Sprint Backlog (see [agilo-help:user/backlog Backlog in Agilo] for more info), that is enabled only during the first day of the Sprint (cheating is not allowed ;-) )
+ - '''Velocity''': represent the ''actual'' team velocity, at the end of a Sprint, it is the sum of all the User Story Points related to the Stories that the Team successfully delivers as potentially shippable at the end of the Sprint. It is stored when the Scrum Master at the end of a Sprint, closes it, by pushing the '''Close''' button in [/roadmap Roadmap] [[Image(/chrome/agilo/images/icon.roadmap.png, border=0, width=16, height=16, link=)]]
+
+At the end of the page there are statistics charts representing the variation of the mentioned ''metrics'' across the various Sprints that the Team ran.
+
+=== Team commitment and load for a Sprint ===
+By clicking on a specific Sprint, you can access more detailed Sprint information about the current Team Members allocation, and their capacity for the selected Sprint. From this page you can also manage, as Scrum Master, the [agilo-help:user/contingent Contingents] planned for this Sprint.
+
+The ''Team Planning Table'' shows the current assigned and accepted amount of work for each Team Member. The last row shows the sum of the remaining time for every sprint day, the same number shown in the [agilo-help:scrum/burndownchart Sprint Burndown Chart]. When the numbers turn ''red'' it means that given the ''Ideal day capacity'' of '''6h''', the remaining amount of days before the end of the Sprint will not be sufficient to complete the assigned work. This is an important message for the Team and the Scrum Master to try to find different way of solving the same problems, eventually collaborating with other Team Members. The idea of this Table is to facilitate the Team '''Inspection & Adaption''' with a bit of advance :-)

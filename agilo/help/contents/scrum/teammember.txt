@@ -1,0 +1,6 @@
+= Team Member =
+[[PageOutline]]
+
+A member of the Scrum team, generically in charge of completing a 
+[agilo-help:scrum/Task Task] in the defined time and report its completion to 
+the Team at the [agilo-help:scrum/DailyScrum Daily Scrum].

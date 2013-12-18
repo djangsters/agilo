@@ -1,0 +1,44 @@
+= Trac Command Line Administration Tool =
+[[PageOutline]]
+
+The Trac Command Line Administration tool is a command line script `trac-admin` that should be installed together with [TracGuide Trac]. This tool allows an Administrator to perform various actions from the console, some of these actions are explained here - because directly connected with Agilo - for the others you can refer directly to the [TracAdmin Trac Admin] page.
+
+
+== Create a new Project ==
+
+To create a new project, you have to follow two basic steps, the first one is to create and initialize a new Trac project and the second one is to enable Agilo in that project.
+
+ 1. To create a new project, first choose a folder (directory) on your file system where you would like your project folders to be (e.g.: `/var/lib/agilo`) and make sure you have ''write'' permission on that folder. 
+ Now you can initialize a project, using the command:
+ {{{
+ 
+   $ trac-admin <project_name> initenv
+ 
+ }}}
+ The interactive command will ask you some questions about the project you want to create, and will initialize an environment. If you plan to use a database different from SQLite or you want to have a complete description on how to create a new environment, please refer to [TracInstall Trac Installation Guide].
+
+ 2. To enable Agilo on the newly created project, you will have to edit the project configuration file: `<project_name>/conf/trac.ini'. Just add or edit a new section called '''components''':
+ {{{
+ 
+    [components]
+    agilo.* = enabled
+ 
+ }}}
+ after having saved the file you can run the following command from the console:
+ {{{
+ 
+    $ trac-admin <project_name> upgrade
+ 
+ }}}
+ this will configure the new project to use Agilo. You will have now to setup a user to be the administrator of the project, please refer to the next section.
+
+
+== Creating an Administrator ==
+
+The first time you initialize a project, you will have to create a new project administrator using the command line utility `trac-admin` because without being administrator you won't be allowed to access the ''Admin'' menu from the web interface.
+To create an administrator, you will first have to create a user to access the system in an authenticated way (see [TracInstall#ConfiguringAuthentication Trac installation guide]), than you will have to grant this user the administration rights:
+{{{
+    $ trac-admin <project_name> permission add <user> TRAC_ADMIN
+
+}}}
+Next time you will login to the Agilo project you should see the Administration icon [[Image(/chrome/agilo/images/icon.admin.png, border=0, width=16, height=16)]] appearing the the top toolbar.

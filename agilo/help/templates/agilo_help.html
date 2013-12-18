@@ -1,0 +1,48 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:py="http://genshi.edgewall.org/"
+      xmlns:xi="http://www.w3.org/2001/XInclude">
+  <xi:include href="layout.html" />
+
+  <head>
+    <title>Agilo Help</title>
+	<link rel="stylesheet" type="text/css" media="screen"
+        href="${chrome.htdocs_location}css/wiki.css" />
+  </head>
+<?python
+import re
+
+def titleize(page_name):
+    """Return a titleized string to use for hyperlinking"""
+    return re.sub('(\B[A-Z])', r' \1', page_name)
+
+?>
+  <body>
+    <div id="content" class="wiki agilo">
+      <!-- copied from trac 0.11.2.1 -->
+      <p class="path" py:with="parts = page_name.split('/')">
+        <a class="pathentry" title="View Help Index" href="${href('agilo-help')}">help</a>
+        <span class="pathentry sep"> > </span>
+        <py:for each="idx, part in enumerate(parts)">
+          <a class="pathentry" title="View ${'/'.join(parts[:idx + 1])}" href="${href('agilo-help', *parts[:idx + 1])}">${titleize(part)}</a>
+          <span class="pathentry sep" py:if="idx != len(parts) - 1"> > </span>
+        </py:for>
+        <br style="clear: both" />
+      </p>
+      <!-- end of copy -->
+      
+      
+      <div class="wikipage searchable" xml:space="preserve">
+        ${wiki_to_html(context, contents)}
+      </div>
+      
+      <div id="help">
+        <b>Note:</b> Visit the <a href="http://groups.google.com/group/agilo">Agilo for trac user group</a> 
+        to learn more about specific topics.
+      </div>
+      
+    </div>
+  </body>
+</html>

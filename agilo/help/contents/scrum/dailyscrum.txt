@@ -1,0 +1,25 @@
+= Daily Scrum or Daily Standup Meeting =
+[[PageOutline]]
+
+It is one of the three main Scrum Ceremonies (together with 
+[agilo-help:scrum/SprintPlanningMeeting Sprint Planning Meeting] and 
+[agilo-help:scrum/SprintReviewMeeting Sprint Review Meeting]. It is a time-boxed 
+(between 15 and 20 min.) meeting in which every 
+[agilo-help:scrum/TeamMember Team Member] report to the rest of the Team 
+answering the following three questions:
+
+ - What have you done since yesterday?
+ - What are you going to do today?
+ - Are there any impediments in your way?
+
+These three questions are normally asked by the [agilo-help:scrum/ScrumMaster Scrum Master],
+helping the team in being effective and synchronized.
+
+
+Agilo has to support this meeting, allowing the team to effectively analyze and 
+manage the [agilo-help:scrum/SprintBacklog Sprint Backlog] and  
+[agilo-help:scrum/BurndownChart Burndown Chart]. Normally, during the meeting the 
+[agilo-help:scrum/ScrumMaster Scrum Master] takes care of updating the 
+[agilo-help:scrum/Task Tasks] according to [agilo-help:scrum/TeamMember Team Member]
+reports, and at the end of the meeting a new 
+[agilo-help:scrum/BurndownChart Burndown Chart] is generated for the team.

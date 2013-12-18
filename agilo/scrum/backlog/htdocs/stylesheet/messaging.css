@@ -1,0 +1,61 @@
+/******* Messages ********/
+#message {
+	opacity: 0.9;
+	display: none;
+	position: absolute;
+	top: 72px;
+	left: 50%;
+	margin-left: -160px;
+	width: 320px;
+	z-index: 6002;
+	font-size: 12px;
+	padding: 10px 20px;
+}
+
+	#message p {
+		margin-bottom: 0;
+	}
+	
+	#message h3 {
+		font-size: 14px;
+	}
+
+	#message.notification {
+		border: 1px solid #999;
+		border-top: none;
+		vertical-align: bottom;
+		background: #FEFFD8 url("../images/icon-notification.png") 20px 10px no-repeat;
+		-webkit-box-shadow: 0 2px 4px #666;
+		-moz-box-shadow: 0 2px 4px #666;
+	}
+	
+		#message.notification p {
+			padding-left: 30px;
+		}
+	
+	#message.error {
+		position: absolute;
+		top: 20%;
+		background: #eee;
+		-webkit-box-shadow: 	0 4px 16px #333;
+		-moz-box-shadow: 		0 4px 16px #333;
+		-webkit-border-radius:	8px;
+		-moz-border-radius: 	8px;
+		border: 1px solid #ccc;
+		border-top: 1px solid #fff;
+		border-bottom: 1px solid #999;
+	}
+		#message.error h3 {
+			background: url("../images/icon-error.png") left 50% no-repeat;
+			text-indent: 30px;
+		}
+	
+		#message.error form {
+			margin-top: 19px;
+			border-top: 1px solid #666;
+			padding-top: 10px;
+		}
+	
+			#message.error form input {
+				float: right;
+			}

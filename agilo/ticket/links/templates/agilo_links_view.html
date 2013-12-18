@@ -1,0 +1,45 @@
+<div py:def="display_links(ticket, read_only=False, go_to_edit_pane=False, links_url=None)" py:strip=""
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:py="http://genshi.edgewall.org/">
+    <!--! incoming and outgoing links -->
+    <py:with vars="directions=[(ticket.get_incoming_dict(), 'Referenced by', '&amp;larr;', True), 
+                               (ticket.get_outgoing_dict(), 'References', '&amp;rarr;', False)];
+                   edit_link=go_to_edit_pane and '?pane=edit' or ''">
+        <py:for each="references, title, arrow_symbol, is_incoming in directions">
+            <py:if test="len(references) > 0">
+                <tr>
+                    <th colspan="4" style="text-align: left;">$title:</th>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        <ul class="references">
+                            <li class="reference" py:for="ref in references">
+                                <py:choose test="read_only">
+                                    <div py:when="True" py:strip="">
+                                        ${Markup(arrow_symbol)} <strong>${ref.type}</strong> (<a class="${ref.status == 'closed' and 'closed' or ''} ticket" href="${href.ticket(ref.id)}${edit_link}">#${ref.id}</a>): ${ref.summary} 
+                                        <span class="options" py:if="ref.options">
+                                          (<py:for each="key, value in ref.options">
+                                            <strong>$key</strong>: $value
+                                          </py:for>)
+                                        </span>
+                                    </div>
+                                    <form py:when="False" name="delete_link" method="POST" action="${links_url}" class="printableform">
+                                        <input type="hidden" name="url_orig" value="${href.ticket(ticket.id)}?pane=edit"/>
+                                        <py:with vars="src_id = is_incoming and ref.id or ticket.id; 
+                                                       dest_id = not is_incoming and ref.id or ticket.id">
+                                            <input type="hidden" name="src" value="$src_id"/>
+                                            <input type="hidden" name="dest" value="$dest_id"/>
+                                        </py:with>
+                                        ${Markup(arrow_symbol)} <strong>${ref.type}</strong> (<a class="${ref.status == 'closed' and 'closed' or ''} ticket"  href="${href.ticket(ref.id)}${edit_link}">#${ref.id}</a>): ${ref.summary} 
+                                        <input type="submit" name="cmd" value="delete link"/>
+                                    </form>
+                                </py:choose>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            </py:if>
+        </py:for>
+    </py:with>
+</div>
+

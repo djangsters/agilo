@@ -1,0 +1,6 @@
+= Velocity =
+[[PageOutline]]
+
+Is a number representing a [agilo-help:scrum/team Development Team] performances, it is usually measured in [agilo-help:scrum/userstorypoints User Story Points] as the '''sum''' of all the User Story Points of all the Stories successfully delivered as potentially shippable at the end of a Sprint.
+
+The Velocity can also be measured in terms of [agilo-help:scrum/idealhours Ideal Hours] delivered by a Team in a Sprint, again only related to the successfully delivered User Stories.

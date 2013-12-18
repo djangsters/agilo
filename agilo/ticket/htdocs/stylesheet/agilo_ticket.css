@@ -1,0 +1,147 @@
+/* Tabbed Pane */
+/*body{margin :10px;font:Verdana,Helvetica,Arial;padding:0px;background:#fff;}*/
+#tabbed_pane{border-bottom :1px solid #ccc;padding-bottom :19px;padding-left :40px; margin-top: 10px;}
+#tabbed_pane ul,#tabbed_pane li{display :inline;list-style-type :none;margin :0;padding :0;}
+#tabbed_pane a:link,#tabbed_pane a:visited{background:#E8EBF0;border:1px solid #ccc;color:#666;float:left;font-size:small;font-weight:normal;line-height:14px;margin-right:8px;padding:2px 10px 2px 10px;text-decoration:none;}
+#tabbed_pane a:link.active,#tabbed_pane a:visited.active{background:#fff;border-bottom:1px solid #fff;color:#000;}
+/*#tabbed_pane a:hover{color:#f00;}*/
+#tabbed_pane li#view.selected a,
+#tabbed_pane li#edit.selected a{background:#fff;border-bottom:1px solid #fff;color:#000;}
+/*#tabbed_pane ul a:hover{color:#f00 !important;}*/
+
+#links table {
+	width: 100%;
+	margin-bottom: 0;
+}
+
+	#links th {
+		font-weight: bold;
+		color: #666;
+	}
+
+	#links th.col1 {
+		text-align:left;
+	}
+	
+	#links table ul {
+		padding: 0;
+		margin-bottom: 0;
+	}
+
+	#links hr {
+		border: none;
+		border-top: 1px solid #999;
+		margin: 9px 0;
+	}
+	
+ul.references {
+	overflow: auto;
+	border-bottom: 1px solid #ccc;
+	padding: 0;
+}
+
+    #content ul.references li {
+    	list-style: none;
+    }
+
+    .references li {
+    	border-top: 1px solid #ccc;
+    	line-height: 20px;
+    	overflow: auto;
+    }
+
+    span.options {
+        /* Reference info in the ticket */
+        color: #666;
+        font-size: 9px;
+        float: right;
+    }
+
+/* Calculated Properties */
+#ticket table.properties tr.calculated td, #ticket table.properties tr.calculated th{font-style:italic;}
+
+/* Ticket */
+
+#content.ticket {
+    top: 16px;
+	width: auto;
+}
+
+#content.ticket h1 {
+	position: relative;
+}
+
+#content.ticket h2 {
+	margin-bottom: 9px;
+}
+
+#ticket h2.summary {
+    float: left;
+}
+
+#attachments,
+#changelog {
+	margin-bottom: 18px;
+}
+
+	dl.attachments {
+		overflow: auto;
+		background: #eee;
+		margin-bottom: 9px;
+		border: 1px solid #999;
+		border-bottom: none;
+	}
+	
+	dl.attachments dt {
+		padding: 3px 9px;
+		color: #666;
+		text-shadow: 0 0 0 #fff;
+		border-top: 1px solid #fff;
+	}
+	
+	dl.attachments dd {
+		padding: 3px 9px;
+		border-bottom: 1px solid #999;
+	}
+	
+#changelog {
+	padding: 0;
+	border: 1px solid #999;
+	border-top: none;
+}
+
+	#changelog h3 {
+		color: #666;
+		border: none;
+		border-top: 1px solid #999;
+		padding: 0px 9px;
+		margin: 0;
+		background: #eee url("../images/gradient.png") repeat-x;
+		margin-bottom: 9px;
+		text-shadow: 0 1px 1px #fff;
+	}
+	
+	#changelog ul,
+	#changelog p {
+		margin: 9px;
+	}
+
+span.change,
+span.options,
+span.trigger {
+    /*
+	position: absolute;
+	right: 0;
+	*/
+}
+	
+.inlinebuttons {
+	margin-right: 9px;
+	margin-bottom: 9px;
+}
+
+.citation {
+    margin-left: 0.5em;
+    color: #666;
+    border-left: 2px solid #8694A5;
+}

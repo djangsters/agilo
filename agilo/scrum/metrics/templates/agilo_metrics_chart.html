@@ -1,0 +1,54 @@
+<div xmlns="http://www.w3.org/1999/xhtml" 
+     xmlns:xi="http://www.w3.org/2001/XInclude" 
+     xmlns:py="http://genshi.edgewall.org/"
+     class="flotchart"
+     style="width:${width}px;">
+
+<div class="charttitle">${title} for '$team_name'</div>
+<div id="team_metrics_chart_${unique_id}" style="width:${width}px;height:${height}px;">
+    <h3 style="margin-top: ${int(height)/2}px" py:if="defined('error_message')">${error_message}</h3>
+</div>
+
+<script language="javascript" type="text/javascript">
+    <xi:include href="../../../charts/templates/widget_helper_macros.html" />
+    
+    <py:if test="not defined('error_message')">
+        <py:for each="i, metrics_series in enumerate(metrics)">
+            var label_${i}_${unique_id} = "${metrics_series[0]}";
+            ${series_to_js(metrics_series[1], 'metricsData_%d_%d' % (i, unique_id))}
+        </py:for>
+        
+        ${string_list_to_js(sprint_names, 'sprintNames_%d' % unique_id)}
+    
+        function sprintLabelFormatter(index) {
+            try {
+                sprintName = sprintNames_${unique_id}[index];
+                if (sprintName != null)
+                    return sprintName;
+            } catch(e) {
+            }
+            return "";
+        }
+        
+        var options_${unique_id} = {
+            lines: { show: true, lineWidth: 1 },
+            points: { show: true },
+            xaxis: { tickFormatter: sprintLabelFormatter, minTickSize: 1 }
+        };
+    
+        /* need to use JQuery.ready here - see sprint_ticket_stats_chart.html */
+        jQuery(document).ready(function() {
+            jQuery.plot(jQuery("#team_metrics_chart_${unique_id}"), [
+               <py:for each="i, metrics_series in enumerate(metrics)">
+                   {
+                       label: label_${i}_${unique_id},
+                       data: ${'metricsData_%d_%d' % (i, unique_id)}
+                   }<py:if test="i &lt; len(metrics)-1">,</py:if>
+               </py:for>
+            ], options_${unique_id});
+        });
+    </py:if>
+</script>
+
+
+</div>

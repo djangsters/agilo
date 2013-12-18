@@ -1,0 +1,139 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:xi="http://www.w3.org/2001/XInclude"
+      xmlns:py="http://genshi.edgewall.org/">
+      <xi:include href="layout.html" />
+    <xi:include href="macros.html" />
+    <xi:include href="agilo_macros.html" />
+    <head>
+        <title>Agilo Team Statistics</title>
+    </head>
+    <body>
+        <div id="content" py:if="view=='list'">
+            <h1>Agilo Team Statistics</h1>  
+      
+            <div id="team_list">
+                Existing teams
+                <ul>
+                    <li py:for="team in teams">
+                        Team: <a href="${href.team(team.name)}">$team.name</a>
+                        <span class="info" py:if="team.members">(members: ${len(team.members)})</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="content" py:if="view=='team'">
+            <h1>Team "$team.name" Statistics</h1>
+            
+            ${wiki_to_html(context, team.description)}
+
+            <h2>Team members</h2>
+            <ul>
+                <li py:for="member in team.members">$member.name
+                <span class="info" py:if="member.full_name or member.email">(
+                    <py:if test="member.full_name">${member.full_name}</py:if>
+                    <a href="mailto:${member.email}" py:if="member.email">&lt;${member.email}&gt;</a>
+                )</span></li>
+            </ul>
+        
+            <div id="team_charts" py:if="metrics">
+                <h2>Team metrics</h2>
+                
+                <table id="metrics" class="tickets listing metrics backlog">
+                    <thead>
+	                    <tr>
+	                        <th>Sprint</th>
+	                        <th>Start date</th>
+	                        <th>End date</th>
+	                        <th py:for="name in metric_names">${metric_names[name]}</th>
+	                    </tr>
+	                </thead>
+	                <tbody>
+	                    <tr py:for="sprint in sprints">
+	                        <td class="sprint"><a href="${href(TEAM_URL, team.name, sprint.name, 'edit')}">$sprint.name</a></td>
+	                        <td>${format_date(sprint.start)}</td>
+	                        <td>${format_date(sprint.end)}</td>
+	                        <td py:for="key in metric_names">${metrics[sprint.name][key]}</td>
+	                    </tr>
+	                </tbody>
+                </table>
+                <div class="charts">
+                    <py:for each="widget in chart_widgets">${widget.display()}</py:for>
+                </div>
+            </div>
+        </div>
+
+        <div id="content" py:if="view=='sprint'">
+            <h1>Team "$team.name" Planning for Sprint "$sprint.name"</h1>
+            
+            <div class="resources_load">
+                <div class="headers">
+                    <table class="listing tickets backlog">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr py:for="i, member in enumerate(remaining_time.keys())" class="${i % 2 and 'odd' or 'even'}">
+                                <td>$member</td>
+                            </tr>
+                            <tr class="totals">
+                                <td>Total</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="scroll">
+                    <table class="listing tickets backlog" py:with="wday = 0">
+                        <thead>
+                            <tr>
+                                <th py:for="day, working in sprint_days" py:content="format_date(day)" 
+                                    class="${not working and 'weekend' or None}"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr py:for="i, member in enumerate(remaining_time.keys())" class="${i % 2 and 'odd' or 'even'}">
+                                <td py:for="rem_time in remaining_time[member]"
+                                    class="${not rem_time['working'] and 'weekend' or None} ${rem_time['overloaded'] and 'overloaded' or None}">${rem_time['hours']}</td>
+                            </tr>
+                            <tr class="totals">
+                                <td py:for="rem_time in total_time">$rem_time</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div py:if="not team.members">This Team has no members yet.</div>
+            ${show_contingents(contingents_with_stats, contingent_totals, sprint.name, 
+                               CONTINGENTS_URL, may_modify_contingents=may_modify_contingents, 
+                               may_add_actual_time=may_add_actual_time)}
+            
+            <div class="team_capacity">
+                <form id="team_capacity_form" method="post">
+                    <fieldset>
+                    <legend>Team members' capacity planning</legend>
+                    <div class="team_capacity">
+                        <h2>Total team Capacity for ${team.name}: ${capacity.get('team')}</h2>
+                        
+                    </div>
+                    <div class="member_calendar" py:for="member in team.members">
+                        <h2 style="margin: 5pt;">Team member: ${member.name} <span>(capacity: ${capacity.get(member.name)})</span></h2>
+                        ${print_calendar(member.get_hours_for_sprint(sprint), member.name)}
+                    </div>
+                    </fieldset>
+                    <input type="submit" value="Save" name="save" />
+                </form>
+            </div>
+            <div id="help">
+                <strong>Note:</strong> if you want to know more, see <a href="${req.href('agilo-help', 'user/team')}">Team</a> in the Agilo help.
+                As an administrator you can <a href="${req.href.admin('agilo', 'teams')}">create a new team</a>.
+            </div>
+        </div>
+
+     </body>
+</html>

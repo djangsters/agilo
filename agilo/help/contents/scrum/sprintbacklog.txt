@@ -1,0 +1,6 @@
+= Sprint Backlog =
+[[PageOutline]]
+
+The '''Sprint Backlog''' is the list of [agilo-help:task Tasks] that a [agilo-help:team Team] decides are needed in order to successfully complete the commitment given for a specific [agilo-help:sprint Sprint].
+
+The Sprint Backlog is a very dynamic artifact that changes on a daily basis, and reflects the Team inspections and adaption to what is discovered during a Sprint.

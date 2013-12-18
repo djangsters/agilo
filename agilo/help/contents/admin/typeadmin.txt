@@ -1,0 +1,58 @@
+= Type Administration Panel =
+[[PageOutline]]
+
+Located in [/admin/agilo/types Admin/Agilo/Types]
+
+Agilo allows you to create your own ticket types, as well as customizing the predefined ticket types. By accessing the Type Administration Panel, you will see the list of all the ticket ''types'' entered in the system, if a specific type has not been configured as an agilo type, it will appear as ''cursive'' and will have no properties for '''Alias''' nor '''Fields'''. This can happen because these types may be created by Trac directly or before Agilo was installed in the current project.
+
+
+== Adding a new Ticket Type ==
+
+If you want to add a new ticket type, you will have to follow the link [/admin/ticket/types available ticket types] and enter the Trac ticket type panel. Here you can add your new type by filling the '''Name''' and pressing the '''Add''' button. You can also set which type will be the default type, as well as their order of appearance in the User Interface, wherever they appear as a list. You can also ''remove'' a type from the system, which will basically forbid to create new tickets of that type, but will neither remove nor rename the existing tickets, these will continue to have the same type. Now if you want to configure your newly created type, you will have to click on [/admin/agilo/types Agilo/Types] and there you will see your newly created type, appearing in the list in ''cursive''.
+
+
+== Modify an existing Ticket Type ==
+
+If you want to configure or modify a new Ticket Type, you will have to choose it from the list of [/admin/agilo/types available types], and access the ''Modify type'' form. In this form you will be allowed to configure the following:
+ - '''Alias''': the alias with which the current Ticket Type will be ''named'' in the User Interface (e.g.: 'story' is shown as 'User Story')
+ - '''Fields''': here you can choose all the ''Fields'' that you want to appear for the chosen type. These ''Fields'' can be customized using the [/admin/agilo/fields Fields Administration Panel]
+ - '''Calculate Properties''': here you can enter a valid calculated property expression, see next section for more information.
+ 
+ 
+== Calculated Properties ==
+
+Agilo introduces also the concept of ''calculated properties'', that are properties which will be shown on a ticket, but will be literary calculated at runtime, and not stored into the database.
+
+Agilo allows you to use some simple operators to calculate the value of properties, using as operands other tickets properties, for example accessing the ''linked'' tickets. To configure these expressions, you will have to use a specific syntax, made from specific operators. On the left side of the expression you will have to enter the name of the property you want to create as ''Calculated Property'' and in the right textbox, enter the Agilo expression that should be rendered at runtime. The operators available in Agilo are:
+  - `sum`: allows you to calculate the ''sum'' of specific operand, that should be accessible in the Agilo namespace. As an example let's consider the predefined ''Requirement'' type created during Agilo installation, which comes with some calculated properties:
+  {{{
+    
+    total_story_points = sum:get_outgoing.rd_points|type=story
+  
+  }}}
+  This expression will store at runtime in the ticket property `total_story_points` the value of the ''sum'' of the property `rd_points` of all the linked ticket (to a specific requirement) that are of ''type'' `story`. The expression will tell Agilo at runtime to navigate all the linked tickets to a specific requirement, check if they are of type story (User Story) and than sum up the User Story Points (`rd_points`) assigned to that story, if any. Shortly let's consider also the `mandatory_story_points` property, which shows that you can pipe multiple conditions on the expression:
+  {{{
+    
+    mandatory_story_points = sum:get_outgoing.rd_points|type=story|story_priority=Mandatory
+    
+  }}}
+  In this case only the User Story Points belonging to stories with ''Importance'' (`story_priority`) Mandatory, will be summed up.
+  - `div`: allows to create divisions between two given operands, for example we can consider the `roif` ([agilo-help:/scrum/roif Return on Investment Factor]) of the Requirement:
+  {{{
+    
+    roif = div:businessvalue;mandatory_story_points
+    
+  }}}
+  This expression will store in the `roif` property of a requirement at runtime the result of the ''division'' between the Business Value (`businessvalue`) of the Requirement and the Mandatory Story Points (`mandatory_story_points`) that is a ''calculated property'' of the requirement as well (see above).
+  - `mov`: allows to calculate the result for ''multiplication'' of the specified factors , for example we can consider the `estimated_remaining_time` (Estimated Remaining Time) of a User Story:
+  {{{
+    
+    estimated_remaining_time=mul:rd_points;get_sprint.get_team_metrics.rt_usp_ratio
+    
+  }}}
+  This expression will will calculate the `estimated_remaining_time` as the result of the ''multiplication'' of the User Story Points (`rd_points`) and [agilo-help:user/backlog#CalculatetheUserStoryPointsRemainingTimeratio Remaining Time/User Story Points ratio] calculated for the current sprint.
+
+The ''Calculated Properties'' are a very powerful extension, but may also affect performance, especially of the [agilo-help:admin/BacklogAdmin Backlogs], and as well of the Ticket page, in case there are many linked tickets and a lot of calculations on the relations.
+
+If your changes to the calculation formulas don't have any effect, please restart the Agilo server. Trac currently contains no public API so that some Agilo processes might not be aware of changes to the formulas.
+

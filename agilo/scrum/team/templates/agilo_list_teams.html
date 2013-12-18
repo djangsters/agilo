@@ -1,0 +1,38 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:xi="http://www.w3.org/2001/XInclude"
+      xmlns:py="http://genshi.edgewall.org/">
+    <xi:include href="layout.html" />
+    <xi:include href="macros.html" />
+    <xi:include href="agilo_macros.html" />
+    <head>
+        <title>Agilo Teams</title>
+    </head>
+    <body>
+        <div id="content">
+            <h1>Agilo Teams</h1>
+            <py:choose>
+                <py:when test="len(teams) > 0">
+                    <div id="team_list">
+                        Existing teams:
+                        <ul>
+                            <li py:for="team in teams">
+                                Team: <a href="${href.team(team.name)}">$team.name</a>
+                                <span class="info" py:if="len(team.members) > 0">(members: ${len(team.members)})</span>
+                            </li>
+                        </ul>
+                    </div>
+                </py:when>
+                <py:otherwise>
+                    No teams created yet: <a href="${req.href.admin('agilo', 'teams')}">Create a new team</a>.
+                </py:otherwise>
+            </py:choose>
+            <div id="help">
+                <strong>Note:</strong> if you want to know more, see <a href="${req.href('agilo-help', 'user/team')}">Team</a> in the Agilo help.
+                As an administrator you can <a href="${req.href.admin('agilo', 'teams')}">create a new team</a>.
+            </div>
+        </div>
+     </body>
+</html>

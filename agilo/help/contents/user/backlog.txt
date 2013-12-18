@@ -1,0 +1,100 @@
+= Backlogs in Agilo =
+[[PageOutline]]
+
+A backlog is basically a prioritized list of tickets (e.g. user stories and tasks). There are different backlog types which can show different information.
+The default installation pre-configures two backlogs for you: The [agilo-help:scrum/SprintBacklog sprint backlog] and the [agilo-help:scrum/ProductBacklog product backlog].
+
+The backlog sorting helps you to focus on the most important thing at any time because the most important thing is displayed at the top.
+
+== Working with Backlogs ==
+
+While there are different backlogs and therefore there are different actions you can perform on each backlog, there are some things all backlogs have in common.
+
+To change the order of items in the backlog, you can simply Drag and Drop any item. Hierarchy in the items is visualized with indentations. When you drag a parent item, all its children will be dragged along as well. All changes are saved for every user automatically.
+
+If you have sufficient rights, you can edit item properties directly in the backlog page. Click the property you want to edit, and the appropriate form control will appear. To edit the details of the ticket, click on the edit button next to the title that will appear when you hover over the ticket. This will open the inline editor. If you want to go to the Trac detail page, click on the ID of the ticket. This will open the detail page in the same window.
+
+To add a child item to the current item, click the 'plus' icon that appears when you hover over the title. This will only appear when you have sufficient rights, and if the current item can have children. For instance, you can add Stories to Requirements and Tasks to Stories, but by default a Task cannot be broken down with child items.
+
+
+=== Filtering Items in the Backlog ===
+
+Narrowing down the list of tickets on your screen helps you to keep the overview and remove clutter. Several filtering options exist in Agilo and can be enabled by clicking the buttons in the upper toolbar:
+ * '''Show/Hide closed tickets''': this will remove all tickets that are closed or have no pending children.
+ * '''Show my tickets/Show all tickets''': this will remove all tickets that are not assigned to the user that is currently logged in. Sometimes Team Members are needed as a '''resource''' for completion of a task, even though it is assigned to someone else. This relation is also respected by the filter.
+ * '''Attribute filter''': this will allow you to filter by any [agilo-help:admin/FieldAdmin field] of a ticket. To enable this filter, set the {{{'backlog_filter_attribute'}}} option to the field name (e.g. sprint, milestone, component) in the {{{'[agilo-general]'}}} section of your trac.ini file.
+
+== The Sprint Backlog ==
+
+=== The List View ===
+
+The sprint backlog is used by the team to collect and manage all the tasks planned to fulfill the sprint goal (see [agilo-help:scrum/SprintBacklog Sprint Backlog]).
+
+The [agilo-help:scrum/BurndownChart Burndown Chart] can be displayed using the "Show Burndown Chart" button in the toolbar. It shows the team's capacity (available working hours), the ideal burndown (line from the initial commitment on the first day which will decrease proportionally with the capacity until it touches the x-axis at the last sprint day), the actual burndown (sum of all remaining hours or days for all tasks planned in this sprint) and the trend line which is a moving average over the last three days of the actual burndown.
+
+The sprint backlog displays user stories and tasks. The stories are sorted by priority and the tasks for a story by remaining time so that the most important story is on top. By default the sprint backlog displays some information for every ticket:
+ * '''ID''' of the ticket
+ * '''summary'''
+ * the '''remaining time''' (in ideal hours or ideal days) for tasks and for total remaining time for stories (the sum of the remaining times for all tasks belonging to this story).
+ * the '''owner'''
+ * the '''resources''' (other team members which work together with the owner to complete this task)
+
+The scrum master can edit the remaining time, the owner field and the resources field. If you enabled the [TracTickets#Assign-toasDrop-DownList restrict_owner option in trac.ini] the owner field will be a drop down list instead of a plain text field. Team members can edit the properties of their own tasks and tasks which don't have an owner yet. Be aware that in Agilo the list of owner available will be restricted to the team members of the team assigned to the sprint.
+
+Because the sprint backlog is not configured as 'strict' (see the [agilo-help:admin/BacklogAdmin backlog admin guide] for more explanation on this topic), it may display tickets which are not explicitly planned for this sprint but are referenced by a ticket in this sprint. For example a story will be shown (regardless of its sprint value) if a task of this story is planned for this sprint.
+
+=== The Whiteboard View ===
+
+'''Agilo Pro''' extends the Sprint Backlog with a Whiteboard View, a digital incarnation of the classical Scrum board with stickies. Each row represents a User Story, and each column represents a state for a task. The Stories are ranked top to bottom, where the top story is the most important one to work on. When you start your sprint, all the tasks will be in the "planned" column. Each team member can pick up a task and move it to 'in progress' or to 'done' to indicate the current status of the task.
+
+Bugs also appear in rows on the Whiteboard, and the Team can plan tasks for the bug. Common tasks are 'investigate', 'reproduce' and 'reproduce with a test'. While the time necessary for fixing a bug can't be planned, this way the work can at least be tracked. Another special row is the row for tasks that are not related to a story. They appear on the bottom row of the Whiteboard.
+
+Stories can easily be broken down by the team on the Whiteboard by clicking the "plus" icon next to the User Story title. An edit window will appear and a task can be added. This makes the Whiteboard a powerful tool for the [agilo-help:scrum/SprintPlanningMeeting Sprint Planning Meeting].
+
+You can open a Burndown chart by clicking the button in the toolbar of the Whiteboard. Here you can also open the Inspector which shows some metrics for the Sprint such as open tasks, and task type distribution.
+
+{{{
+#!comment
+= Calculate the User Story Points/Remaining Time ratio =
+
+In Scrum it is normally not suggested to estimate everything from the beginning. You start with the highest prioritized User Stories, break them down into tasks and than you estimate these tasks.
+
+The only problem is that the remaining time for this sprint is not accurate if there are missing tasks and the burndown chart may result not to be meaningful. Remember that all stories are estimated based on complexity and probably a high complexity will equal a big amount of work to do. Agilo makes use of the idea of ''User Story Points/Remaining Time ratio'' that can be calculated from some selected stories which are very well broken down and detailed. Agilo uses than the ration to calculate the ''estimated remaining time'' for all stories which don't have any tasks.
+
+At the end of the [agilo-help:scrum/SprintPlanningMeeting Sprint Planning Meeting] the scrum master takes some well estimated stories by clicking in the checkbox for the stories he selected and pushes the 'Calculate Story Points/Time' button.
+Then the ratio will be calculated based on the selected stories. Afterwards all stories will have an additional property ''estimated remaining time'' (this is a [agilo-help:admin/TypeAdmin#CalculatedProperties calculated property], won't be stored into the ticket, but computed at runtime).
+
+When the remaining time for the sprint is calculated (e.g. for the burndown chart), the estimated remaining time will be used for all stories which do not have any tasks.
+}}}
+
+
+=== Confirm the initial commitment ===
+
+At the end of the [agilo-help:scrum/SprintPlanningMeeting Sprint Planning Meeting] the scrum master clicks the 'Confirm Commitment' button. This will store the remaining time for the current sprint (initial commitment) and the estimated velocity (committed user story points) in the database for later process evaluation. The initial commitment in the database will not be changed even if you remove or add some tickets to this sprint later. 
+
+The confirm button is only enabled on the first day of the sprint. Please note that you should calculate the User Story Points/Remaining Time ratio to get a better approximation of the commitment.
+
+
+=== Removing tickets from the Sprint backlog ===
+
+If the team decides (after talking to the [agilo-help:scrum/ProductOwner Product Owner]!) to remove some stories or tasks from the sprint, the [agilo-help:scrum/ScrumMaster Scrum Master] can move the story to another sprint using the inline editor to select the sprint the story should be moved to.
+
+{{{
+#!comment
+If the team decides (after talking to the [agilo-help:scrum/ProductOwner Product Owner]!) to remove some stories or tasks from the sprint, the [agilo-help:scrum/ScrumMaster Scrum Master] clicks in the checkbox for the tickets he/she wants to remove from the backlog and clicks on the 'Remove Selected' button. This will not delete the tickets permanently but just deletes the sprint property of the selected tickets.
+}}}
+
+== Product Backlog ==
+
+The product backlog is used by the product owner to plan future development (see [agilo-help:scrum/ProductBacklog Product Backlog]). It contains all requirements and user stories which are not yet planned. A requirement is planned if there is a milestone set. Stories are considered as planned if they are assigned to a specific sprint.
+
+Items in the product backlog are sorted first by business value so the most valuable requirements will appear at the top. The stories below the requirements are sorted by story priority (mandatory, linear, exciter) and (as a secondary criteria) by user story points.
+
+By default the product owner can modify the [agilo-help:scrum/BusinessValue business value] of requirements and the story priority/story points in the backlog view so he can update the properties quickly when talking to other stakeholders.
+
+You can not remove tickets (requirements/user stories) from the product backlog, the only way to do this is to delete them permanently from the database.
+
+
+== Custom Backlogs ==
+
+All backlogs (including the backlogs which are configured by default) can be configured to match your needs. You can add additional backlogs for specific  needs. To configure the backlog, you need to be TRAC_ADMIN (see the admin documentation for detailed information on how to configure backlogs).

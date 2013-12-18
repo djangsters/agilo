@@ -1,0 +1,8 @@
+= Whiteboard =
+[[PageOutline]]
+
+'''Agilo Pro''' extends the [agilo-help:scrum/SprintBacklog Sprint Backlog] with a Whiteboard View, a digital incarnation of the classical Scrum board with stickies. Each row represents a User Story, and each column represents a state for a task. The Stories are ranked top to bottom, where the top story is the most important one to work on. When you start your sprint, all the tasks will be in the "planned" column. Each team member can pick up a task and move it to 'in progress' or to 'done' to indicate the current status of the task.
+
+Bugs also appear in rows on the Whiteboard, and the Team can plan tasks for the bug. Common tasks are 'investigate', 'reproduce' and 'reproduce with a test'. While the time necessary for fixing a bug can't be planned, this way the work can at least be tracked. Another special row is the row for tasks that are not related to a story. They appear on the bottom row of the Whiteboard.
+
+Stories can easily be broken down by the team on the Whiteboard by clicking the "plus" icon next to the User Story title. An edit window will appear and a task can be added. This makes the Whiteboard a powerful tool for the [agilo-help:scrum/SprintPlanningMeeting Sprint Planning Meeting].

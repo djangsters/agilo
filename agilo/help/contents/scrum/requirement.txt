@@ -1,0 +1,21 @@
+= Requirement =
+[[PageOutline]]
+
+In Agilo a '''Requirement''' represents the description of a ''need'', it belongs 
+to the ''Problem Domain''. Requirements should answer the questions: 
+
+ - '''WHAT?''' is the need or the problem to solve
+ - '''WHY?''' is it a problem or necessary to be solved
+
+A Requirement should be at the right level of granularity to allow a ''Stakeholder'' 
+to assign to it a '''[agilo-help:scrum/BusinessValue Business Value]'''. 
+Requirements have to be a clear ''problem statement'' if possible, written in a 
+SMART (Simple, Measurable, Achievable, Realistic and Traceable) way.
+
+Requirements in Agilo are linked to one or more '''
+[agilo-help:scrum/UserStory User Story]''', which represent the ''functional'' 
+solution to the Requirement problem.
+
+To get more information about the user interface for requirements in Agilo, see 
+[agilo-help:user/Ticket Agilo Ticket].
+

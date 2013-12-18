@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:xi="http://www.w3.org/2001/XInclude"
+      xmlns:py="http://genshi.edgewall.org/">
+    <xi:include href="layout.html" />
+    <xi:include href="macros.html" />
+    <head>
+        <title>$title</title>
+    </head>
+    <body>
+    
+        <div id="main_content" 
+                py:with="show_perform = show_preview and (not encoding_errors_present);
+                         show_success = (not show_file_upload) and (not show_preview)">
+            <h1>$title</h1>
+            <py:if test="file_encoding != None">
+                File contents read with encoding <b>$file_encoding</b>.
+            </py:if>
+            <py:if test="encoding_guess != file_encoding">
+                The automatic encoding detection heuristic suggests <b>$encoding_guess</b> for decoding this file.
+            </py:if>
+            
+            <py:if test="show_file_upload">
+                <form id="import" method="post" enctype="multipart/form-data" action=""
+                    style="float: left; margin-right: 1ex;">
+                    <input type="hidden" name="$action" value="1" />
+                    <input py:if="show_perform" type="hidden" name="perform_action" value="1" />
+                    <input type="hidden" name="file_encoding" value="$file_encoding" />
+                    <div class="field">
+                        <label for="csv_attachement">File:</label><br/>
+                        <input type="file" id="csv_attachement" name="attachment" />
+                    </div>
+                    <input type="submit" value="Preview" />
+                </form>
+            </py:if>
+            <py:if test="not show_file_upload and not show_success">
+                <!--! This is the preview page -->
+                <form id="import" method="post" action="">
+                    <input type="hidden" name="$action" value="1" />
+                    <input type="hidden" name="file_encoding" value="$file_encoding" />
+                    <input type="hidden" name="attachment" value="$csv_data" />
+                    
+                    <div py:if="action == 'do_delete'">
+                        <input type="checkbox" name="force" /> force deletion, ignore different summaries
+                    </div>
+                    
+                    <py:choose test="show_perform and not encoding_errors_present">
+                        <div py:when="True" py:strip="">
+                            <input type="hidden" name="perform_action" value="1" />
+                            <input type="submit" value="$action_label" style="float: left; margin-right: 1ex;"/>
+                        </div>
+                        <div py:otherwise="" py:strip="">
+                            <py:choose test="encoding_errors_present">
+                                <b py:when="True">
+                                    Import not available, errors detected.
+                                </b>
+                                <input py:otherwise="" type="submit" value="Preview" />
+                            </py:choose>
+                        </div>
+                    </py:choose>
+                </form>
+                <form id="cancel_import" method="post" action="">
+                    <input type="submit" name="cancel" value="Cancel" />
+                </form>
+            </py:if>
+            
+            <table class="listing" py:if="show_preview">
+                <thead>
+                    <tr>
+                        <th py:for="colname in preview_columns">$colname</th>
+                    </tr>
+                </thead>
+                
+                <tr py:for="row in preview_rows">
+                    <td py:for="colname in preview_columns">
+                        ${row[colname]}
+                    </td>
+                </tr>
+            </table>
+            
+            <p py:if="show_preview">
+                If some characters in the table above do look ugly (or the table is entirely
+                empty), you may try another encoding:
+                
+                <form id="import_preview" method="post" enctype="application/x-www-form-urlencoded" action="">
+                    <input type="hidden" name="$action" value="1" />
+                    <input type="hidden" name="attachment" value="$csv_data" />
+                    <select name="file_encoding">
+                        <py:for each="encoding_name in possible_encodings">
+                            <py:choose test="file_encoding == encoding_name">
+                                <option py:when="True" selected="selected">$encoding_name</option>
+                                <option py:otherwise="">$encoding_name</option>
+                            </py:choose>
+                        </py:for>
+                    </select>
+                    <input type="submit" name="preview" value="Preview" />
+                </form>
+            </p>
+            
+            <p py:if="show_success and html_changes != None">
+                ${Markup(html_changes)}
+            </p>
+        </div>
+    </body>
+</html>
+

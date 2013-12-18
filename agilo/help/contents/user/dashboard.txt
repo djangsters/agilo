@@ -1,0 +1,48 @@
+= Dashboard View =
+[[PageOutline]]
+
+The Agilo Dashboard allows you to see in a compact way, some statistics associated to the currently selected [agilo-help:scrum/Sprint Sprint] as well as access quickly some commonly used functionalities.
+
+== Statistics & Charts ==
+
+Let's try to explain what is the meaning of the charts, so to give you a key to read more effectively the information that these charts entail.
+
+=== Sprint Burndown Chart ===
+
+The [agilo-help:scrum/burndownchart Sprint Burndown Chart] offers the possibility to compare the "actual estimated remaining time" with the "ideal estimated remaining time", or better: if at a specific moment in time, normally "now", the time estimated to complete all the committed items in the [agilo-help:scrum/sprintbacklog Sprint Backlog] is more or less than the ideal estimated time, which is a ''function'' of the Team Capacity (in the day) and the initially remaining time estimated at the [agilo-help:scrum/sprintplanningmeeting Sprint Planning Meeting].
+
+We have a separate page to explain the [agilo-help:scrum/burndownchart details about the displayed data].
+
+{{{
+#!comment
+Agilo allows you to estimate "just-enough-just-in-time" by estimating [agilo-help:scrum/userstory User Stories] in [agilo-help:scrum/userstorypoints Story Points] and than by breaking down the most important Stories into [agilo-help:scrum/task Tasks] - which are estimated in [agilo-help:scrum/idealhour Ideal Days] or [agilo-help:scrum/idealhour Ideal Hours] (default) - and derive the ''initial commitment in hours'' using a projection of the currently set '''User Story points/Remaining time''' ratio. To know more about this feature, have a look at the [agilo-help:user/backlog Backlog] help.
+}}}
+
+=== Tickets Statistics Chart ===
+
+It shows the total number of tickets, by type, that have been planned for the current sprint, as well as the number of tickets which have been already closed. Total tickets are all the tickets, so the sum of Planned and Closed.
+
+=== Commitment Chart ===
+
+This charts shows the current commitment of the Team Members, by highlighting the percentage of tasks that every members as "In Progress" (accepted) in relation to the total number of open tasks. This charts allows the [agilo-help:scrum/scrummaster Scrum Master] as well as the Development Team to quickly identify Team Members which are not ''focusing'' in completing one task before starting another. The idea of the chart is also to find out if some team members are currently not doing any task, which may mean they just forgot to start, or to enter a task, or even worse, are doing something outside of the Sprint scope.
+
+== Available Actions ==
+
+Here the most common actions are available, including the "Create" action for the ticket types for which the current user has authorization for (see [agilo-help:admin/typeadmin Type Administration] for more info), as well as the links to the import/modify/delete from CSV (Comma Separated Values) files.
+
+=== Managing tickets via CSV files ===
+
+Agilo gives you the possibility to do some "bulk" operation, by editing multiple tickets at the same time, in a CSV file (e.g.: you can use Excel and export in CSV) to speed up some common tasks, like for example uploading a set of tasks written down during a Sprint Planning meeting, without having to type it in one after the next.
+
+The CSV format to use is very simple, the first row of the CSV file must contain the ''property name'' of the ticket, you can get a sample one, by creating a [/query custom query], choosing the columns you want to modify, and clicking on the ''Comma delimited text'' at the bottom of the page. The generated file will be editable, in case you don't want to change a specific column, you will just have to prepend an '_' to the column name, that would do. For example, if you download the CSV from the Agilo query page, than you can "hide" the {{{summary}}} column from being considered by the CSV Importer, by renaming it to {{{_summary}}}. 
+
+Please note that you have to use the 'internal' attribute name instead of the label used for display purposes (e.g. use 'rd_points' instead of 'User Story Points'). As an administrator you can see the internal names in the [/admin/agilo/fields Field Admin].
+
+The current import/modify routines don't modify linking of tickets (yet). Also there will be no email notifications if you change a ticket via CSV. Feel free to send patches to implement this :-)
+
+Agilo allows you to:
+ - '''Import''': new tickets from a CSV file, in which case you won't need the ticket number - will be ignored anyway - because new tickets will be generated. Be aware that Agilo makes no check on existing ticket summary or similar properties, the only unique identifier is the ticket id.
+ - '''Modify''': modify existing tickets in a bulk way, by exporting tickets first (using the [/query custom query] for example) and by changing specific properties. Be aware that in this case there should be either a column named {{{id}}} or a column named {{{ticket}}}.
+ - '''Delete''': delete existing tickets from the system. The delete will be possible only with the {{{TICKET_DELETE}}} permission. In case of delete the only needed information will be the ticket ids.
+
+In order to facilitate the bulk functions, Agilo shows you a preview before completing every operations, where you will be able to see if the import data have been correctly interpreted by Agilo, and in case of special characters, also try with different encoding. Agilo will try to guess the encoding from the file, but it is not always successful, so it may need your help. If the data shown in the preview are ok, then you can '''Confirm''' the import and ticket will be created, modified or deleted (depending on which action you chose).

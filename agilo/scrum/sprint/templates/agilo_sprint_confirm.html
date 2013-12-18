@@ -1,0 +1,46 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:py="http://genshi.edgewall.org/"
+      xmlns:xi="http://www.w3.org/2001/XInclude">
+  <xi:include href="layout.html" />
+  <!--! Felix Schwarz, 11.10.2008: I think for now we can safely include
+        macros.html despite the warning because the current milestone for
+        the ticket to remove macros.html is 0.13 - so basically we probably
+        have some years left :-)
+    -->
+  <xi:include href="macros.html" />
+  <head>
+    <title>Sprint: ${defined('sprint') and sprint.name or 'Not Existing?'}</title>
+  </head>
+  
+  <py:def function="delete_or_close(del_confirmation)" py:strip="True">
+    ${del_confirmation and 'Delete' or 'Close'}
+  </py:def>
+  
+  <body>
+    <div id="content" class="milestone" py:if="sprint">
+      <h1>${delete_or_close(delete_confirmation)} sprint "${sprint.name}"</h1>
+      <h2>Are you sure you want to ${delete_or_close(delete_confirmation)} this sprint?</h2>
+      <form name="confirmform" action="" method="post">
+        <p py:if="(open_tickets) > 0">
+          Retarget the ${open_tickets} remaining tickets to sprint
+          <select name="retarget">
+            <option value="">None</option>
+            <option py:for="sprint in sprints">${sprint}</option>
+          </select>
+        </p>
+	
+	    <div class="buttons">
+	      <input type="hidden" name="really" value="${delete_or_close(delete_confirmation)}" />
+	      <input type="submit" value="Confirm" name="sure" />
+	      <input type="submit" value="Cancel" name="cancel" />
+	    </div>
+	  </form>
+	  <div id="help">
+        <strong>Note:</strong> if you want to know more, see <a href="${req.href('agilo-help', 'user/sprint')}">Sprint</a> in the Agilo help.
+      </div>
+    </div>
+  </body>
+</html>

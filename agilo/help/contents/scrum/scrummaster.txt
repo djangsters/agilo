@@ -1,0 +1,4 @@
+= Scrum Master =
+[[PageOutline]]
+
+The '''Scrum Master''' is one of the three main roles of the Scrum Framework, it is responsible for the Scrum Process, and in charge of supporting [agilo-help:scrum/team Teams] and [agilo-help:scrum/productowner Product Owners] to effectively communicate and develop the Product together.

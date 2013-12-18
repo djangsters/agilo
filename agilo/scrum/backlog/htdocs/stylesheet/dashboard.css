@@ -1,0 +1,7 @@
+div#dashboard div#charts{background:white;border:solid 1px #c6c6c6;padding:0.5em;min-height:540px;}
+div#dashboard div#charts div#burndown{margin:1em;padding:0;width:95%;text-align:center;}
+div#dashboard div#charts div#tickets{margin:0;margin-top:1em;padding:0;float:left;text-align:center;width:50%;}
+div#dashboard div#charts div#resources{margin:0;margin-top:1em;padding:0;float:right;text-align:center;width:50%;}
+div#dashboard div#links{border:solid 1px #c6c6c6;padding:0.5em;margin-top:1em;min-height:24em;height:100%;}
+div#dashboard div#links div#actions{margin:0;padding:0;float:left;width:50%;}
+div#dashboard div#links div#reports{margin:0;padding:0;float:right;width:50%;}

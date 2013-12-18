@@ -1,0 +1,90 @@
+= Quick Start with Agilo =
+[[PageOutline]]
+
+This short introduction will help you to set up and use Agilo. If you are using 
+an [http://www.agilofortrac.com/support-services/ Agilo for trac] hosted project or the Agilo 
+appliance, the [http://trac-hacks.org/wiki/AccountManagerPlugin AccountManager]
+plugin is already installed and configured to work with Agilo.
+
+== Set up Agilo ==
+Like in a good Scrum, you need a Team before starting. Agilo allows you to set up 
+Teams and Team Members. In Agilo, a Team is composed of all the cross-functional 
+members that will take part in a Sprint. 
+
+=== Create a Team ===
+
+	1. As an administrator (a user with TRAC_ADMIN rights) click on the Admin icon
+	 [[Image(/chrome/agilo/images/icon.admin.png, border=0, width=16, height=16)]] 
+	 in the toolbar, and go to the '''Agilo/Teams'''
+	2. Enter the Team name in the textbox and push the '''Add''' button. You can 
+	add a description for the team.
+	3. To add a team member (remember the name will also be the username for 
+	logging into the system), push the '''Add''' button. 
+	4. In case the username is not existing yet, you will be asked if you wish to 
+	create a new user, answer yes, or cancel to go back and retype an already 
+	existing username (this requires to have the 
+	[http://trac-hacks.org/wiki/AccountManagerPlugin AccountManager] plugin) 
+    5. You can enter now details about the user, including his/her default capacity per weekday (by default is calculated in 6 ideal hours per working day). Push the '''Add''' button and the user will be created and add to the Team. You can 	add as many user as you want.
+
+=== Create a Product Owner ===
+
+Every Product needs a Product Owner. Agilo has a defined role with special access 
+rights for the Product Owner.
+	1. As an administrator (a user with TRAC_ADMIN rights) click on the '''Admin icon'''
+	 [[Image(/chrome/agilo/images/icon.admin.png, border=0, width=16, height=16)]] in 
+	 the toolbar, and go to the '''Accounts/Users''' menu (this requires to have the
+	  [http://trac-hacks.org/wiki/AccountManagerPlugin AccountManager] plugin) and 
+	  create the new user.
+	2. To set username and password please go to '''General/Permissions''' and in 
+	the form '''Grant Permission''' type as subject the username you just created, that should be the Product Owner. 
+	3. In the Action pulldown menu, choose the PRODUCT_OWNER action, than press the
+	 '''Add''' button
+
+
+=== Create a Scrum Master ===
+
+Every team needs a Scrum Master. Agilo has a defined Role with special access 
+rights for the Scrum Master.
+
+	1. As an administrator (a user with TRAC_ADMIN rights) click on the '''Admin 
+	icon''' [[Image(/chrome/agilo/images/icon.admin.png, border=0, width=16, height=16)]]
+	 in the toolbar, and go to the '''Accounts/Users''' menu (this requires that you  
+	 have the [http://trac-hacks.org/wiki/AccountManagerPlugin AccountManager] 
+	 plugin) and you create the new user.
+	2. To set username and password please go to '''General/Permissions''' and 
+	in the form '''Grant Permission''' type as subject the username you just
+	 created, that should be a Scrum Master.
+	3. In the Action pulldown menu, choose the SCRUM_MASTER action, than press 
+	the '''Add''' button.
+
+=== Create a Milestone for a Release ===
+In Agilo you can use milestones to represent releases. A release is a concept 
+that normally spans through multiple sprints. It is the real release cycle that 
+is planned also in terms of shipment of the product to the market/customer. 
+
+	1. As a Product Owner you can create a Milestone, or rename an existing one 
+	by clicking the '''Roadmap''' 
+	[[Image(/chrome/agilo/images/icon.roadmap.png, border=0, width=16, height=16)]]
+	button on the toolbar.
+	2. Click on an existing milestone, and chose '''Edit Milestone''' in the 
+	milestone edit form. You can change the name of the milestone, set a due 
+	date and add a description
+	3. When finished push the '''Submit Changes button'''
+
+=== Create a Sprint ===
+In Agilo you can create as many sprints you want in the context of a release, 
+and set for each sprint the Start Date and, the End Date or Duration. It is a 
+good practice to lay down from the beginning a set of Sprints for a new Product 
+Release, so one can already match the path to the final release date. 
+
+	1. As Product Owner you can create a Sprint by clicking the '''Roadmap''' 
+	[[Image(/chrome/agilo/images/icon.roadmap.png, border=0, width=16, height=16)]] 
+	button at the toolbar.
+	2. Choose the milestone for which you want to create a Sprint.
+	3. Locate the '''Add new Sprint''' button for that milestone and push it.
+	4. Enter the name for the sprint. You can use the description to write clearly
+	 the sprint goal at the Sprint Planning Meeting
+	5. Enter start date and end date, or duration.
+	6. Select the Team from the pulldown menu. (Without a team assigned, you will
+	 not be able to properly plan a Sprint)
+	7. Push the '''Submit Changes''' button

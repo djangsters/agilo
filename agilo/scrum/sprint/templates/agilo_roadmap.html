@@ -1,0 +1,69 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:py="http://genshi.edgewall.org/"
+      xmlns:xi="http://www.w3.org/2001/XInclude"
+      py:strip="">
+  
+  <!--! we need to include macros.html explicitely because roadmap in Trac 0.12 
+  does not do it anymore… -->
+  <xi:include href="macros.html" />
+  <xi:include href="agilo_macros.html" />
+  
+  <py:match path="*/div[@class='description']">
+    <div class="description">${select("*|text()")}</div>
+    <div py:if="may_edit_sprint or sprints.get(milestone.name)" class="sprints">
+      <form py:if="may_edit_sprint" 
+            name="addnew_${milestone.name.replace(' ','_')}" 
+            action="${href.sprint('add', milestone.name)}" 
+            method="get">
+		<div class="buttons">
+        	<input type="submit" 
+        	       name="add" value="Add new sprint" 
+        	       title="Add a new Sprint to this Milestone"/>
+		</div>
+      </form>
+      <py:if test="sprints.get(milestone.name)">
+        <ul>
+          <li class="sprint" py:for="sprint, sprint_stats in sprints[milestone.name]">
+            <div class="info">
+              <h3>Sprint: <a href="${href.sprint(sprint.name)}"><em>${sprint.name}</em></a></h3>
+              <p class="date">
+              <py:choose>
+                <span py:when="sprint.is_closed">
+                  Ended ${dateinfo(sprint.end)} ago
+                </span>
+                <span py:when="not sprint.is_currently_running">
+                  Starting in ${dateinfo(sprint.start)}
+                </span>
+                <span py:otherwise="">
+                  Due in ${dateinfo(sprint.end)}
+                </span>
+              </py:choose>
+              (from ${format_datetime(sprint.start)} to ${format_datetime(sprint.end)})
+              </p>
+              <p>
+                <span>Go to the 
+                <a href="${href.backlog('Sprint Backlog', sprint.name)}">Sprint Backlog</a>
+                for this sprint </span>
+                <span py:if="sprint.team">or visit the 
+                <a href="${href.team(sprint.team.name)}">${sprint.team.name}</a>
+                page for statistics and team details 
+                </span>
+              </p>
+              ${wiki_to_html(context, sprint.description)}
+              
+              <p py:if="sprint_stats and sprint_stats.stats.count > 0">
+                  ${progress_bar(sprint_stats.stats, sprint_stats.interval_hrefs, stats_href=sprint_stats.stats_href)}
+              </p>
+            </div>
+          </li>
+        </ul>
+      </py:if>
+    </div>
+  </py:match>
+  
+  <xi:include href="roadmap.html" />
+  
+</html>

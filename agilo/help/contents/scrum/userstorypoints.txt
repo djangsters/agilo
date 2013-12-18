@@ -1,0 +1,8 @@
+= User Story Points =
+[[PageOutline]]
+
+'''User Story Points''' represent a way to estimate User Stories, based on the principle of relative estimations, the most common sequence used by teams is:
+
+0 1 2 3 5 8 13 20 40 100
+
+Which is a pseudo-Fibonacci non linear sequence. Some teams also add the 1/2 point and a coffee cup to use when a break is needed.

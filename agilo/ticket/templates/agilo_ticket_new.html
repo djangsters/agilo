@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:py="http://genshi.edgewall.org/"
+      xmlns:xi="http://www.w3.org/2001/XInclude"
+      py:strip="True">
+
+    <py:if test="type_selection">
+        <py:match path="head" once="True">
+            <head>
+                <script type="text/javascript">
+                    /* <![CDATA[ */
+                    jQuery(function() {
+                        $.fn.autoSubmit = function(args, update, busy) { return; };
+                    });
+                    /* ]]> */
+                </script>
+                ${select("*|text()")}
+            <script type="text/javascript">
+/* <![CDATA[ */
+jQuery(function() {
+        jQuery('#propertyform').unbind();
+        jQuery('#propertyform').find("*").unbind();
+        jQuery('#field-type').change(function() {
+        /* save all field inputs before changing type */
+        var inputs = '';
+        jQuery('#propertyform :input').each(function() {
+          /* skip some input fields for sanity */
+          if ((this.name.search(/(__FORM_TOKEN|preview|submit|attachment)/) == -1)
+            && (jQuery(this).val() != '')) {
+            /* strip "field_" from name and escape value*/
+            inputs += this.name.replace(/field_/, '') + '=' + escape(jQuery(this).val()) + '&';
+          }
+        })
+        window.location.href = '?' + inputs.substring(0, inputs.length - 1);
+    });
+});
+/* ]]> */
+            </script>
+            </head>
+        </py:match>
+        <py:match path="div[@id='content']//h1" once="True">
+            <h1>Create New ${ticket.get_alias()}</h1>
+        </py:match>
+        <py:match path="fieldset[@id='properties']//table" once="True">
+          <table>
+            <tr>
+              <th><label for="field-type">Type:</label></th>
+              <td class="fullrow" colspan="3">
+                <select id="field-type" name="field_type">
+                    <option py:for="option in type_selection.options"
+                            selected="${option == ticket.get_alias() or None}"
+                            py:content="option"></option>
+                </select>
+              </td>
+            </tr>
+            
+            ${select("*|text()")}
+          </table>
+        </py:match>
+    </py:if>
+    
+    <!--! Change the main edit form so that it displays  -->
+    <py:match path="*/form[@id='propertyform']">
+        <form py:attrs="select('@*')">
+            <input py:if="defined('src')" type="hidden" name="src" value="${src}"/>
+            ${select("*|text()")}
+        </form>
+    </py:match>
+    
+    <!-- Include the original template which does all the hard work -->
+    <xi:include href="ticket.html" />
+</html>

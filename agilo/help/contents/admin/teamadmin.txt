@@ -1,0 +1,22 @@
+= Team Administration Panel =
+[[PageOutline]]
+
+Location [/admin/agilo/teams Admin/Agilo/Teams]
+
+In Agilo like in Scrum the Team is a fundamental building block to have all the functionality working correctly. A Team is formed by [agilo-help:scrum/TeamMember Team Members] which are users belonging to the TEAM_MEMBER role (if you want to know more on how to set the permissions have a look at the [agilo-help:admin/Permissions agilo permissions]).
+
+In the Team Administration Panel it is possible to see the ''Teams'' currently configured, as well as the number of ''users'' which do not belong to any team. A Team is formed with all the resources that are participating actively in a [agilo-help:scrum/Sprint Sprint], which normally do '''not''' include the [agilo-help:scrum/ScrumMaster Scrum Master] nor the [agilo-help:scrum/ProductOwner Product Owner].
+
+To add a new ''Team'' just enter the Team '''Name''' in the ''Add Team'' form, and press the button '''Add'''. You will enter now the ''Team Edit'' form, you can enter there:
+ - '''Description''': whatever text you want to explain what this team is doing, this will only appear in the details for a Team in the [/team Team info page]
+ - '''Team Members''': you can enter a new team member simply adding their username in the '''Name''' field, and pressing the button '''Add'''. Please note that the name you are adding will be granted automatically the TEAM_MEMBER role. If you also installed the [http://trac-hacks.org/wiki/AccountManagerPlugin AccountManager] plugin (default for Agilo [http://www.agilofortrac.com/support-services/ hosting service]), you will also be asked - in case the user doesn't exist - if you want to create a new user. This of course will allow you to automatically create new users, assign them the TEAM_MEMBER permissions and assign the user to the current Team. You can also remove a Team Member from the team by selecting the related ''Remove from team'' checkbox, and pressing the ''Submit Changes'' button that will also save the ''Description'' changes.
+
+
+== Team Member Panel ==
+
+Inside each team you can access details for a specific Team Member, and in the Team Member edit form you will be allowed to set the following:
+ - '''Full Name''': this will be shown in place of the ''username'' if set
+ - '''Email''': the email for the user, which will also be the email at which notifications will be sent
+ - '''Description''': something related to the role probably, or the skills of the Team Member
+ - '''Team''': this will allow you to remove this user from the current team or assign him to another team. In Agilo a user can only belong to one team at a time
+ - '''Time Sheet''': here you can enter the ''default'' hours per day, for a week that this Team Member is supposed to contribute to the Team work (please note that the numbers given here are [agilo-help:Scrum/IdealHour Ideal Hours]). These numbers are used to calculate the ''capacity'' for the Team during a [agilo-help:scrum/SprintPlanningMeeting Sprint Planning Meeting]. Every user can modify its own capacity information directly from the [/prefs/team Team Preferences] tab, as well as entering there specific day capacity in the calendar (e.g.: holidays, half-day work...)

@@ -1,0 +1,45 @@
+= Agilo Administration Guide =
+[[PageOutline]]
+
+Welcome Agilo administrators, first of all it is important to make clear that to access the administrative functions under the menu '''Admin''' [[Image(/chrome/agilo/images/icon.admin.png, border=0, width=16, height=16)]] it is necessary to have the TRAC_ADMIN right set for your user. To do so you will have either to ask an existing administrator to [agilo-help:admin/Permissions grant you the permission] or you will have to grant it yourself from the console, using the [agilo-help:admin/CommandLine command line administration tool] of [TracGuide Trac].
+
+The administration guide aims to help the "Administrator" of Agilo in correctly configure and maintain Agilo. Generally speaking, the administrative effort is really limited. Once the configuration is set, Agilo should run fine, the only administrative activities left are the creation of new user accounts and teams, or the assignment of specific permissions to particular users.
+
+
+== Project Environment ==
+
+Every project in Agilo (and Trac) needs to be setup from the console, using the [agilo-help:admin/CommandLine command line administration tool]. Once the 
+project is created, will be accessible at a specific URL (e.g.: `http://agilo/my_project/`, see [TracInstall Trac installation guide] section ''Running a Standalone Server'' or ''Running in a Web Server'') and needs to be setup and prepared before a team can use it. If you followed the instruction on how to create a new Project, and you connect for the first time, you will notice that Agilo already configured the project with some ''default'' parameters and created the two main ''Backlogs'', the [agilo-help:scrum/ProductBacklog Product Backlog] and [agilo-help:scrum/SprintBacklog Sprint Backlog].
+
+Agilo is highly customizable, so that it will better fit to your specific needs, if you want to know more about what you can customize, please refer to the following specific guides:
+ - [agilo-help:admin/GeneralAdmin Agilo General Administration]: to configure the Agilo UI and the ''time'' measurement units (days, hours).
+ - [agilo-help:admin/BacklogAdmin Backlog Administration and Configuration]: to configure or create new Backlogs, changing all backlog properties and adding new ticket types.
+ - [agilo-help:admin/FieldAdmin Fields Administration]: to configure property/field types and add new ones.
+ - [agilo-help:admin/LinkAdmin Links Administration]: to configure the allowed links and the extended properties for each link (fields to show in the link preview on a ticket, or fields to copy to child tickets).
+ - [agilo-help:admin/SprintAdmin Sprint Administration]: to configure Sprints or create new ones.
+ - [agilo-help:admin/TeamAdmin Team Administration]: to configure a team, add new members and manage existing ones.
+ - [agilo-help:admin/TypeAdmin Type Administration]: to configure properties for ticket types and add new ones.
+
+Multiple Products (Projects) are not supported natively, but there are several ways of accomplishing this feature as stated in the [http://agilofortrac.com/faq-agilo-trac/#29 FAQ]
+
+== Permission Settings ==
+
+Following some information on Permission settings, and configuration.
+
+ - [agilo-help:admin/Permissions Permissions]
+
+== Agilo Configuration File ==
+
+Most of Agilo's configuration can be managed from within the Administration panel.
+The configuration is then stored in the configuration file '''`trac.ini`''' that is
+located in the `<projectenv>/conf` directory. However, some advanced configuration
+options cannot be set using the Administration panel, but only by editing
+the configuration file directly.
+
+'''Warning''': Care should be taken when editing this file manually. Always create a
+backup of your configuration before editing the file. Removing existing default settings
+may render your Agilo installation unusable.
+
+Please refer to the [wiki:TracIni] page for a detailed documentation of
+available options.
+ 

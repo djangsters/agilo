@@ -1,0 +1,10 @@
+Metadata-Version: 1.0
+Name: agilo
+Version: 0.9.12
+Summary: Agilo for trac is a simple and straightforward tool to support the Scrum process.
+Home-page: http://trac-hacks.org/wiki/AgiloForTracPlugin
+Author: Andrea Tomasini, Felix Schwarz, Garbrand van der Molen, Jonas von Poser, Martin Häcker, Robert Buchholz, Sebastian Schulze, Thom Bradford, Stefano Rago
+Author-email: support@agilosoftware.com
+License: Apache License 2.0
+Description: UNKNOWN
+Platform: UNKNOWN

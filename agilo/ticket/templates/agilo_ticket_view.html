@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:py="http://genshi.edgewall.org/"
+      xmlns:xi="http://www.w3.org/2001/XInclude"
+      py:strip="True"
+      
+      py:with="number_of_attachments = len(attachments.get('attachments', []))">
+
+    <py:match path="head" once="True">
+        <head>
+            <script type="text/javascript">
+                /* <![CDATA[ */
+                jQuery(function() {
+                    $.fn.autoSubmit = function(args, update, busy) { return; };
+                });
+                /* ]]> */
+            </script>
+            ${select("*|text()")}
+        </head>
+    </py:match>
+    <py:match path="div[@id='content'][@class='ticket']" attrs="select('@*')" once="true">
+        <div py:attrs="select('@*')">
+            <!--! Replace Ticket with the type, and remove type from the status  -->
+            <py:choose>
+                <py:when test="ticket.ats.is_trac_1_0()">
+                    <h1 py:attrs="select('@*')">${ticket.get_alias()} #${ticket.id} <span class="status">(${ticket['status']})</span></h1>
+                    <py:match path="//h2" once="True">
+                    </py:match>
+                </py:when>
+                <py:otherwise>
+                    <py:match path="//h1" once="True">
+                        <h1 py:attrs="select('@*')">${ticket.get_alias()} #${ticket.id} <span class="status">(${ticket['status']})</span></h1>
+                    </py:match>
+                </py:otherwise>
+            </py:choose>
+
+                <!--! End Ticket type replacement  -->
+
+	        ${select('*')}
+        </div>
+    </py:match>
+
+
+    <!--! Trac 0.12: Remove 'Attachments' link just right above the buttons in 
+    the bottom, to simplify match paths, this also removes the page-internal link
+    to 'view' the ticket contents. -->
+    <py:match path="div[@class='trac-nav']" />
+    <!--! Trac 0.12: page-internal link to modification section as this is the view -->
+    <py:match path="div[@class='trac-topnav']" />
+    
+
+    <!--! Trac 0.12: Remove 'Modify Ticket' title/'Attachments' title if there 
+    are no attachments -->
+    <py:match path="h2[@class='foldable']">
+        <py:choose test="select('*|text()').render()">
+            <!-- 
+             -->
+            <py:when test="'Modify Ticket'"/>
+            <py:otherwise>
+                <h2 py:attrs="select('@*')">${select('*|text()')}</h2>
+            </py:otherwise>
+        </py:choose>
+    </py:match>
+
+    <xi:include href="agilo_links_edit.html" />
+
+    <!--! Add the calculated properties below the ticket fields  -->
+    <py:match path="div[@id='ticket']//table[@class='properties']" once="True">
+        <table py:attrs="select('@*')">
+            ${select("*|text()")}
+            <!--! Insert the calculated properties as well -->
+            <py:with vars="fields = [f for f in ticket.get_calculated_fields() if not f.skip]">
+              <tr py:for="row in group(fields, 2, lambda f: f.type != 'textarea')"
+                  py:with="fullrow = len(row) == 1" class="calculated">
+                <py:for each="idx, field in enumerate(row)">
+                  <th py:if="idx == 0 or not fullrow"
+                      id="${field and 'h_'+field.name or None}">
+                    <py:if test="field">${field.label or field.name}:</py:if>
+                  </th>
+                  <td py:if="idx == 0 or not fullrow"
+                      headers="${field and 'h_'+field.name or None}"
+                      class="${field and field.name in ('cc', 'keywords') and 'searchable' or None}"
+                      colspan="${fullrow and 3 or None}">
+                    <py:if test="field">
+                      <py:choose test="">
+                        <py:when test="'rendered' in field">${field.rendered}</py:when>
+                        <py:otherwise>${ticket[field.name]}</py:otherwise>
+                      </py:choose>
+                    </py:if>
+                  </td>
+                </py:for>
+              </tr>
+            </py:with>
+        </table>
+    </py:match>
+    <!--!
+        Change the main edit form so that it displays references.
+    -->
+    <py:match path="*[@id='ticket']" once="True">
+        <!-- References -->
+        <div py:attrs="select('@*')">
+            ${select("*|text()")}
+        </div>
+        ${display_links_edit(ticket, read_only=not may_edit_links, go_to_edit_pane=True, links_search_url=LINKS_SEARCH_URL, links_url=LINKS_URL)}
+    </py:match>
+
+
+    <!--!
+      Add the link to the Agilo ticket help. There should be a more elegant way to replace the content of the tag without removing the tag.
+    -->
+    <py:match path="*/div[@id='help']" once="true">
+        <div id="help">
+        ${select("*|text()")}
+        You may also have a look at Agilo <a href="${req.href('agilo-help', 'user/ticket')}">extensions to the ticket</a>.
+        </div>
+    </py:match>
+
+
+    <!--If has permission, include ticket edit portion -->
+    <py:if test="can_edit_ticket">
+        <xi:include href="agilo_ticket_edit.html" />
+    </py:if>
+
+
+    <!--! Include the original template which does all the hard work -->
+    <xi:include href="ticket.html" />
+
+</html>

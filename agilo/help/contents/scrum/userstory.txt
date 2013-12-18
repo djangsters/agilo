@@ -1,0 +1,33 @@
+= User Story =
+[[PageOutline]]
+
+A '''User Story''' (in Agilo identified by the {{{story}}}) represent a possible 
+''functional'' solution to a [agilo-help:scrum/Requirement Requirement]. 
+A '''User Story''' models the ''Solution Domain'' for a Requirement describing 
+the '''HOW''' a specific type of ''User'' of a ''system'' or ''subsystem'' could 
+eventually solve the problem or fulfill the specific described need.
+
+A '''User Story''' is a simple sentence in the form:
+
+''As a {{{type_of_user}}} I would like to have (or I want) {{{some_capability}}} 
+so that {{{business_value}}}''
+
+The idea to keep stories simple is to make sure they are self contained, small 
+and easy enough to design, code, document, test and integrate into one single 
+iteration. In order to define which stories are more important or needed than 
+others, in Agilo there are {{{story_priority}}} defined, so that each story can be:
+
+ - '''Mandatory''': by definition will be needed in order to fulfill the associated 
+ Requirement (be very strict when defining this type of story)
+ - '''Linear''': increase linearly the value of the product, are like optional, 
+ the more you have the better it is
+ - '''Exciter''': very dangerous one, may increase exponentially the acceptance 
+ of the product from the customer, they are normally entailing features of the 
+ product that the ''User'' will not know to need until she will see it!
+
+A '''User Story''' should also contain '''Acceptance Criteria''' as a part of 
+its description so the team know what things they should test more extensively.
+
+To get more information about the user interface for '''User Stories''' in 
+Agilo, see [agilo-help:user/Ticket Agilo Ticket].
+

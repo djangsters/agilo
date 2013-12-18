@@ -1,0 +1,156 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:xi="http://www.w3.org/2001/XInclude"
+      xmlns:py="http://genshi.edgewall.org/">
+  <xi:include href="admin.html" />
+  
+  <head>
+    <title>Agilo Sprints</title>
+  </head>
+
+  <body>
+    <h2>Manage Sprints</h2>
+
+    <py:choose test="view">
+      <form py:when="'detail'" class="mod" id="modcomp" method="post">
+        <fieldset>
+          <legend>Sprint "${sprint.name}"</legend>
+          <div class="field">
+            <label>Name:<br />
+              <input type="text" name="name" style="font-weight:bold;" value="${sprint.name}" />
+            </label>
+          </div>
+          <div class="field">
+            <label>Milestone:<br />
+              <select name="milestone">
+                <option py:for="milestone in milestones"
+                  selected="${milestone==sprint.milestone and 'selected' or None}">
+                  ${milestone}
+                </option>
+              </select>
+            </label>
+          </div>
+          <div class="field">
+            <label>Description:<br />
+              <textarea cols="68" rows="10" class="wikitext" name="description" py:content="sprint.description"></textarea>
+            </label>
+          </div>
+          <div class="field">
+            <label>Start date (${datetime_hint}):<br />
+            <input name="start" value="${format_datetime(sprint.start, tzinfo=req.tz)}"
+              size="${len(datetime_hint)}" /></label>
+          </div>
+          <div class="field">
+            <label>End date (${datetime_hint}):<br />
+            <input name="end" value="${format_datetime(sprint.end, tzinfo=req.tz)}"
+              size="${len(datetime_hint)}" /></label>
+          </div>
+          <span style="font-weight:bold">OR</span><br />
+          <div class="field">
+            <label>Duration (business days):<br />
+            <input name="duration" value="$sprint.duration" /></label>
+          </div>
+        </fieldset>
+        
+        <fieldset>
+          <legend>Team</legend>
+          <div class="help">
+            Set the team working on this sprint.
+          </div>
+          <label>Team:<br />
+	          <select name="team">
+	            <option value=""></option>
+	            <option py:for="team in teams" selected="${sprint.team==team or None}">$team.name</option>
+	          </select>
+          </label>
+        </fieldset>
+        
+        <div class="buttons">
+          <input type="submit" name="cancel" value="Cancel" />
+          <input type="submit" name="save" value="Save" />
+        </div>
+      </form>
+
+      <py:otherwise>
+        <form class="addnew" id="addsprint" method="post">
+          <fieldset>
+            <legend>Add Sprint:</legend>
+            <div class="field">
+              <label style="font-weight:bold;">Name:<br />
+                <input name="name" value="$name" />
+              </label>
+            </div>
+            <div class="field">
+              <label style="font-weight:bold;">Milestone:<br />
+              <select name="milestone">
+                <option py:for="ms in milestones" selected="${ms==milestone or None}">${ms}</option>
+              </select>
+              </label>
+            </div>
+            <div class="field">
+              <label style="font-weight:bold;">Start date ($date_hint):<br />
+                <input name="start" size="${len(datetime_hint)}" value="$start" />
+              </label>
+            </div>
+            <div class="field">
+              <label>End date ($date_hint):<br />
+                <input name="end" size="${len(datetime_hint)}" value="$end" />
+              </label>
+            </div>
+            <span style="font-weight:bold">OR</span><br />
+            <div class="field">
+              <label>Duration<br />(working days):<br />
+                <input name="duration" value="$duration" />
+              </label>
+            </div>
+            <div class="buttons">
+              <input type="submit" id="add_button" name="add" value="Add"/>
+            </div>
+          </fieldset>
+        </form>
+
+        <div id="sprint_table" py:if="not len(sprints)">
+          No sprints created yet.
+        </div>
+        <form id="sprint_table" method="POST" py:if="len(sprints)">
+          <table class="listing" id="complist">
+            <thead>
+              <tr>
+                <th class="sel">&nbsp;</th>
+                <th><strong>Name</strong>/ Milestone</th>
+                <th>Start</th>
+                <th>End</th>
+                <th>Duration (working days)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr py:for="sprint in sprints">
+                <td class="sel">
+                  <input type="checkbox" name="sel" value="$sprint.name" />
+                </td>
+                <td class="name">
+                  <a href="${panel_href(sprint.name)}" style="font-weight:bold;">$sprint.name</a><br />
+                  $sprint.milestone
+                </td>
+                <td class="start">${format_datetime(sprint.start, tzinfo=req.tz)}</td>
+                <td class="end">${format_datetime(sprint.end, tzinfo=req.tz)}</td>
+                <td class="duration">$sprint.duration</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="buttons">
+            <input type="submit" name="remove" value="Remove selected Sprints" />
+          </div>
+        </form>
+      </py:otherwise>
+    </py:choose>
+    <div id="help">
+        <strong>Note:</strong>
+        if you want to know more see <a href="${req.href('agilo-help', 'admin/SprintAdmin')}">Sprint Admin</a> in
+        the Agilo help. 
+    </div>
+  </body>
+
+</html>

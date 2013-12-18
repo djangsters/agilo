@@ -1,0 +1,33 @@
+= Backlog Administration =
+[[PageOutline]]
+
+Agilo introduces a special Backlog concept, and allows you to configure as many Backlogs as you like to suite your needs. By default, Agilo creates two Backlogs for every project:
+ - The [agilo-help:scrum/ProductBacklog Product Backlog] where the Product Owner stores and manage the [agilo-help:scrum/Requirement Requirements] and the [agilo-help:scrum/UserStory User Stories]
+ - The [agilo-help:scrum/SprintBacklog Sprint Backlog] where the Team manages the daily work during every Sprint
+
+In Agilo every '''Backlog''' can be bound to a specific time-interval as well as there being a ''Global'' Backlog that collects all the tickets in the system, independent of whether or not they've been assigned to a [agilo-help:scrum/Release Release] or [agilo-help:scrum/Sprint Sprint].
+
+
+== Backlog Administration Panel ==
+
+Located in [/admin/agilo/backlogs Admin/Agilo/Backlogs]
+
+If you click on the '''Admin''' icon [[Image(/chrome/agilo/images/icon.admin.png, border=0, width=16, height=16)]] on the top toolbar of agilo, you will enter the Admin interface. Under ''Agilo'' you will find a ''Backlogs'' menu item -- that will lead you to the main page for Backlogs administration.
+
+
+=== Adding a new Backlog Type ===
+
+If you want to add a new Backlog, just type the new ''Backlog Type'' name in the ''Add Backlog'' form, and press the '''Add and edit''' button. You can also reach the edit page by choosing an existing backlog type.
+
+
+=== Edit an existing or a newly created Backlog ===
+
+In the edit page of the Backlog Administration panel, you'll find some property fields to set.  Some of them are dynamically bound to each other to make the configuration of the backlog easier:
+
+ - '''Description''': enter here the description of the Backlog and what it is supposed to contain. You can use Wiki syntax here.
+ - '''Scope''': the scope of the backlog defines if the backlog has to be bound to a specific time interval (represented by a Milestone or a Sprint) or has to be a ''global'' backlog, which means that it will load all tickets of the defined type that are entered in the system:
+    - ''global'': loads all the tickets from the system belonging to the chosen types, if the '''strict''' option is specified only the tickets which are not specifically planned for a ''Sprint'' or ''Milestone'' are loaded 
+    - ''milestone'': loads all the tickets from the system belonging to the chosen types that are planned for a specified milestone (in the user interface these types of backlog are always shown with a pull-down menu where the user can choose a specific scope: milestone or sprint). Note also that all tickets not explicitly planned for a milestone or sprint and linked to tickets which are planned are loaded as references
+    - ''sprint'': same as milestone, but applied to a Sprint
+ - '''Ticket Types''': choose one or more ticket types to show in your backlog
+ - '''Column Preferences''': choose the ''columns'' or properties for a ticket that you want to see in the Backlog view. The ''Alternative'' column, allows you to choose an alternative column to show in case a ticket type loaded doesn't have the property you are editing. In this column you can see also the [agilo-help:admin/TypeAdmin#CalculatedProperties calculated properties] which are not editable, but can be used to show aggregated values on parent types (e.g.: the `remaining_time` in a Sprint Backlog can be replaced by the `total_remaining_time` in stories). You can also choose the ''order'' in which these properties are shown in the backlog.

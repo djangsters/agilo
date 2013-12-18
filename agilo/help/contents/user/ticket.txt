@@ -1,0 +1,50 @@
+= Agilo Ticket, Properties and Linking =
+[[PageOutline]]
+
+The Agilo Ticket is a very flexible item, can be customized in many ways and adapted to your specific needs. Out of the box, Agilo has four different ticket types:
+  - '''[agilo-help:scrum/requirement Requirement]''': it is used to encapsulate business value, and negotiate with Stakeholder about the possible target content of a [agilo-help:scrum/release Release]. Requirements can be planned for a ''Milestone'', and appear in a Release Backlog to track the progress to complete a full release commitment
+  - '''[agilo-help:scrum/userstory User Story]''': it is used as the minimum amount of ''valuable'' work that can be delivered within a Sprint. The [agilo-help:scrum/team Development Team] commits to Stories at the [agilo-help:scrum/sprintplanningmeeting Sprint Planning Meeting] and these stories are moved to the [agilo-help:scrum/Sprint Backlog]. Stories are estimated using [agilo-help:scrum/userstorypoints User Story Points].
+  - '''[agilo-help:scrum/task Task]''': it is used by the Development Team to manage the everyday work, and make sure all the Stories get done and made potentially shippable. Tasks are estimated using [agilo-help:scrum/idealhour Ideal Hours] (or days) and that estimation is used from Agilo to calculate the [agilo-help:scrum/burndownchart Burndown Chart] automatically.
+  - '''Bug''': it is used to track defect in the Product. The Development Team normally breaks down the Bugs into Tasks, and depending on the approach the Team is using, it may be valuable to plan: "Write unittest to reproduce the bug", "fix the code", "review the code", "verify that the bug is fixed"... for example.
+  
+Agilo allows tickets to be linked to each other, the [agilo-help:admin/linkadmin links are configurable] as well as the ticket [agilo-help:admin/typeadmin types] and [agilo-help:admin/fieldadmin properties].
+
+== Agilo Ticket View Pane ==
+
+In this view it is possible to see all the properties related to a ticket, its type, and all the ticket which are referenced by (linked to) and referencing (linking to) the current ticket. As an administrator you can [agilo-help:admin/linkadmin configure] which attributes should be shown ''inline'' (in round braces) for every referenced ticket so you see the most important information at a glance.
+
+== Agilo Ticket Edit Pane ==
+
+In this view it is possible to edit the ticket properties, as well as editing the links of this tickets to other tickets. Depending on your access rights the number of fields and actions you can perform may be different.
+
+=== Attachments ===
+
+It is possible to add attachments to the Ticket by uploading a file from your local file system to the Agilo server. This file can then be linked and referenced using the [wiki:TracWiki wiki syntax]. For example you can upload an image file as {{{my_picture.png}}} and reference it in the ticket description by writing something like:
+{{{
+  [[Image(my_picture.png)]]
+}}}
+
+and the image will be rendered inside the ticket description directly. This can be used to create comprehensive descriptions for Requirements and User Stories.
+
+=== References ===
+
+It is possible to create and delete references to other tickets. References can be configured from the [agilo-help:admin/linkadmin Admin Interface] and based on what is configured there, you will have different option to create new referenced tickets, or search for already existing ones to link to. There are two major points:
+ - '''Reference''': allows to enter a ticket number to link to. Alternatively, by typing a query string into the text box, all the existing tickets which can be referenced by the current one can be searched for matches in their summary. The tickets will appear in a pulldown menu. By selecting a ticket, its id will be filled in automatically
+ - '''Associate New''': allows to create a new ticket on the fly, which will be linked to the current one. This is used for example when breaking down stories into tasks, or requirements into stories
+ - '''References''': lists all the existing links that this ticket has with others, and allows to delete every single reference
+
+=== Comment ===
+
+It is possible to set a comment for every change, as you would do with a version control system, and this comment will be visible from the view pane, in the history changes. Comments can also be entered directly from the view pane, allowing for fast and easy collaboration with everyone. Comments can even be left by users that are generally not allowed to change the specific ticket type.
+
+=== Change Properties ===
+
+It is possible to change all the ticket properties, including the summary in case you have the [agilo-help:admin/permissions permission] to do so.
+
+=== Action ===
+
+Allows you to "act" on the ticket, setting its status and possibly reassigning it to another Team Member. The concept of ownership in Agilo is important, in particular it is a good practice to "Accept" a ticket whenever a Team Member or another user starts working on it. The advantage of this action is that the ticket will appear in "orange" in the Sprint Backlog, allowing the Team and the Scrum Master to quickly understand who is doing what and if there are too many open tasks at the same time.
+
+
+'''Hint''': In the ticket editing pane, all links to other tickets link directly to their edit panes.
+

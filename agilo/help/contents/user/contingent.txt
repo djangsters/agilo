@@ -1,0 +1,16 @@
+= What are Contingents =
+
+{{{
+#!comment
+[[PageOutline]]
+}}}
+
+A '''Contingent''' is an amount of time subtracted from the Team capacity, reserved for specific "unplannable" events (e.g.: Bug Fixing in the Production System, Operational Tasks, Support...).
+
+The Scrum Master can set contingents at the start of the Sprint Planning meeting using the contingent form at the bottom of the Sprint Backlog screen or using the "Contingents" toolbar button. Contingents are defined either in hours or as percentage of the total Team capacity. Whenever tasks are performed by a Team Member that were part of a reserved contingent, the Team Member can update the actual used time of the contingent.
+
+== Adding Contingents ==
+To add a contingent to a Sprint, go to the '''Teams''' view, select the team and then the Sprint for which you'd like to add the contingent. At the top of the page you can add a contingent by setting the amount of hours and giving it a name.
+
+== Manipulating Contingents ==
+In the Sprint Backlog, click the '''Contingent''' battery icon to open the Contingents view. Here you can indicate how much time was spend of the contingent, and the remainder will be calculated automatically.

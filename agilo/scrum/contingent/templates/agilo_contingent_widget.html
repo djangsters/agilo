@@ -1,0 +1,91 @@
+<div xmlns="http://www.w3.org/1999/xhtml" 
+     xmlns:xi="http://www.w3.org/2001/XInclude" 
+     xmlns:py="http://genshi.edgewall.org/" 
+     class="contingents"
+     py:if="len(contingents_with_stats) > 0 or may_modify_contingents">
+    
+    <!-- href in xi:include is always relative to current template path -->
+    <xi:include href="../../../macros.html" />
+
+    <fieldset>
+        <legend>Sprint Contingents</legend>
+        <h2>Contingents planned for Sprint: ${sprint}</h2>
+        <form action="${CONTINGENTS_URL}" method="post" name='contingent_form'>
+            <input type="hidden" name="sprint" value="${sprint}" />
+            <input py:if="backlog" type="hidden" name="backlog" value="${backlog}" />
+            
+            <table class="listing tickets backlog" id="complist">
+                <thead>
+                    <tr>
+                        <th py:if="may_modify_contingents">
+                            <py:if test="len(contingents_with_stats) > 0">
+                                Remove
+                            </py:if>
+                        </th>
+                        <th>Contingent</th>
+                        <th>Amount</th>
+                        <th>Actual</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr py:for="contingent, stats in contingents_with_stats">
+                        <td py:if="may_modify_contingents">
+                            <input type="checkbox" name="sel" value="${contingent.name}" />
+                        </td>
+                        <td>${contingent.name}</td>
+                        <td class="contingent_number">${contingent.amount}</td>
+                        <td class="contingent_number">
+                            ${contingent.actual}
+                            <py:if test="may_add_actual_time">
+                                +<input type="text" name="col_add_time_${contingent.name}" size="2" />
+                            </py:if>
+                        </td>
+                        <td>
+                            <ul class="roadmap" id="contingent_progressbar">
+                                <li class="milestone">
+                                    <div class="info">
+                                        ${progress_bar(stats, ['', ''], legend=False)}
+                                    </div>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr class="contingent_totals">
+                        <td></td>
+                        <td>Totals:</td>
+                        <td>${contingent_totals['amount']}</td>
+                        <td>${contingent_totals['actual']}</td>
+                        <td></td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+            <div class="buttons" py:if="len(contingents_with_stats) > 0">
+                <input py:if="may_add_actual_time"
+                    type="submit" name="add_time" value="Add to actual time" />
+                <input py:if="may_modify_contingents"
+                    type="submit" name="remove" value="Remove selected items" />
+            </div>
+        </form>
+        
+        <form action="${CONTINGENTS_URL}" method="post" name='add_contingent_form' 
+            py:if="may_modify_contingents">
+            <input type="hidden" name="sprint" value="${sprint}" />
+            <input py:if="backlog" type="hidden" name="backlog" value="${backlog}" />
+            <h3>Add new contingent</h3>
+            <table>
+                <tr>
+                    <td>Name</td>
+                    <td><input type="text" name="cont_name" value=""/></td>
+                </tr>
+                <tr>
+                    <td>Reserved amount</td>
+                    <td class="contingent_number"><input type="text" name="cont_amount" value="" size="4"/></td>
+                </tr>
+            </table>
+            <div class="buttons"><input type="submit" name="cont_add" value="Add" /></div>
+        </form>
+    </fieldset>
+</div>
+

@@ -1,0 +1,5 @@
+<?xml version="1.0" ?>
+<xml xmlns:py="http://genshi.edgewall.org/">
+    <item py:for="item in items">$item</item>
+    $xml
+</xml>

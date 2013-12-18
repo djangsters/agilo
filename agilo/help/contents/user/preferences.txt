@@ -1,0 +1,10 @@
+= User Team Preferences =
+[[PageOutline]]
+
+Users can set individual preferences by logging in and clicking the ''Preferences'' link in the top right corner.
+
+Here every user can set the [agilo-help:scrum/Team Team] to which she belongs and set the availability in terms of [agilo-help:scrum/idealhours Ideal Hours] or [agilo-help:scrum/idealdays Ideal Days] for the "standard" week of work as well for specific days, using the calendar.
+
+For Agilo we calculate a default of '''6 ideal hours''' per working day, which is equivalent to an efficiency of 75% (8h * 75% = 6h). If you want to change this number, you will have to update it for each weekday, and automatically will be updated in the ''Calendar'' as well, keeping safe all the changes to the days you explicitly already made.
+
+If you want to switch to Ideal Days, you will have to change the time measurement in the [agilo-help:admin/generaladmin Admin] [[Image(/chrome/agilo/images/icon.admin.png, border=0, width=16, height=16, link=)]] but bear in mind that Agilo, as of now, is not performing any Hours/days conversion, so what will happen is that the numbers entered will be interpreted as Days instead of Hours... we know... we are working on it ;-)

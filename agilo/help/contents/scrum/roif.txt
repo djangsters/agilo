@@ -1,0 +1,16 @@
+= Return on Investment Factor (ROIF) =
+[[PageOutline]]
+
+The '''Return on Investment Factor''' (ROIF) how measures how much 
+value you gain by having a [agilo-help:/scrum/requirement Requirement] 
+weighted against the complexity ([agilo-help:/scrum/UserStoryPoints User Story Points])
+of implementing it.
+
+In the default installation, the ROIF is calculated as 
+[agilo-help:/scrum/BusinessValue Business Value] divided by the sum of the
+mandatory User Story Points. Of course you can 
+[agilo-help:/admin/TypeAdmin#CalculatedProperties change the calculation criteria]
+of this property to include all User Stories (not just the mandatory ones).
+
+A high ROIF value basically means that either it is a really valuable feature
+or something is really easy to implement.

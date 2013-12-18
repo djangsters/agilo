@@ -1,0 +1,136 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:xi="http://www.w3.org/2001/XInclude"
+      xmlns:py="http://genshi.edgewall.org/">
+  <xi:include href="admin.html" />
+  
+  <head>
+    <title>Agilo Links</title>
+        <script type="text/javascript">
+/* <![CDATA[ */
+    function validate() {
+      if ($('#source').val() == $('#target').val()) {
+        $('#add_button').attr('disabled', 'disabled');
+        return;
+      }
+      $('#add_button').removeAttr('disabled');
+    }
+
+    $(function() {
+      validate();
+      $('#source, #target').change(validate);
+    });
+/* ]]> */
+    </script>
+  </head>
+
+  <body>
+    <h2>Manage Allowed Links</h2>
+
+    <py:choose test="view">
+      <form py:when="'detail'" class="mod" id="modcomp" method="post">
+        <fieldset>
+          <legend>Modify $source-$target Link:</legend>
+          <div class="field">
+            <label>Source:<br /><span style="font-weight:bold">$source</span></label>
+          </div>
+          <div class="field">
+            <label>Target:<br /><span style="font-weight:bold">$target</span></label>
+          </div>
+
+          <div class="field">
+            <input type="checkbox" name="cascade_delete" checked="${cascade_delete or None}"/>
+            <label>
+				When a <span style="font-weight:bold">$source</span> is deleted,
+				cascade delete all the tickets of type <span style="font-weight:bold">$target</span> it is linked to
+			</label>
+          </div>
+
+
+          <div class="field">
+            <label for="copy">Copy these fields from source to target:</label>
+            <ul>
+                <li py:for="field in source_fields">
+                  <input type="checkbox" name="copy_fields" value="$field" checked="${field in copy_fields or None}" />
+                  ${labels[field] or field}
+                </li>
+            </ul>
+          </div>
+          <div class="field">
+            <label for="show">Show these fields in list overview:</label>
+            <ul>
+                <li py:for="field in target_fields">
+                  <input type="checkbox" name="show_fields" value="$field" checked="${field in show_fields or None}" />
+                  ${labels[field] or field}
+                </li>
+            </ul>
+          </div>
+          <div class="buttons">
+            <input type="submit" name="cancel" value="Cancel" />
+            <input type="submit" name="save" value="Save" />
+          </div>
+        </fieldset>
+      </form>
+
+      <py:otherwise>
+        <form class="addnew" id="addlink" method="post">
+          <fieldset>
+            <legend>Add Link:</legend>
+            <div class="field">
+              <label>Source:<br />
+                <select size="1" id="source" name="source">
+                  <option py:for="type in available_types" value="$type">$type</option>
+                </select>
+              </label>
+            </div>
+            <div class="field">
+              <label>Target:<br />
+                <select size="1" id="target" name="target">
+                  <option py:for="type in available_types" value="$type">$type</option>
+                </select>
+              </label>
+            </div>
+            <div class="buttons">
+              <input type="submit" id="add_button" name="add" value="Add"/>
+            </div>
+          </fieldset>
+        </form>
+
+        <form id="link_table" method="POST">
+          <table class="listing" id="complist">
+            <thead>
+              <tr>
+                <th class="sel">&nbsp;</th><th>Source</th><th>Target</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr py:for="name in allowed_links">
+                <td class="sel"><input type="checkbox" name="sel" value="$name" /></td>
+                <td class="source">
+                  <a href="${panel_href(name)}">${allowed_links[name][0]}</a>
+                </td>
+                <td class="destination">
+                  <a href="${panel_href(name)}">${allowed_links[name][1]}</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="buttons">
+            <input type="submit" name="remove" value="Remove selected links" />
+          </div>
+        </form>
+        <p class="help">
+          You can edit the <a href="${req.href('admin/ticket/type')}">available ticket types</a>.
+        </p>
+      </py:otherwise>
+    </py:choose>
+    <div id="help">
+        <strong>Note:</strong>
+        if you want to know more see <a href="${req.href('agilo-help', 'admin/LinkAdmin')}">Links Admin</a> in
+        the Agilo help. 
+    </div>
+  </body>
+
+</html>

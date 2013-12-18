@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:py="http://genshi.edgewall.org/"
+      xmlns:xi="http://www.w3.org/2001/XInclude"
+      py:strip="True">
+
+
+
+    <!--! Trac 0.11.1 does not have the ticket.get_value_or_default method so it
+          is very hard for us to replace the ticket type in a sane way.
+
+          Unfortunately the XPath "*/select[@id='field-${field.name}']" does
+          not work because py:match is processed before py:for so we fall back
+          to hardcoding just the type.
+
+          This py:match must be declared *before* "*/fieldset[@id='properties']"
+          otherwise the reference box won't show up.
+    -->
+    <py:match path="select[@id='field-type']" once="true">
+        <py:choose>
+            <py:when test="ticket.ats.is_trac_011_before_0112()">
+                <py:for each="field in fields">
+                    <py:if test="field.name == 'type' and field.type == 'select'">
+                        <py:with vars="value = ticket.get_value_or_default('type')">
+                            <select id="field-${field.name}" name="field_${field.name}">
+                              <option py:if="field.optional"></option>
+                              <option py:for="option in field.options"
+                                      selected="${value == option or None}"
+                                      py:content="option"></option>
+                              <optgroup py:for="optgroup in field.optgroups"
+                                        py:if="optgroup.options"
+                                        label="${optgroup.label}">
+                                <option py:for="option in optgroup.options"
+                                        selected="${value == option or None}"
+                                        py:content="option"></option>
+                              </optgroup>
+                            </select>
+                         </py:with>
+                    </py:if>
+                </py:for>
+            </py:when>
+            <py:otherwise>
+                <select id="field-type" name="field_type">
+                    ${select("*|text()")}
+                </select>
+            </py:otherwise>
+        </py:choose>
+    </py:match>
+    <!--!
+        Remove the Properties form fields if the current user has only linking permission
+    -->
+    <py:match path="*/fieldset[@id='properties']" once="True" py:if="may_edit_ticket">
+        <fieldset py:attrs="select('@*')">
+            ${select("*|text()")}
+        </fieldset>
+    </py:match>
+
+    <!--!
+        Add the Delete button
+        To be more specific about where we want to add it,
+        we need this more generic rule first
+    -->
+    <py:match path="*/div[@class='buttons']" once="true">
+        <div class="buttons">
+        ${select("*|text()")}
+        </div>
+    </py:match>
+
+    <py:match path="*[@id='propertyform']//div[@class='buttons']">
+        <div class="buttons">
+        ${select("*|text()")}
+        <input type="submit" name="delete" value="Delete" py:if="may_delete_ticket" />
+        </div>
+    </py:match>
+
+</html>

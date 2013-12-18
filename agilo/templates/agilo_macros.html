@@ -1,0 +1,87 @@
+<div xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:py="http://genshi.edgewall.org/" py:strip="">
+
+<?python
+from datetime import datetime, date, timedelta
+from agilo.utils.days_time import ustrfdate
+
+def now():
+    """Returns the current datetime"""
+    return datetime.now()
+
+def today():
+    """Returns the current date"""
+    return now().date()
+
+def add_month_header(table, day):
+    """Adds to the table a month header for the given month"""
+    table.append(u'<tr><th colspan="7">%s</th></tr>' % ustrfdate(day, '%B'))
+
+def add_days_header(table=None):
+    """Adds locale specific days header"""
+    # First print the header column with locale specific day
+    render = False
+    if table is None:
+        table = list()
+        render = True
+    monday = date(year=2008, month=9, day=15)
+    one_day = timedelta(days=1)
+    table.append(u'<tr>')
+    for i in range(7):
+        day = monday + (one_day * i)
+        table.append(u'<th>%s</th>' % ustrfdate(day, '%a'))
+    table.append(u'</tr>')
+    if render:
+        return u''.join(table)
+
+def render_table(calendar, tm_name, read_only):
+    """Renders the calendar rows"""
+    count = 0
+    table = list()
+    month = None
+    add_days_header(table)
+    today = datetime.today().date()
+    for date in sorted(calendar.keys()):
+        if date.month != month:
+            add_month_header(table, date)
+            table.append(u'<tr>')
+            if date.weekday() != 0:
+                table.append(u'<td colspan="%s">&nbsp;</td>' % date.weekday())
+            month = date.month
+        elif date.weekday() == 0:
+            table.append(u'<tr>')
+        day_class = u''
+        if today == date:
+            day_class = u' class="today"'
+        elif date.weekday() in (5, 6):
+            day_class = u' class="weekend"'
+        table.append(u'<td%s><div class="date">%s</div><div class="hours">' % (day_class, date.day))
+        if read_only:
+            table.append(str(calendar[date]))
+        else:
+            disabled = ''
+            if date < today:
+                disabled = ' disabled="disabled"'
+            table.append(u'<input size="3" type="text" name="ts_%s_%d" value="%s"%s />' % \
+                (tm_name, date.toordinal(), calendar[date], disabled))
+        table.append(u'</div></td>')
+        last = count == len(calendar) - 1
+        if last and date.weekday() != 6:
+            table.append(u'<td colspan="%s">&nbsp;</td>' % (6 - date.weekday()))
+        if date.weekday() == 6 or last:
+            table.append(u'</tr>')
+        count += 1
+    return u''.join(table)
+?>
+
+<py:def function="print_calendar(calendar_dict, tm_name, read_only=False)">
+  <py:if test="calendar_dict">
+    <table class="calendar">
+      ${Markup(render_table(calendar_dict, tm_name, read_only))}
+    </table>
+  </py:if>
+</py:def>
+
+
+</div>
+

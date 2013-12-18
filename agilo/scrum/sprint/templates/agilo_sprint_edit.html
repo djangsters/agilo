@@ -1,0 +1,100 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:py="http://genshi.edgewall.org/"
+      xmlns:xi="http://www.w3.org/2001/XInclude">
+  <xi:include href="layout.html" />
+  
+  <head>
+    <py:choose>
+      <title py:when="sprint">Edit Sprint ${sprint.name or sprint.sprint}</title>
+      <title py:otherwise="">New Sprint for milestone ${milestone}</title>
+    </py:choose>
+    <script type="text/javascript">/*<![CDATA[*/
+      jQuery(document).ready(function($) {
+        if (!$().datetimepicker)
+            return;
+        $("#start").datetimepicker();
+        $("#end").datetimepicker();
+      });
+    /*]]>*/</script>
+
+  </head>
+
+  <body>
+    <div id="content" class="milestone">
+      <py:choose>
+        <h1 py:when="sprint">Edit Sprint ${sprint.name or sprint.sprint} for milestone ${sprint.milestone}</h1>
+        <h1 py:otherwise="">New Sprint for milestone ${milestone or sprint and sprint.milestone}</h1>
+      </py:choose>
+
+      <form id="editform" name="editform" action="" method="post">
+        <div class="field">
+          <input type="hidden" name="redirect" value="${redirect}" />
+          <input type="hidden" name="milestone" value="${milestone or sprint and sprint.milestone}" />
+          <label for="sprint_name">Name of the sprint:</label><br />
+          <input class="${errors and 'sprint_name' in errors and 'error' or None}" type="text" id="sprint_name" name="sprint_name" size="40" value="${sprint and (sprint.name or sprint.sprint) or None}" />
+          <div class="help" py:if="sprint">
+          Changing the sprint name may require additional (manual) changes in the database!
+          </div>
+        </div>
+        <div class="field">
+          <label for="description">Description</label><br />
+          <textarea cols="68" rows="10" class="wikitext" name="description" 
+                    py:content="sprint and sprint.description or None"></textarea>
+        </div>
+        <fieldset>
+          <legend>Schedule</legend>
+          <div class="help">
+            For a given start date, set either the end date or the duration.<br />
+            For a given end date, set either the start date or the duration.<br />
+            The duration counts business days only.
+          </div>
+          <label for="start">Start:</label><br />
+          <input class="${errors and 'start' in errors and 'error' or None}"
+                 type="text" id="start" name="start"
+                 value="${sprint and sprint.start or req.args.get('start')}" />
+          <em>Format: ${datetime_hint}</em><br />
+          
+          <label for="end">End:</label><br />
+          <input class="${errors and 'end' in errors and 'error' or None}"
+                 type="text" id="end" name="end" 
+                 value="${sprint and sprint.end or req.args.get('end')}" />
+          <em>Format: ${datetime_hint}</em><br />
+          
+          <label for="duration">Duration:</label><br />
+          <input class="${errors and 'description' in errors and 'error' or None}"
+                 type="text" id="duration" name="duration" 
+                 value="${sprint and sprint.duration or req.args.get('duration')}" />
+          
+          <div class="help">Please specify the time in timezone ${timezone_of_sprint}.</div>
+        </fieldset>
+        
+        <fieldset>
+          <legend>Team</legend>
+          <div class="help">
+            Set the team working on this sprint.
+          </div>
+          <select name="team">
+            <option value=""></option>
+            <option py:for="t in teams" 
+                    selected="${sprint and sprint.team and (sprint.team.name==t or sprint.team==t) or None}">${t}</option>
+          </select>
+        </fieldset>
+        <div class="buttons">
+          <py:choose>
+            <input py:when="sprint" type="submit" name="save" value="Submit changes" />
+            <py:otherwise>
+                <input type="submit" name="save" value="Add sprint" />
+            </py:otherwise>
+          </py:choose>
+          <input type="submit" name="cancel" value="Cancel" />
+        </div>
+      </form>
+      <div id="help">
+          <strong>Note:</strong> if you want to know more, see <a href="${req.href('agilo-help', 'user/sprint')}">Sprint</a> in the Agilo help.
+      </div>
+    </div>
+  </body>
+</html>

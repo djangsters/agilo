@@ -1,0 +1,4 @@
+= Product Owner =
+[[PageOutline]]
+
+The '''Product Owner''' is one of the three main roles of the Scrum Framework. It is responsible for the Product Value and Return on Investment (ROI). The Product Owner defines the features of a product (in Agilo this takes the form of Requirements and User Stories) and manages the [agilo-help:scrum/productbacklog Product Backlog].

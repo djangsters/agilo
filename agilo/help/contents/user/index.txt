@@ -1,0 +1,12 @@
+= Agilo User Guide =
+
+== Summary ==
+
+ * [agilo-help:user/Ticket Agilo Ticket, properties and linking]
+ * [agilo-help:user/Backlog Backlogs in Agilo, how to use them]
+ * [agilo-help:user/Contingent What are contingents]
+ * [agilo-help:user/Dashboard Dashboard view, a quick access to information and common use functionalities]
+ * [agilo-help:user/Preferences User Team Preferences]
+ * [agilo-help:user/Sprint Roadmap and Sprint planning]
+ * [agilo-help:user/Team How to track Team performance and statistics]
+ 

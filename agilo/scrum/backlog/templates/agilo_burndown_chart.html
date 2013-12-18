@@ -1,0 +1,22 @@
+<div xmlns="http://www.w3.org/1999/xhtml" 
+     xmlns:xi="http://www.w3.org/2001/XInclude" 
+     xmlns:py="http://genshi.edgewall.org/" 
+     class="flotchart"
+     style="width:${width}px;">
+
+<div class="charttitle">Hours Burndown Chart</div>
+<div id="burndownchart_${unique_id}" style="width:${width}px;height:${height}px;">
+    <h3 style="margin-top: ${int(height)/2}px" py:if="defined('error_message')">${error_message}</h3>
+</div>
+
+<script language="javascript" type="text/javascript">
+    <py:if test="not defined('error_message')">
+        /* need to use JQuery.ready here - see sprint_ticket_stats_chart.html */
+        jQuery(document).ready(function() {
+            var data = $jsonized_burndown_values;
+            plotBurndown("#burndownchart_${unique_id}", data);
+        });
+    </py:if>
+</script>
+
+</div>

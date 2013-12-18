@@ -1,0 +1,34 @@
+= Agilo Documentation =
+[[PageOutline]]
+
+This is the documentation for [agilo-help:AgiloForTrac Agilo for trac]. For more documentation on installation, troubleshooting and more support options, please see [http://www.agilofortrac.com/documentation the documentation overview].
+
+If you have any suggestions or pages which we should incorporate, please [mailto:support@agilosoftware.com drop us a line].
+
+--------
+
+= Table of Contents =
+
+ 1. '''Getting Started with Agilo'''
+  * [agilo-help:AgiloForTrac About Agilo for trac]
+  * [agilo-help:QuickStart]
+  * [agilo-help:ProcessOverview Process Overview - The Big Picture]
+ 1. '''Using Agilo'''
+  * [agilo-help:user/Ticket Agilo Ticket, Properties and Linking]
+  * [agilo-help:user/Backlog Backlogs in Agilo, how to use them]
+  * [agilo-help:user/Contingent Contingents, planning unpredictable work]
+  * [agilo-help:user/Dashboard Dashboard view, a quick access to information and commonly used functionalities]
+  * [agilo-help:user/Preferences User Team Preferences]
+  * [agilo-help:user/Sprint Roadmap and Sprint Planning]
+  * [agilo-help:user/Team How to track Team performance and statistics]
+ 1. '''Admin Guide'''
+  * [agilo-help:admin Agilo Administration Guide]
+ 1. '''Glossary'''
+  * [agilo-help:glossary Terms and Definitions]
+ 1. '''Further Help'''
+  * [http://www.agilofortrac.com Agilo for trac website]
+  * [http://groups.google.com/group/agilo Agilo for trac user group]
+
+ 
+== Trac Guide ==
+Agilo is built on top of Trac. Go here for the original [wiki:TracGuide Trac Guide].

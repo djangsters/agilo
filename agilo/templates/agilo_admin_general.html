@@ -1,0 +1,37 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:xi="http://www.w3.org/2001/XInclude"
+      xmlns:py="http://genshi.edgewall.org/">
+  <xi:include href="admin.html" />
+  
+  <head>
+    <title>Agilo General</title>
+  </head>
+
+  <body>
+    <h2>Agilo General Options</h2>
+    <form name="general" id ="general" method="post">
+    <fieldset>
+        <legend>Time Estimation Unit</legend>
+        <label for="use_hours">Using which units are you estimating?</label><br />
+            <input type="radio" name="use_days" id="use_hours" value="False" checked="${(not use_days) or None}" />hours
+            <input type="radio" name="use_days" id="use_days" value="True" checked="${use_days or None}" />days
+        <div>
+            Please note that this setting only changes how time is displayed, the database is not
+            updated automatically. If you switch from 'hours' to 'days' (or vice versa), a remaining
+            time of '5h' will simply show up as '5d'.
+        </div>
+    </fieldset>
+    <div class="buttons">
+        <input type="submit" id="save" name="save" value="Save" />
+    </div>
+    </form>
+    <div id="help">
+        <strong>Note:</strong>
+        if you want to know more see <a href="${req.href('agilo-help', 'admin/GeneralAdmin')}">General Admin</a> in
+        the Agilo help. 
+    </div>
+  </body>
+ </html>

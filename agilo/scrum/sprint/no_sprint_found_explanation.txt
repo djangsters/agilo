@@ -1,0 +1,5 @@
+== Couldn't find an open sprint ==
+
+It seems there is no sprint open right now - please create one first.
+
+To do so, as an administrator go to the [/admin/agilo/sprints Sprints Administration Panel] and add one.

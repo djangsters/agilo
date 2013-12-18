@@ -1,0 +1,52 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:xi="http://www.w3.org/2001/XInclude"
+      xmlns:py="http://genshi.edgewall.org/">
+    <xi:include href="layout.html" />
+    <xi:include href="macros.html" />
+    <head>
+        <title>Scrum Dashboard</title>
+    </head>
+    <body>
+        <div id="content">
+            <h1>Scrum Dashboard</h1>
+            
+            <div id="dashboard">
+                <div id="charts" py:if="current_sprint">
+                    ${burndown.display()}
+                    <div class="containing_the_float"/>
+                    ${points.display()}
+                    <div class="containing_the_float"/>
+                    ${ticket_stats.display()}
+                    ${pie.display()}
+                    <div class="containing_the_float"/>
+        		</div>
+        		<div id="links">
+        			<div id="actions">
+                		<h2>Available Actions</h2>
+                		<ul py:if="may_edit_tickets">
+                            <xi:include href="create_tickets_block.html" />
+                            <li><a href="${import_url}?do_import=1">Import Tickets (from *.csv)</a></li>
+                            <li><a href="${import_url}?do_update=1">Modify Tickets (from *.csv)</a></li>
+                            <li py:if="may_delete_tickets"><a href="${import_url}?do_delete=1">Delete Tickets (from *.csv)</a></li>
+                        </ul>
+                        <span py:if="not may_edit_tickets">You don't have the permission to edit tickets</span>
+                    </div>
+              		<div id="reports">
+                		<h2>Available Backlogs</h2>
+                		<ul py:if="backlog_list">
+                            <xi:include href="backlog_list_block.html" />
+                		</ul>
+                        <span py:if="not backlog_list">No backlogs available</span>
+              		</div>
+        		</div>
+        	</div>
+        	<div id="help">
+      		  <strong>Note:</strong> if you want to know more see 
+      		  <a href="${req.href('agilo-help', 'user/dashboard')}">Dashboard</a> in the Agilo help. 
+      		</div>
+        </div>
+    </body>
+</html>

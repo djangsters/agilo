@@ -1,0 +1,101 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:py="http://genshi.edgewall.org/"
+      py:strip="True">
+
+<form class="mod" id="modcomp" method="post">
+<fieldset>
+  <legend id="main-legend">Backlog $backlog.name</legend>
+
+  <div class="field">
+    <label>Name:<br />
+      <span style="font-weight:bold;">${backlog.name}</span>
+    </label>
+  </div>
+
+  <div class="field">
+    <label for="scope">Scope:</label>
+    <select id="scope" name="scope">
+      <option py:for="value, label in backlog_types.items()" selected="${backlog.type==value or None}" value="$value">$label</option>
+    </select>
+    <!--! necessary for twill tests of Agilo functionality -->
+    <input type="submit" value="Update fields" name="preview" class="preview" />
+    
+    <p id="include-planned-items-container">
+        <label for="include_planned_items">Include Planned Tickets:</label>
+        <input id="include_planned_items" 
+            type="checkbox" name="include_planned_items" value="true" 
+            checked="${backlog.include_planned_items and 'checked' or None}"/>
+    </p>
+    <div class="help">Defines which is the "scope" of this Backlog:
+      <ul>
+        <li><code>global</code> means that it will include all tickets in the DB</li>
+        <li><code>milestone</code> means it will include only the tickets assigned to a certain milestone,</li>
+        <li><code>sprint</code> means it will include only the tickets planned for a specific sprint.</li>
+      </ul>
+      
+      <div>
+        By default, global backlogs will not show any <i>planned</i> tickets. A ticket is planned if it's 
+        milestone and/or sprint field has been set to a specific milestone/sprint. The setting to
+        include planned tickets is only meaningful for global backlogs.
+      </div>
+      
+      <div>
+      All the linked tickets will be included as well, according to the defined hierarchy.
+      </div>
+      
+    </div>
+  </div>
+  
+  <div class="field">
+    <label>Ticket types:<br />
+      <select id="ticket_types" name="ticket_types" multiple="multiple" size="5">
+        <option py:for="t_type, selected, t_alias in t_types" 
+                selected="${selected or None}"
+                value="$t_type">$t_alias</option>
+      </select>
+      <input type="submit" value="Update fields" name="preview" class="preview" />
+    </label>
+  </div>
+ </fieldset>
+ <fieldset>
+  <legend>Columns Preferences</legend>
+  <div class="field">
+    <table id="column_table">
+      <thead>
+        <tr>
+          <th>Property</th>
+          <th>Show?</th>
+          <th>Alternative</th>
+          <th>Order</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr py:for="field in fields" id="${field['name']}" style="${field.get('disabled') and 'display:none;' or None}">
+          <td>$field.label</td>
+          <td><input type="checkbox" id="show_${field['name']}" name="show_${field['name']}" disabled="${field.get('disabled') and 'disabled' or None}" value="${True}" checked="${field['show'] or None}" /></td>
+          <td><select name="alternative_${field['name']}" disabled="${field.get('disabled') and 'disabled' or None}">
+            <option></option>
+            <option 
+                py:for="alt in fields" 
+                    py:if="field['name'] != alt['name']" 
+                        selected="${alt['name'] == field['alternative'] or None}" 
+                        value="${alt['name']}">
+                ${alt['label']}
+            </option>
+          </select></td>
+          <td><select name="order_${field['name']}" disabled="${field.get('disabled') and 'disabled' or None}" >
+            <option></option>
+            <option py:for="i in range(len(fields))" selected="${field['order'] == i or None}">$i</option>
+          </select></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</fieldset>
+<div class="buttons">
+  <input type="submit" name="cancel" value="Cancel" />
+  <input type="submit" name="save" value="Save" />
+</div>
+</form>
+
+</html>

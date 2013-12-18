@@ -1,0 +1,13 @@
+= Sprint =
+[[PageOutline]]
+
+In Scrum the development is organized in '''Sprints''' (iterations) which are 
+normally 3-4 weeks long. The sprint starts with the 
+[agilo-help:/scrum/SprintPlanningMeeting Sprint Planning Meeting] where the 
+[agilo-help:/scrum/TeamMember Team] commits to a certain amount of 
+[agilo-help:/scrum/UserStory User Stories].
+
+During the Sprint the Team will do everything to successfully implement, test, 
+document and integrate the committed User Stories. The Team Members will hold a
+short [agilo-help:/scrum/DailyScrum Daily Scrum] meeting. Every Sprint ends with
+a [agilo-help:/scrum/SprintReviewMeeting Sprint Review Meeting].

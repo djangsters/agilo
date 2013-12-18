@@ -1,0 +1,35 @@
+<div xmlns="http://www.w3.org/1999/xhtml" 
+     xmlns:xi="http://www.w3.org/2001/XInclude" 
+     xmlns:py="http://genshi.edgewall.org/"
+     class="flotchart"
+     style="width:${width}px;">
+
+<div class="charttitle">$sprint_name Commitment</div>
+<div id="resource_assignment_piechart_${unique_id}" style="width:${width}px;height:${height}px;">
+    <h3 style="margin-top: ${int(height)/2}px" py:if="defined('error_message')">${error_message}</h3>
+</div>
+
+<script language="javascript" type="text/javascript">
+    <py:if test="not defined('error_message')">
+        <div py:def="keyvalue_series_to_js(series, js_name)" py:strip="">
+            var ${js_name} = [];
+            <py:for each="label, remaining_hours in series.iteritems()">
+                 ${js_name}.push({"label":"$label", "data": [[0, $remaining_hours]]});
+            </py:for>
+        </div>
+        
+        ${keyvalue_series_to_js(resource_stats, 'resourceStats_%d' % unique_id)}
+        
+        /* need to use JQuery.ready here - see sprint_ticket_stats_chart.html */
+        jQuery(document).ready(function() {
+            jQuery.plot(jQuery("#resource_assignment_piechart_${unique_id}"), resourceStats_${unique_id}, 
+               {
+                    pies: {show: true, autoScale: true, fillOpacity: 1}
+               }
+            );
+        });
+    </py:if>
+</script>
+
+
+</div>

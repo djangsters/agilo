@@ -1,0 +1,17 @@
+= Task =
+[[PageOutline]]
+
+A '''Task''' represent a ''single unit of work'' that can be completed by a 
+[agilo-help:scrum/TeamMember Team Member]. The '''Task''' in Scrum is usually well 
+detailed and fine grained, it is a good practice to keep tasks very easy to 
+understand and descriptive enough so that whatever [agilo-help:scrum/TeamMember Team Member]
+will pick it up and commit to complete it, will feel comfortable 
+enough in determining when it is '''Done'''.
+
+'''Task''' are estimated either in [agilo-help:scrum/IdealHour Ideal Hours] or
+[agilo-help:scrum/IdealHour#idealday Ideal Days]. As a rule of thumb completing 
+a task should take between 3 to 12 ideal hours of work (1/2 day up to two days).
+
+To get more information about the user interface for tasks in Agilo, see 
+[agilo-help:user/Ticket Agilo Ticket].
+

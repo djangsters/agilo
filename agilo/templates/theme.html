@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+	"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:xi="http://www.w3.org/2001/XInclude"
+	xmlns:py="http://genshi.edgewall.org/" py:strip="True">    
+
+<head py:match="head">
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8" />
+    
+    <link rel="stylesheet" type="text/css" media="screen" href="${req.href.chrome('agilo/stylesheet/agilo_theme.css')}"/>
+    <link rel="stylesheet" type="text/css" media="print" href="${req.href.chrome('agilo/stylesheet/print.css')}" />
+
+    <!--! Replace the link rel things before writing down the output of head again  -->
+    ${select("*|text()")}
+
+	<script type="text/javascript" src="${req.href.chrome('agilo/js/lib/jquery.form.js')}" />
+    <script type="text/javascript" src="${req.href.chrome('agilo/js/lib/jquery.cookie.js')}" />
+    <script type="text/javascript" src="${req.href.chrome('agilo/js/lib/html2canvas.js')}" />
+    <script type="text/javascript" src="${req.href.chrome('agilo/js/lib/jquery.searchabledropdown-1.0.8.src.js')}" />
+	<!--! firebug lite to debug IE -->
+	<!--! <script type="text/javascript" src="http://getfirebug.com/releases/lite/1.2/firebug-lite-compressed.js"></script> -->
+	<script type="text/javascript" src="${req.href.chrome('agilo/js/third_parties_hacks.js')}" />
+	<script type="text/javascript" src="${req.href.chrome('agilo/js/utilities.js')}" />
+	<script type="text/javascript">
+	//<![CDATA[
+		// Initialize the variables right at the start, so other js can use it in document.ready handlers
+		BASE_URL = "${req.href()}";
+		CHROME_URL = "${req.href.chrome()}";
+		
+		// Normalise base url pattern so it also works with mod_python which can hickup on double slashes...
+		if ((/\/$/).test(BASE_URL))
+			BASE_URL = BASE_URL.slice(0, -1);
+		
+		// No caching of ajax. Ever. Especially in IE 7!
+		$.ajaxSetup({cache: false});
+		// If we use metadata we want to put json into the data attribute
+		if ($.metadata)
+			$.metadata.setType('attr', 'data');
+			
+		// Disable selection on the navigation
+		$(document).ready(function() {
+			setTimeout('if ($.fn.disableSelection) $(".menu").disableSelection()',500);
+            $("select.searchable, #field-milestone, #field-owner, #field-sprint").searchable({zIndex:9999});
+//            $("select").parents("span").css("overflow", "visible");
+		});
+		
+		// this is used to trigger javascript execution when the page is accessed from history (e.g. browser's back button)
+		window.onunload = function(){};
+	//]]>
+	</script>
+</head>
+<?python
+from genshi.builder import Element
+
+def add_icon(item):
+    if item.has_key('label') and isinstance(item['label'], Element):
+        item['label'](class_='icon%s' % item['name'].title())
+    return item['label']
+?>
+<py:match path="body" once="true" buffer="false">
+	<body>
+	<div py:def="navigation(category)" id="${category}" class="nav"
+		py:strip="True">
+        <ul py:if="chrome.nav[category]" class="button group ${category}">
+		    <py:for each="idx, item in  enumerate(chrome.nav[category])">
+		        <py:choose test="item['name']">
+		            <py:when test="'help'">
+		                <li class="${classes(active=item.active)}"><a href="${req.href('agilo-help')}">Help/Guide</a></li>
+		            </py:when>
+		            <py:otherwise>
+		                <li class="${classes(active=item.active)}">${add_icon(item)}</li>
+		            </py:otherwise>
+		        </py:choose>
+		    </py:for>
+		</ul>
+	</div>
+
+	<div class="menu">
+	<form py:if="'SEARCH_VIEW' in perm" class="search" id="search_form"
+		action="${href.search()}" method="get">
+	<label><a href="">Advanced Search</a></label>
+	<input type="text" id="proj-search" name="q" size="18" accesskey="f" value="" />
+	</form>
+        <div id="project_logo_container" py:choose="">
+            <a py:when="chrome.logo.src" id="logo" href="${chrome.logo.link or href.wiki('TracIni')+'#header_logo-section'}">
+                <img src="${chrome.logo.src}" alt="${chrome.logo.alt}" height="${chrome.logo.height or None}" width="${chrome.logo.width or None}" />
+            </a>
+            <!--! TODO: Find a nice way to show the project name without logo
+            <h1 py:otherwise=""><a href="${chrome.logo.link}">${project.name}</a></h1>
+             -->
+        </div>
+	${navigation('mainnav')}
+        <div class="metanav-container">
+            <a class="metanav-logo" href="${req.href()}"></a>
+            ${navigation('metanav')}
+        </div>
+    </div>
+
+	<div class="sidebar"><!-- TODO: make this a harmonica, or add an all toggle -->
+	<!-- TODO: fix the empty space at the bottom. -->
+    <py:if test="create_perm">
+		<label>Actions</label>
+		<ul class="tree">
+			<xi:include href="create_tickets_block.html" />
+		</ul>
+	</py:if>
+    <py:if test="backlog_list">
+		<label>Backlogs</label>
+		<ul class="backlogs tree">
+			<xi:include href="backlog_list_block.html" />
+		</ul>
+	</py:if>
+    <py:if test="'TICKET_VIEW' in req.perm">
+		<label>Tickets</label>
+		<ul class="tickets tree">
+		</ul>
+	</py:if>
+    <label>Wiki</label>
+	<ul class="wiki tree">
+	</ul>
+	</div>
+
+	<div class="main"><!-- Main Content -->
+	<div id="popup-div">Loading...</div>
+	<div id="ctxtnav" class="nav">
+	<h2>Context Navigation</h2>
+	<ul>
+		<li py:for="i, elm in enumerate(chrome.ctxtnav)"
+			class="${i == 0 and 'first ' or None}${i+1 == len(chrome.ctxtnav) and 'last' or None}">$elm</li>
+	</ul>
+	<hr />
+	</div>
+	<div py:if="chrome.warnings" class="system-message warning"><py:choose
+		test="len(chrome.warnings)">
+		<py:when test="1">
+			<strong>Warning:</strong> ${chrome.warnings[0]}
+            </py:when>
+		<py:otherwise>
+			<strong>Warnings:</strong>
+			<ul>
+				<li py:for="w in chrome.warnings">$w</li>
+			</ul>
+		</py:otherwise>
+	</py:choose></div>
+	<div py:if="chrome.notices" class="system-message notice"><py:choose
+		test="len(chrome.notices)">
+		<py:when test="1">
+			<strong>Notice:</strong> ${chrome.notices[0]}
+            </py:when>
+		<py:otherwise>
+			<strong>Notices:</strong>
+			<ul>
+				<li py:for="w in chrome.notices">$w</li>
+			</ul>
+		</py:otherwise>
+	</py:choose></div>
+	${select('*|text()')}
+	<div id="bottom">
+	<p><span class="agilo_version">${agilo_version}</span> &copy; 2008-2011
+	<a href="http://www.agilosoftware.com/" target="_blank">Agilo Software</a> all
+	rights reserved
+        <py:if test="defined('processing_time')">(this page was served in: ${processing_time} sec.)</py:if>
+    </p>
+	</div>
+	</div>
+	</body>
+</py:match>
+</html>

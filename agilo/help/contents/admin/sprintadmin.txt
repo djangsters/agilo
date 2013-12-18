@@ -1,0 +1,24 @@
+= Sprint Administration Panel =
+[[PageOutline]]
+
+Located in [/admin/agilo/sprints Admin/Agilo/Sprints]
+
+As administrator you can also add [agilo-help:scrum/Sprint Sprints] to Agilo, normally sprints are created by the [agilo-help:scrum/ScrumMaster Scrum Master] that according to the [agilo-help:scrum/ProductOwner Product Owner]'s plan sets the needed Sprints for a [agilo-help:scrum/Release Release]. The Scrum Master can operate directly from the '''[/roadmap Roadmap]''' [[Image(/chrome/agilo/images/icon.roadmap.png, border=0, width=16, height=16)]] menu. Read the Agilo User Guide to [agilo-help:/user/sprint learn how the Scrum Master can manage Sprints].
+
+You can also edit existing sprints, filling in the following properties:
+ - '''Name''': the name of the Sprint, that has to be unique in the system. If you try to add a sprint that is already existing, you will be redirected to the edit page for that sprint
+ - '''Milestone''': a Sprint is always connected to a ''Milestone'' that is a way to identify the end-date of a ''Release''
+ - '''Start Date''': a Sprint needs to have a start date, that can be expressed with time precision to the ''second'', in the locale format configured for the system (if run with `tracd` as standalone, the locale will be taken from the console, if run in Apache + `mod_python` it can be set as explained in [TracModPython Trac with mod_python])
+ - '''End Date''' or '''Duration''': you need to set either the ''End Date'' for your Sprint or the ''Duration'', which should be expressed in ''Working Days''. Agilo will calculate the ''End Date'' excluding the weekends, but not the national holidays (we are not that advanced... yet)
+ - '''Team''': as an administrator you can change or reset the ''Team'' assigned to a Sprint. The ''Team'' is used from the Sprint to calculate the ''Capacity'' and than generate all the statistics for the team view pages
+
+'''Attention:''' Renaming a Sprint may have unwanted side-effects: Due to
+Trac's denormalized database structure, the rename will not be propagated to 
+other database objects. If you have already assigned tickets to the Sprint, 
+these tickets will still have the old sprint name, resulting in orphaning. The 
+same is true for all metrics (e.g. initial commitment, estimated velocity). 
+Therefore renaming a Sprint probably requires some manual intervention in the 
+database. '''It is only safe to rename sprints that have not yet started and 
+don't have any tickets assigned'''! The same holds true for renaming 
+Milestones in Trac.
+
